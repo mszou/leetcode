@@ -8,9 +8,9 @@
 
  public class Solution {
     public String multiply(String num1, String num2) {
-    	// idea: two for loops, use basic multiplication priciple for each digit
-        // 'num1[i] * num2[j]' will be placed at indices '[i + j, i + j + 1]'
-        // if then lengths of two strings are m & n, then the length of product is m+n or m+n-1
+    	// idea: two for loops, use basic multiplication priciple for each digit. Start from the lowest digit,
+        // the product of num1[i] & num2[j] will be placed at product[i + j](carry) & product[i + j + 1]
+        // if the lengths of two strings are m & n, then the total length of product will be m+n or m+n-1
         // * Character.getNumericValue(c) equals to 'c'-'0'
         if (num1 == null || num1.length() == 0 || num2 == null || num2.length() == 0) {
         	return null;
@@ -21,16 +21,15 @@
         for (int i = len1 - 1; i >= 0; i--) {
         	for (int j = len2 - 1; j >= 0; j--) {
         		int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
-        		int sum = mul + product[i+j+1];
-        		product[i+j+1] = sum % 10;
-        		product[i+j] += sum / 10;        		
+        		int sum = mul + product[i + j + 1];   // add the carry
+        		product[i + j + 1] = sum % 10;
+        		product[i + j] += sum / 10;
         	}
         }
         StringBuilder sb = new StringBuilder();
-        // skip the '0's at the head
         for (int p : product) {
         	if (sb.length() == 0 && p == 0) {
-        		continue;
+        		continue; // skip the '0's at the head
         	}
         	sb.append(p);
         }

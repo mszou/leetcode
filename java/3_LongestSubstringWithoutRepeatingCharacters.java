@@ -9,15 +9,16 @@
 
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
+        // idea: use 2 pointers (leftBound & i) to limit the substring + hashset/hashmap to achieve uniqueness
         if (s == null || s.length() == 0) {
             return 0;
         }
-        int max = 0;
+        int max = 0;    // maximal length so far
         int leftBound = 0;	// point to the head of current substring
         // sol 1: HashSet
         HashSet<Character> set = new HashSet<Character>();
         for (int i = 0; i < s.length(); i++) {
-            // remove the left part if s.charAt(i) hits
+            // remove the left part and update leftBound if s.charAt(i) hits
             if (set.contains(s.charAt(i))) {
                 while (leftBound < i && s.charAt(leftBound) != s.charAt(i)) {
                     set.remove(s.charAt(leftBound));

@@ -9,7 +9,7 @@
  public class Solution {
     public String intToRoman(int num) {
     	// idea: From large unit to small, check how many times num contains
-        if (num < 1 || num > 3999) {
+        if (num < 1 || num > 3999) {    // invalid range
         	return null;
         }
         int[] nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};

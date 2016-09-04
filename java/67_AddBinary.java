@@ -8,7 +8,7 @@
 
  public class Solution {
     public String addBinary(String a, String b) {
-    	// idea: add two binary strings from the least significant digit
+    	// idea: add two binary strings from the least significant digits
         if (a == null || a.length() == 0) {
         	return b;
         }
@@ -16,8 +16,7 @@
         	return a;
         }
         StringBuilder sb = new StringBuilder();
-        int i = a.length() - 1;
-        int j = b.length() - 1;
+        int i = a.length() - 1, j = b.length() - 1; // two pointers from the lowest digits
         int carry = 0;
         while (i >= 0 || j >= 0 || carry == 1) { // for any one of these, we should do add
         	if (i >= 0) {

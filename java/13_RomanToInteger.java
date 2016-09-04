@@ -23,8 +23,8 @@
     	map.put('M', 1000);
 
     	int len = s.length();
-    	int res = map.get(s.charAt(len - 1));
-    	for (int i = len - 2; i >= 0; i--) {
+    	int res = map.get(s.charAt(len - 1));  // first get the lowest digit
+    	for (int i = len - 2; i >= 0; i--) {   // compute from right to left
     		if (map.get(s.charAt(i+1)) <= map.get(s.charAt(i))) {
     			res += map.get(s.charAt(i));
     		} else {
