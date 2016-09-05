@@ -21,6 +21,37 @@
 
 public class Solution {
     public List<String> fullJustify(String[] words, int maxWidth) {
-        
+        // idea: first find the words to fit in the line, add up their length (including basic spaces in between)
+        // then compute the length of slots, and the number of slots that need extra space accordingly
+        // * use StringBuilder to generate strings for each line; * consider each word as " word" when computing length
+        List<String> res = new LinkedList<String>();
+        // fit words[i] ~ words[j-1] into a line
+        for (int i = 0, j; i < words.length; i = j) {
+        	int len = -1;
+        	for (j = i; j < words.length && len + words[j].length() + 1 <= maxWidth; j++) {
+        		len += words[j].length() + 1;   // consider the basic space separating words
+        	}
+        	StringBuilder sb = new StringBuilder(words[i]);
+        	int space = 1, extra = 0;	// length of slots, and # of slots that need extra space
+        	if (j != i + 1 && j != words.length) {	// not only one word, not last line
+        		space = (maxWidth - len) / (j - i - 1) + 1;
+        		extra = (maxWidth - len) % (j - i - 1);
+        	}
+        	for (int k = i + 1; k < j; k++) {
+        		for (int s = space; s > 0; s--) {
+        			sb.append(' ');
+        		}
+        		if (k - i <= extra) {
+        			sb.append(' ');	// first several gaps needing extra space
+        		}
+        		sb.append(words[k]);
+        	}
+        	int strLen = maxWidth - sb.length();
+        	while (strLen-- > 0) {
+        		sb.append(' ');
+        	}
+        	res.add(sb.toString());
+        }
+        return res;
     }
 }
