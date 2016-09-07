@@ -25,7 +25,7 @@ public class Solution {
             } else if (!Character.isLetterOrDigit(cTail)) {
                 tail--;
             } else {
-            	// case-insensitive: convert to lower case before comparing
+            	// case-insensitive: convert characters to lower case before comparing
                 if (Character.toLowerCase(cHead) != Character.toLowerCase(cTail)) {
                     return false;
                 }
