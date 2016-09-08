@@ -28,7 +28,7 @@ public class Solution {
         if (sb.length() == 0) {
         	return "";
         } else {
-        	return sb.substring(0, sb.length() - 1);	// remove the last " "
+        	return sb.toString().substring(0, sb.length() - 1);	// remove the last " "
         }
 
         // sol 2: use stack + StringBuilder. O(n) Time, O(n) Space.
