@@ -14,7 +14,7 @@ public class Solution {
         // StringBuilder sb = new StringBuilder(s);
         // return sb.reverse().toString();
 
-        // sol 2: use two pointers from left and right, swap each pair (3ms)
+        // sol 2: use two pointers from left and right, swap each pair until they meet (3ms)
         char[] chars = s.toCharArray();
         int left = 0, right = s.length() - 1;
         while (left < right) {

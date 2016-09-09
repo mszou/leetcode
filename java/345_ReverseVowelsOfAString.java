@@ -10,7 +10,8 @@
 
 public class Solution {
     public String reverseVowels(String s) {
-        // idea: two pointers + use a HashSet<Character> to reduce the look up time to O(1)
+        // idea: two pointers from left & right, find a pair of vowels and swap them
+        // use a HashSet<Character> to reduce the look up time to O(1)
         if (s == null || s.length() <= 1) {
         	return s;
         }

@@ -11,9 +11,9 @@
  */
 
 public class Solution {
-	// idea: group the number by thousands (3 digits), then convert each group from lower digits to higher
+	// idea: group the number by unit of thousands (3 digits), then convert each group from lower digits to higher
 	// use three arrays of String for three levels of units
-	// difficulty: position & number of space!
+	// difficulty: position & number of space, and "" for zero in each level
 
 	private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
