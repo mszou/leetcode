@@ -8,11 +8,10 @@
 
  public class Solution {
     public int divide(int dividend, int divisor) {
-    	// idea: division simply requires us to find how many times we can subtract the
+    	// idea: In essence, division simply requires us to find how many times we can subtract the
     	// divisor from the the dividend without making the dividend negative.
-    	// dividend / divisor = quotient = 2^a1 + 2^a2 + ... + 2^an
-    	// shift the divisor to the left by i bit => divisor * 2^i
-    	// corner cases
+    	// quotient = 2^a1 + 2^a2 + ... + 2^an, can be expressed as a sum of polynomials of 2
+    	// bit manipulation: shift the divisor to the left by i bit => divisor * 2^i
         if (divisor == 0) {
         	return dividend >= 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
         }

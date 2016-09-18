@@ -19,7 +19,7 @@ public class Solution {
 	 * @return median (double) of the two arrays
 	 */
 
-	// idea: Divide and Conquer, compare medians of the two arrays then shrink the scope of global median
+	// idea: Binary Search + Divide & Conquer, compare medians of the two arrays then shrink the scope of global median. 
 	// use a self-defined function find_kth to find the k-th element in two sorted arrays
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
