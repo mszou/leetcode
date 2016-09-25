@@ -9,7 +9,7 @@
 
 public class Solution {
     public int[] twoSum(int[] numbers, int target) {
-    	// idea: two pointers from left and right, shrink the scope based on the sum and target comparison
+    	// idea: two pointers from left and right, shrink the scope based on the comparison of sum & target
         if (numbers == null || numbers.length < 2) {
         	return null;
         }

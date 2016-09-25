@@ -29,7 +29,7 @@ public class Solution {
             }
         }
         // find the right bound
-        end = nums.length - 1;
+        end = nums.length - 1;  // now start == bound[0]
         while (start <= end) {
             mid = (start + end) / 2;
             if (nums[mid] <= target) {

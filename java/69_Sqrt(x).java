@@ -5,7 +5,7 @@
 
  public class Solution {
     public int mySqrt(int x) {
-    	// idea: binary search
+    	// idea: Binary Search, use division instead of multiplication (when computing square)
         if (x <= 1) {
         	return x;
         }
@@ -18,8 +18,9 @@
         	} else {
         		if (mid + 1 > x / (mid + 1)) {	// mid^2 <= x < (mid+1)^2
         			return mid;
-        		}
-        		low = mid + 1;
+        		} else {
+                    low = mid + 1;
+                }
         	}
         }
         return -1;
