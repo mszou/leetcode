@@ -17,13 +17,13 @@
 
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // idea: every time we compare the element at the top right corner with the target, then we can:
+        // idea: kind of Binary Search. every time we compare the element at the top right corner with the target, then we can:
         // 1. rule out the first row (if < target); 2. rule out the last column (if > target); 3. find target (if == target)
         // Therefore, we can get the result within at most m+n comparison, i.e. O(m+n) Time.
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
         	return false;
         }
-        int row = 0, col = matrix[0].length - 1;	// top right corner
+        int row = 0, col = matrix[0].length - 1;	// start from the top right corner
         // int count = 0;	// if need count the occurrence of target
         while (col >= 0 && row <= matrix.length - 1) {
         	if (matrix[row][col] == target) {
