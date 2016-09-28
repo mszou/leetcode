@@ -11,10 +11,11 @@
 public class Solution {
     public int findDuplicate(int[] nums) {
     	// first ask interviewer if modification to the array or extra space is allowed. If yes, use simpler solution.
+        // if modification is allowed, let nums[i] == i; if extra space allowed, put value i in array[i] or hashset.
 
-    	// idea: analogy with LinkedList (O(n) time). the range of integers is [1, n-1], the indices are 0 ~ n-1,
+    	// idea: analogy with LinkedList (O(n) time). the range of integers is [1, n], the indices are 0 ~ n,
     	// so connect the elements in a specific way, s.t. val of this num == index of next (this.next = nums[this.val])
-    	// Integers are from 1 ~ n-1, so: 1. There must be a cycle. 2. nums[0] must be outside the circle
+    	// Integers are from 1 ~ n, so: 1. There must be a cycle. 2. nums[0] must be outside the circle cuz no val == 0
     	// then the topology we get would be a "rho-shaped" sequece with the duplicate num as the entry of the cycle
         if (nums == null || nums.length == 0) {
             return -1;
