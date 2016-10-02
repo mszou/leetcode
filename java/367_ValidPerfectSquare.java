@@ -13,7 +13,7 @@
 
 public class Solution {
     public boolean isPerfectSquare(int num) {
-    	// sol 1: binary search, similar to Problem 69. Sqrt(x). Time O(log n)
+    	// sol 1: binary search, similar to Problem 69. Sqrt(x). O(logn) Time.
         // need to use long instead of int to address the Time Limit Exceeded problem for large int input
         if (num == 1) {
         	return true;
