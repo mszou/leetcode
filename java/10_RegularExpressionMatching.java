@@ -18,7 +18,7 @@
 
 public class Solution {
     public boolean isMatch(String s, String p) {
-        // idea: use 2D DP. dp[i][j] is the result for matching s.substring(0,i) & p.substring(0,j)
+        // idea: use 2D DP. dp[i][j] is the result for matching s.substring(0,i) with p.substring(0,j)
         // 1. If p.charAt(j) == s.charAt(i) :  dp[i+1][j+1] = dp[i][j];
         // 2. If p.charAt(j) == '.' : dp[i+1][j+1] = dp[i][j];
         // 3. If p.charAt(j) == '*', here are two sub conditions:

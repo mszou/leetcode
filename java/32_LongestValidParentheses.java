@@ -31,23 +31,22 @@ public class Solution {
     	// 	}
     	// }
 
-    	// sol 2: DP. dp[i] is the length of valid substring ending with s.charAt(i)    (4ms)
+    	// sol 2: DP. dp[i] is the length of valid substring ending with s.charAt(i)   (4ms)
     	int[] dp = new int[s.length()];
-    	int open = 0;	// count the number of '('
+    	int open = 0;	// count the number of open parentheses '('
     	int maxLen = 0;
     	for (int i = 0; i < s.length(); i++) {
     		if (s.charAt(i) == '(') {
     			open++;	// dp[i] for open parentheses are 0's by default
     		} else if (open > 0) {	// match a pair
     			dp[i] = 2 + dp[i - 1];
-    			if (i > dp[i]) {
+    			if (i > dp[i]) { // add the length of previous valid parentheses
     				dp[i] += dp[i - dp[i]];
     			}
     			open--;
     			maxLen = Math.max(maxLen, dp[i]);
     		}
     	}
-
     	return maxLen;
     }
 }

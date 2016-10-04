@@ -12,7 +12,7 @@
 
 public class Solution {
     public int numDecodings(String s) {
-        // idea: DP.
+        // idea: DP solution. Either from left to right or from right to left is OK.
         if (s == null || s.length() == 0) {
         	return 0;
         }
@@ -20,7 +20,7 @@ public class Solution {
         int[] ways = new int[n + 1];
         
         // version 1: from right to left. ways[i] is the number of ways to decode s.substring(i, n)
-        ways[n] = 1;
+        ways[n] = 1;    // initialization
         ways[n - 1] = s.charAt(n - 1) == '0' ? 0 : 1;   // base cases
         for (int i = n - 2; i >= 0; i--) {
         	if (s.charAt(i) == '0') {

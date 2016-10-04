@@ -42,26 +42,26 @@ public class Solution {
         }
         return p2 == p.length();
 
-        // sol 2: DP. dp[i][j] denotes whether s[0....i-1] matches p[0.....j-1]. Time O(mn), Spce O(mn).
-        // (optimization?): use 1d DP to save space to o(n)
-        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
-        dp[0][0] = true;	// for i > 0, dp[i][0] = false by default;
-        for (int j = 1; j <= p.length(); j++) {
-        	if (p.charAt(j - 1) == '*') {
-        		dp[0][j] = true;	// set true for the stars at the beginning
-        	} else {
-        		break;
-        	}
-        }
-        for (int i = 1; i <= s.length(); i++) {
-        	for (int j = 1; j <= p.length(); j++) {
-        		if (p.charAt(j - 1) != '*') {	// characters must match
-        			dp[i][j] = dp[i-1][j-1] && (p.charAt(j-1) == '?' || s.charAt(i-1)==p.charAt(j-1));
-        		} else {
-        			dp[i][j] = dp[i-1][j] || dp[i][j-1];
-        		}
-        	}
-        }
-        return dp[s.length()][p.length()];
+        // // sol 2: DP. dp[i][j] denotes whether s[0....i-1] matches p[0.....j-1]. Time O(mn), Spce O(mn).
+        // // (optimization?): use 1d DP to save space to o(n)
+        // boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        // dp[0][0] = true;	// for i > 0, dp[i][0] = false by default;
+        // for (int j = 1; j <= p.length(); j++) {
+        // 	if (p.charAt(j - 1) == '*') {
+        // 		dp[0][j] = true;	// set true for the stars at the beginning
+        // 	} else {
+        // 		break;
+        // 	}
+        // }
+        // for (int i = 1; i <= s.length(); i++) {
+        // 	for (int j = 1; j <= p.length(); j++) {
+        // 		if (p.charAt(j - 1) != '*') {	// characters must match
+        // 			dp[i][j] = dp[i-1][j-1] && (p.charAt(j-1) == '?' || s.charAt(i-1)==p.charAt(j-1));
+        // 		} else {
+        // 			dp[i][j] = dp[i-1][j] || dp[i][j-1];
+        // 		}
+        // 	}
+        // }
+        // return dp[s.length()][p.length()];
     }
 }
