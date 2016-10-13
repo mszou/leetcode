@@ -19,7 +19,8 @@
 public class Solution {
     public int calculateMinimumHP(int[][] dungeon) {
         // idea: DP. hp[i][j] is the minimum HP needed at position (i, j) to reach P
-        // compute from bottom-right to top-left, Note: always need at least 1 hp to keep alive, so use max to avoid hp <= 1
+        // compute from bottom-right to top-left。 Note: always need at least 1 hp to keep alive, so use max to avoid hp <= 1
+        // update rule: hp[i][j] = Math.max(1, Math.min(hp[i+1][j], hp[i][j+1]) - dungeon[i][j])
         int M = dungeon.length;
         int N = dungeon[0].length;
         int[][] hp = new int[M][N];

@@ -9,31 +9,32 @@
 
 public class Solution {
     public int lengthOfLIS(int[] nums) {
-    	// sol 1: use DP. dp[i] is the length of LIS ending with nums[i]. O(n^2) Time.
-    	int[] dp = new int[nums.length];
-        int maxLen = 0;
-        for (int i = 0; i < nums.length; i++) {
-        	dp[i] = 1;
-        	for (int j = 0; j < i; j++) {
-        		if (nums[j] < nums[i]) {
-        			dp[i] = Math.max(dp[i], dp[j] + 1);
-        		}
-        	}
-        	maxLen = Math.max(maxLen, dp[i]);
-        }
-        return maxLen;
+        // // sol 1: use DP. dp[i] is the length of LIS ending with nums[i]. O(n^2) Time.
+        // int[] dp = new int[nums.length];
+        // int maxLen = 0;
+        // for (int i = 0; i < nums.length; i++) {
+        // 	dp[i] = 1;
+        // 	for (int j = 0; j < i; j++) {
+        // 		if (nums[j] < nums[i]) {
+        // 			dp[i] = Math.max(dp[i], dp[j] + 1);
+        // 		}
+        // 	}
+        // 	maxLen = Math.max(maxLen, dp[i]);
+        // }
+        // return maxLen;
 
         // sol 2: use DP + Binary Search. O(nlogn) Time.
-        int[] dp = new int[nums.length];
+        int[] temp = new int[nums.length];
         int maxLen = 0;
         for (int x : nums) {
-        	// Note the difference between Arrays.binarySearch(dp, x) and the one used here:
-        	// if x not found, 1st returns (- insertion_index - 1), while 2nd insertion index is maxLen.
-        	int index = Arrays.binarySearch(dp, 0, maxLen, x);
-        	if (index < 0) {
+        	// use Arrays.binarySearch(int[] a, int fromIndex, int toIndex, int key)
+        	// if key not found, returns (- insertion_index - 1)
+            // here maxLen increase only when x > temp[maxLen], add one more number to the subsequence
+        	int index = Arrays.binarySearch(temp, 0, maxLen, x);
+        	if (index < 0) {   // not found, then get the insertion index
         		index = - (index + 1);
         	}
-        	dp[index] = x;
+        	temp[index] = x;
         	if (index == maxLen) {
         		maxLen++;
         	}

@@ -5,17 +5,16 @@
 
 public class Solution {
     public int numSquares(int n) { 
-    	// idea: Dynamic Programming
+    	// idea: DP. dp[i] is the min # perfect squares sum to i. O(n^1.5) Time.
         int[] dp = new int[n + 1];
 		dp[0] = 0;
 		for (int i = 1; i <= n; i++) {
 			int min = Integer.MAX_VALUE;
-			int j = 1;
-			while (i - j * j >= 0) {
+			// for every j that j*j <= i, try taking j*j as one addend
+			for (int j = 1; i - j * j >= 0; j++) {
 				min = Math.min(min, dp[i - j * j] + 1);
-				j++;
 			}
-		dp[i] = min;
+			dp[i] = min;
 		}		
 		return dp[n];
     }

@@ -11,13 +11,14 @@
 
 public class Solution {
     public int nthUglyNumber(int n) {
-    	// An ugly number must be multiplied by either 2, 3, or 5 from a smaller ugly number.
-        // Everytime add the min(L2[p2]*2, L3[p3]*3, L5[p5]*5) as the next ugly number, and move the pointers
-        int[] uglys = new int[n];
-        uglys[0] = 1;
-        int p2 = 0, p3 = 0, p5 = 0;	// pointers for three lists, they share the same queue: uglys
+    	// idea: DP. uglys[i] is the (i+1)th ugly number. O(n) Time, O(n) Space.
+        // An ugly number must be multiplied by either 2, 3, or 5 from a smaller ugly number. So use 3 pointers and
+        // everytime add the min(uglys[p2]*2, uglys[p3]*3, uglys[p5]*5) as the next ugly number, then move the pointers
+        int[] uglys = new int[n];   // array of ugly numbers
+        uglys[0] = 1;   // 1 is the first ugly number
+        int p2 = 0, p3 = 0, p5 = 0;	// pointers for three lists
         for (int i = 1; i < n; i++) {
-            int lastNumber = uglys[i-1];
+            int lastNumber = uglys[i - 1];
             // move the pointers
             while (uglys[p2] * 2 <= lastNumber) {
             	p2++;
