@@ -10,7 +10,7 @@
 
 public class Solution {
     public int integerBreak(int n) {
-        // idea: we can get a greater product by doing break when n > 4. 
+        // idea: we need to do break and get a greater product only when n > 4. 
         // For n > 4, the maximum product should only contains factors 2 and 3, and 3 is preferred.
         // proof: 1. factor 1 makes no contribution to the product, so it is wasteful
         // 2. a factor f >= 4 can be replaced by 2 and f-2, then 2(f-2) = 2f-4 >= f. so we never need a factor >= 4. 
@@ -19,7 +19,7 @@ public class Solution {
         
         // for cases n == 2, 3, 4
         if (n < 4) {
-        	return n - 1;
+        	return n - 1;  // 1 for 2, 2 for 3
         }
         if (n == 4) {
         	return 4;

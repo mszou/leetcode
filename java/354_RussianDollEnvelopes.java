@@ -8,12 +8,13 @@
 public class Solution {
     public int maxEnvelopes(int[][] envelopes) {
         // idea: DP + Binary Search. (Similar to Longest Increasing Subsequence). O(nlogn) Time
-        // 1. First sort the array, ascend on width and descend on height if width are same
+        // 1. First sort the array, ascend on width and descend on height when width are same
         // 2. Then find the longest increasing subsequence based on height
         // Note: when width are same, envelope with greater height cannot contain a shorter one
         if (envelopes == null || envelopes.length == 0 || envelopes[0] == null || envelopes[0].length != 2) {
         	return 0;
         }
+        // user-define sort using Comparator<int[]>()
         Arrays.sort(envelopes, new Comparator<int[]>(){
         	public int compare(int[] arr1, int[] arr2){
         		if (arr1[0] == arr2[0]) {
@@ -23,7 +24,7 @@ public class Solution {
         		}
         	}
         });
-        // find the LIS based on height
+        // find the Longest Increasing Subsequence based on height
         int dp[] = new int[envelopes.length];
         int len = 0;
         for (int[] e : envelopes) {
