@@ -14,7 +14,7 @@
 
 public class Solution {
     public int maxSumSubmatrix(int[][] matrix, int k) {
-        // 2D Kadane's algorithm (to find maximum sum rectangle in 2D matrix) + bound k
+        // idea: 2D Kadane's algorithm (to find maximum sum rectangle in 2D matrix) + bound k
         // tutorial: https://www.youtube.com/watch?v=yCQN096CwWM
         // use TreeSet to find the rectangle with maxSum <= k within O(logm) time
         // suppose m > n, O(n^2 * mlogm) Time (brute-force O(m^2n^2)), O(m) Space
@@ -23,14 +23,14 @@ public class Solution {
         }
         int m = matrix.length, n = matrix[0].length;
         int res = Integer.MIN_VALUE;
-        // we assume m > n, so outer loop use n (the smaller one)
+        // we assume m > n, so outer loop use n (the smaller one), two pointers left & right
         for (int left = 0; left < n; left++) {
-        	// a temporary array to accumulate sums for current rectangle
+        	// a temporary column to accumulate sums for current rectangle
         	int[] sums = new int[m];
         	for (int right = left; right < n; right++) {
         		for (int i = 0; i < m; i++) {
         			sums[i] += matrix[i][right];	// update sums[]
-        		}
+        		
         		// use TreeSet to find the rectangle with maxSum <= k within O(logm) time
         		TreeSet<Integer> set = new TreeSet<Integer>();
         		// add 0 to cover the single row case
@@ -39,10 +39,13 @@ public class Solution {
         		for (int sum : sums) {
         			currSum += sum;
         			// use sum subtraction (currSum - sum) to get the subarray with sum <= k
-        			// therefore we need to look for the smallest sum >= currSum - k
+        			// so looking for the smallest accumulative sum >= currSum - k (num here)
         			Integer num = set.ceiling(currSum - k);
         			if (num != null) {
         				res = Math.max(res, currSum - num);
+                        if (res == k) {
+                            return k;
+                        }
         			}
         			set.add(currSum);
         		}

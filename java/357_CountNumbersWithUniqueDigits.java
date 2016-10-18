@@ -14,9 +14,10 @@
 
 public class Solution {
     public int countNumbersWithUniqueDigits(int n) {
-        // Actually there are only 11 different ans. You can just create a lookup table. This problem is O(1) in essence.
+        // sol 0: Actually there are only 11 different answers, for n from 0 to 10 (the answer for n>10 is the same as n=10).
+        // You can just create a lookup table. Then this problem becomes O(1) Time in essence.
         
-        // sol 1: Math (Maybe also DP). This is a digit combination problem. 
+        // sol 1: Math (Maybe also DP). This is a digit combination problem.
         // consider putting digits into each position, 0 cannot be put in the first position
         // when n = 1, _ can hold any one from [0,...,9], so return 10;
         // when n = 2, _ _ first position has 9 choices (1~9) and second position has 9 choices (0~9 excluding first one).
