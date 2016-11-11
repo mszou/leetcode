@@ -18,7 +18,7 @@
  */
 
 public class Solution {
-	// idea: BFS + Backtracking
+	// idea: BFS + DFS + Backtracking
 	// two steps: 1. Use BFS to construct a graph; 2. Use DFS (backtracking) to construct the paths from end to start.
     // three tricks: 1. Using a MAP to store the min ladder of each word, (or use a SET to store the words visited
     // in current ladder, when the current ladder was completed, delete the visited words from unvisited).

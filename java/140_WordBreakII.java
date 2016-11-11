@@ -8,7 +8,8 @@
  */
 
 public class Solution {
-	// idea: use a map<string, possible sentences>, and memorized DFS
+	// idea: DFS backtracking with memorization
+    // optimization: use a map<string, possible sentences> to record the solutions for substrings
 	Map<String, List<String>> map = new HashMap<String, List<String>>();
 
     public List<String> wordBreak(String s, Set<String> wordDict) {
@@ -21,13 +22,17 @@ public class Solution {
     		res.add(s);
     	}
     	for (int i = 1; i <= n; i++) {
-    		String curr = s.substring(i);
+    		String curr = s.substring(i); // check suffixes
     		if (wordDict.contains(curr)) {
     			List<String> strs = wordBreak(s.substring(0,i), wordDict);
-    			if (strs.size() != 0) {
-    				for (Iterator<String> it = strs.iterator(); it.hasNext(); ) {
-    					res.add(it.next() + " " + curr);
-    				}
+    			if (strs.size() != 0) {  // has a solution for break
+                    // use Iterator to add words to res, same as regular for loop
+    				// for (Iterator<String> it = strs.iterator(); it.hasNext(); ) {
+    				// 	res.add(it.next() + " " + curr);
+    				// }
+                    for (String str : strs) {
+                        res.add(str + " " + curr);
+                    }
     			}
     		}
     	}

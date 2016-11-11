@@ -14,7 +14,7 @@ public class Solution {
     public List<String> generateParenthesis(int n) {
     	// idea: suppose the number of remaining left & right parentheses are leftNum & rightNum, 
     	// then we can add "(" as long as leftNum > 0, add ")" only when rightNum > leftNum.
-    	// recursively call user-defined function getPair, try "(" first
+    	// recursively call user-defined function getPair, try "(" first, backtracking
         List<String> res = new ArrayList<String>();
         if (n <= 0) {
             return res;
