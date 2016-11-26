@@ -14,6 +14,7 @@
 public class Solution {
     public String simplifyPath(String path) {
     	// idea: split the path from slashes, then simplify it according to different cases
+        // Use a LinkedList to record the stack.
     	StringBuilder sb = new StringBuilder("/");
     	LinkedList<String> pathStack = new LinkedList<String>();
     	for (String s : path.split("/")) {

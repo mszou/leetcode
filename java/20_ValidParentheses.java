@@ -6,6 +6,8 @@
 public class Solution {
     public boolean isValid(String s) {
     	// idea: use stack and a user-defined function to check the validness
+        // for each character in the string, if is left parenthese, push into the stack;
+        // otherwise, check whether stack is empty and whether it forms a valid pair
         Stack<Character> stack = new Stack<Character>();
         for (Character c : s.toCharArray()) {
             if ("([{".contains(String.valueOf(c))) {

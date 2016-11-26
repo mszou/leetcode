@@ -12,23 +12,23 @@ public class Solution {
         // sol 1: add by column, use two pointers from left and right
         // columns in between that is less than the current smaller bound can trap water
         int left = 0, right = height.length - 1;
-        int smaller, area = 0;	// smaller is the current smaller bound
+        int smaller, sum = 0;	// smaller is the current smaller bound
         while (left < right) {
             if (height[left] < height[right]) {
                 smaller = height[left];
                 while (left < right && height[left] <= smaller) {
-                    area += smaller - height[left];
+                    sum += smaller - height[left];
                     left++;
                 }
             } else {
                 smaller = height[right];
                 while (left < right && height[right] <= smaller) {
-                    area += smaller - height[right];
+                    sum += smaller - height[right];
                     right--;
                 }
             }
         }
-        return area;
+        return sum;
         
         //sol 2 (divide & conquer): http://www.jiuzhang.com/solutions/trapping-rain-water/ (version 2)
         //first find the highest bar; and process all bars left to the highest bar then right to the bar.

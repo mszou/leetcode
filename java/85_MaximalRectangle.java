@@ -20,7 +20,8 @@ public class Solution {
         Arrays.fill(right, n);   // let right all n, left and height have values 0 by default
         int maxA = 0;   // area of rectangle so far
         // for each row
-        for (int i = 0; i < m; i++) {   
+        for (int i = 0; i < m; i++) {   // i traverse rows
+            // and 4 for loop traverse columns with j to update height, left, right and to compute area
             int cur_left = 0, cur_right = n - 1;
             // compute height (can do this from either side): the cumulative number of 1's in this column
             for (int j = 0; j < n; j++) {   

@@ -50,9 +50,9 @@
 public class Solution {
     public NestedInteger deserialize(String s) {
         // idea: use stack, just iterate through every character in the string
-    	// if encounters '[', push current NestedInteger to stack and start a new one;
-    	// if encounters ']', end current NestedInteger and pop one from the stack then continue;
-    	// if encounters ',', append a new number to current NestedInteger
+    	// if encounter '[', push current NestedInteger to stack and start a new one;
+    	// if encounter ']', end current NestedInteger and pop one from the stack then continue;
+    	// if encounter ',', append a new number to current NestedInteger
     	// update pointers l & r, which define a substring
     	if (s == null || s.length() == 0) {
     		return null;
@@ -61,35 +61,34 @@ public class Solution {
     		return new NestedInteger(Integer.valueOf(s));
     	}
     	Stack<NestedInteger> stack = new Stack<NestedInteger>();
-    	NestedInteger cur = null;
-    	int l = 0;
-    	for (int r = 0; r < s.length(); r++) {
+    	NestedInteger curr = null;
+    	for (int l = 0, r = 0; r < s.length(); r++) {
     		char c = s.charAt(r);
     		if (c == '[') {
-    			if (cur != null) {
-    				stack.push(cur);
+    			if (curr != null) {
+    				stack.push(curr);
     			}
-    			cur = new NestedInteger();
+    			curr = new NestedInteger();
     			l = r + 1;
     		} else if (c == ']') {
     			String num = s.substring(l, r);
     			if (!num.isEmpty()) {
-    				cur.add(new NestedInteger(Integer.valueOf(num)));
+    				curr.add(new NestedInteger(Integer.valueOf(num)));
     			}
-    			if (!stack.isEmpty()) {
+    			if (!stack.empty()) {
     				NestedInteger pop = stack.pop();
-    				pop.add(cur);
-    				cur = pop;
+    				pop.add(curr);
+    				curr = pop; // one outer nest
     			}
     			l = r + 1;
     		} else if (c == ',') {
-    			if (s.charAt(r - 1) != ']') {
+    			if (s.charAt(r - 1) != ']') {    // not following a nested list, then a single integer
     				String num = s.substring(l, r);
-    				cur.add(new NestedInteger(Integer.valueOf(num)));
+    				curr.add(new NestedInteger(Integer.valueOf(num)));
     			}
     			l = r + 1;
     		}
     	}
-    	return cur;
+    	return curr;
     }
 }
