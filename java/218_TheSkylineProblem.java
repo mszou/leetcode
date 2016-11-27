@@ -13,48 +13,50 @@
 
 
 public class Solution {
+    // idea: use a TreeMap. For each critical point c, get the height of the tallest rectangle over c
+    // detailed explanation: https://briangordon.github.io/2014/08/the-skyline-problem.html
     public List<int[]> getSkyline(int[][] buildings) {
-        // detailed explanation: https://briangordon.github.io/2014/08/the-skyline-problem.html
         List<int[]> ends = new ArrayList<>();
-    	for (int[] building : buildings) {
-      		ends.add(new int[] { building[0], 0, building[2] }); // Li, isRightEnd, Hi
-      		ends.add(new int[] { building[1], 1, building[2] });
-    	}
-    	Collections.sort(ends, (a, b) ->
-      		a[0] == b[0] ?
-        		(a[1] == b[1] ?
-            		(a[1] == 0 ? b[2] - a[2] // left end with smaller height comes after left ends with the same coordinate 
+        for (int[] building : buildings) {
+            ends.add(new int[] { building[0], 0, building[2] }); // Li, isRightEnd, Hi
+      		  ends.add(new int[] { building[1], 1, building[2] });
+        }
+        Collections.sort(ends, (a, b) ->
+            a[0] == b[0] ?
+            (a[1] == b[1] ?
+                (a[1] == 0 ? b[2] - a[2] // left end with smaller height comes after left ends with the same coordinate 
                 		: a[2] - b[2]) // and vice versa for right ends 
             		: a[1] - b[1]) // right end comes after left if coordinates are the same
         		: a[0] - b[0]); // regular order when coordinates differ
-    	TreeMap<Integer, Integer> treemap = new TreeMap<>();
-    	List<int[]> collect = new ArrayList<>();
-    	for (int i = 0; i < ends.size(); i++) {
-      		int[] end = ends.get(i);
-      		int x = end[0];
-      		boolean isStart = end[1] == 0;
-      		int h = end[2];
-      		int top;
-      		if (isStart) {
-        		treemap.put(h, treemap.getOrDefault(h, 0) + 1); // enqueue left end
-        		top = treemap.lastKey(); // highest building
-        		if (h == top && treemap.get(top) == 1) { // two buildings can have the same height
-          		collect.add(new int[] { x, h });
-        		}
-      		} else {
-        		treemap.put(h, treemap.get(h) - 1); // dequeue right end
-        		if (treemap.get(h) == 0) // no building has this height anymore
-          			treemap.remove(h);
-        		if (treemap.isEmpty()) {
-          			collect.add(new int[] { x, 0 });
-        		} else {
-          			top = treemap.lastKey();
-          			if (h > top) { // dequeuing gives a 2nd highest building
-            		collect.add(new int[] { x, top });
-          			}
-        		}
-      		}
-    	}
-    	return collect;
+        TreeMap<Integer, Integer> treemap = new TreeMap<>();
+        List<int[]> collect = new ArrayList<>();
+        for (int i = 0; i < ends.size(); i++) {
+            int[] end = ends.get(i);
+            int x = end[0];
+            boolean isStart = end[1] == 0;
+            int h = end[2];
+            int top;
+            if (isStart) {
+                treemap.put(h, treemap.getOrDefault(h, 0) + 1); // enqueue left end
+                top = treemap.lastKey(); // highest building
+                if (h == top && treemap.get(top) == 1) { // two buildings can have the same height
+                    collect.add(new int[] { x, h });
+                }
+            } else {
+                treemap.put(h, treemap.get(h) - 1); // dequeue right end
+                if (treemap.get(h) == 0) {// no building has this height anymore
+                    treemap.remove(h);
+                }
+                if (treemap.isEmpty()) {
+                    collect.add(new int[] { x, 0 });
+                } else {
+                    top = treemap.lastKey();
+                    if (h > top) { // dequeuing gives a 2nd highest building
+                        collect.add(new int[] { x, top });
+                    }
+                }
+            }
+        }
+        return collect;
     }
 }

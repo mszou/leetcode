@@ -10,8 +10,8 @@
 
 public class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-    	// a super ugly number must be multiplied by one of the given primes from a smaller super ugly number.
-        int[] times = new int[primes.length];	// record the times for each given prime
+    	// idea: DP. a super ugly number must be multiplied by one of the given primes from a smaller super ugly number.
+        int[] times = new int[primes.length];	// record the index of ugly number to be multiplied for each given prime
         int[] uglys = new int[n];	// uglys[i] is the (i+1)th super ugly number
         uglys[0] = 1;
         for (int i = 1; i < n; i++) {
