@@ -14,7 +14,7 @@
 
 public class Solution {
     public boolean isSubsequence(String s, String t) {
-        // idea: two pointers
+        // idea: two pointers, find the match in t for each character in s from left to right
         if (s == null || s.length() == 0) {
         	return true;
         }

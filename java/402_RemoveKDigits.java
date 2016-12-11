@@ -20,7 +20,8 @@
 public class Solution {
 	public String removeKdigits(String num, int k) {
 		// idea: use Stack + StringBuilder, stack stores the digits needed in the result,
-		// when encounter a new digit, pop larger ones in the stack as long as k still larger than 0
+		// when encounter a new digit, pop larger ones in the stack as long as k still > 0
+		// k is the number of digits that still need to be removed
 		int len = num.length();
 		if (k >= len) {
 			return "0";

@@ -102,9 +102,9 @@ public class Solution {
         	visited[c - 'a'] = true;
         }
         StringBuilder sb = new StringBuilder();
-        while (!stack.empty()) {
-        	sb.insert(0, stack.pop());
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
         }
-        return sb.toString();
+        return sb.reverse().toString();
     }
 }
