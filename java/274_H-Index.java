@@ -14,7 +14,7 @@ public class Solution {
     public int hIndex(int[] citations) {
         // idea: use an array ("counts") of length (N + 1), counts[i] records the number of papers
         // that each have i citations, in this way, the sum from counts[i] to counts[N] equals to
-        // the number of papers having at least i citations. 	O(n) Time.
+        // the number of papers having at least i citations. 	O(n) Time, O(n) Space.
         if (citations == null || citations.length == 0) {
             return 0;
         }
