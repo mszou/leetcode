@@ -23,7 +23,22 @@
  */
 
 public class Solution {
-	// sol 1 (non-recursion): use a stack, pop parent, push right child then left child.
+	// sol 1: (naive, recursive) Traverse.
+	public List<Integer> preorderTraversal(TreeNode root) {
+		List<Integer> res = new ArrayList<Integer>();
+		traverse(root, res);
+		return res;
+	}
+	private void traverse(TreeNode curr, List<Integer> res) {
+		if (curr == null) {
+			return;
+		}
+		res.add(curr.val);
+		traverse(curr.left, res);
+		traverse(curr.right, res);
+	}
+
+	// sol 2 (non-recursion): use a stack, pop parent, push right child then left child.
 	public List<Integer> preorderTraversal(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<TreeNode>();
 		List<Integer> res = new ArrayList<Integer>();
@@ -44,22 +59,7 @@ public class Solution {
 		return res;
 	}
 
-	// sol 2: Traverse.
-	public List<Integer> preorderTraversal(TreeNode root) {
-		List<Integer> res = new ArrayList<Integer>();
-		traverse(root, res);
-		return res;
-	}
-	private void traverse(TreeNode curr, List<Integer> res) {
-		if (curr == null) {
-			return;
-		}
-		res.add(curr.val);
-		traverse(curr.left, res);
-		traverse(curr.right, res);
-	}
-
-	// sol 3: Divide & Conquer
+	// sol 3: Divide & Conquer (recursive)
 	public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> res = new ArrayList<Integer>();
 		if (root == null) {

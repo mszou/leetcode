@@ -22,7 +22,7 @@
  * }
  */
 public class Solution {
-	// sol 1: (recursion)
+	// sol 1: (naive, recursion) ver 1:
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         if (root == null) {
@@ -32,6 +32,22 @@ public class Solution {
         res.addAll(postorderTraversal(root.right));
         res.add(root.val);
         return res;
+    }
+
+    // sol 1: (naive, recursion) ver 2:
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        traverse(root, res);
+        return res;
+    }
+
+    private void traverse(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+        traverse(root.left, res);
+        traverse(root.right, res);
+        res.add(node.val);
     }
 
     // sol 2: (non-recursion) use a stack.

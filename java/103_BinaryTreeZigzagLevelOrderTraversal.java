@@ -27,7 +27,8 @@
  */
 
 public class Solution {
-	// sol 1: write a zigzag method taking in level number and traverse the tree. 
+	// sol 1: write a zigzag method taking in level number and traverse the tree (DFS). 
+	// For each level, use a LinkedList to store the nodes that already visited, then for a new node:
 	// if the current node is in odd level, insert at the beginning of the LinkedList for that level;
 	// if the current node is in even level, insert at the end of the LinkedList for that level.
 	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
@@ -44,13 +45,13 @@ public class Solution {
 			return;
 		}
 		if (res.size() <= level) {
-			List<Integer> newLevel = new LinkedList<>();	// a LinkedList for each level
+			List<Integer> newLevel = new LinkedList<>();	// a LinkedList for current level
 			res.add(newLevel);
 		}
 		List<Integer> currLevel = res.get(level);
-		if (level % 2 == 0) {
-			currLevel.add(curr.val);
-		} else {
+		if (level % 2 == 0) {	// even level
+			currLevel.add(curr.val);	// left to right, so insert at the end
+		} else {	// odd level
 			currLevel.add(0, curr.val);	// insert at the beginning
 		}
 		zigzag(res, curr.left, level + 1);

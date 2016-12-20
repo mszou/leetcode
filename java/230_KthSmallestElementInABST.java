@@ -21,7 +21,8 @@
  * }
  */
 public class Solution {
-	// idea: in-order DFS traverse. O(h) Time (h = height of BST)
+	// sol 1: in-order DFS traverse. O(h) Time (h = height of BST, logn)
+    // first add left branch along with itself, if count < k, then add right branch
     int count = 0;
     int result = Integer.MIN_VALUE;
     
@@ -30,10 +31,12 @@ public class Solution {
         return result;
     }
     
-    public void traverse(TreeNode root, int k) {
-        if (root == null || count == k) return;
+    private void traverse(TreeNode root, int k) {
+        if (root == null || count == k) {
+            return;
+        }
         traverse(root.left, k);
-        count++;	// count increases when traverse finishes, i.e. from the smallest leaf
+        count++;	// count increases when traverse finishes, i.e. itself
         if (count == k) {
         	result = root.val;
         	return;
@@ -41,5 +44,24 @@ public class Solution {
         if (count < k) {
         	traverse(root.right, k);
         }     
+    }
+
+    // sol 2: kind of "Binary Search", count the nodes in left subtree and compare with k
+    public int kthSmallest(TreeNode root, int k) {
+        int count = countNodes(root.left);
+        if (count >= k) {
+            return kthSmallest(root.left, k);
+        } else if (count < k - 1) {
+            return kthSmallest(root.right, k - 1 - count);
+        } else {
+            return root.val;
+        }
+    }
+
+    private int countNodes(TreeNode n) {
+        if (n == null) {
+            return 0;
+        }
+        return 1 + countNodes(n.left) + countNodes(n.right);
     }
 }
