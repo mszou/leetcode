@@ -19,17 +19,17 @@
  * }
  */
 public class Solution {
-	int maxValue; 
+	int maxValue;  // global variable, updated by maxDownPath
 
     public int maxPathSum(TreeNode root) {
         // idea: Each path must has one highest node (the lowest common ancestor of all other nodes in the path).
-        // separated by this highest node, the path can be divided into 2 downwards path
+        // separated by this highest node, the path can be divided into 2 downward paths
     	maxValue = Integer.MIN_VALUE;
     	maxDownPath(root);
     	return maxValue;
     }
 
-    // returns the max sum of downwards path starting from the given node
+    // returns the max sum of 1-way downward path starting from the input node
     private int maxDownPath(TreeNode node) {
     	if (node == null) {
     		return 0;

@@ -14,8 +14,8 @@
  */
 public class Solution {
     public boolean isBalanced(TreeNode root) {
-    	// check the heights of EVERY subtree, remember to consider the case that left and right subtrees have same
-    	// height while not balanced, e.g. [1,2,2,3,null,null,3,4,null,null,4]
+    	// check the heights of EVERY subtree, remember to consider the case that left and right
+    	// subtrees have same height while not balanced, e.g. [1,2,2,3,null,null,3,4,null,null,4]
         if (root == null) {
         	return true;
         }

@@ -22,7 +22,8 @@
 public class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         // idea: DFS, first go right branch all the way to leaf, they are all in right side view
-        // then traverse other left subtrees and check if there are deeper levels
+        // then traverse left subtrees and check if there are nodes in deeper levels can be seen
+        // the i-th element in the result is the right-most node in i-th level. root is Level 0.
         List<Integer> res = new ArrayList<Integer>();
         rightView(root, res, 0);
         return res;

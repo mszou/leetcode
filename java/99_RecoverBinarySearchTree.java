@@ -15,12 +15,14 @@
  * }
  */
 public class Solution {
-	// idea: the in order traversal of a valid BST should be an ascending sequence, in which
-	// two mispositioned elements are easily to be find.
+	// idea: the in order traversal of a valid BST should be an ascending sequence, in which  two mispositioned elements
+	// are easily to be find. The first target is the one whose value is larger than its next node, and the second target
+    // is the one whose value is smaller than its previous node. When we find the first decreasing-value pair, respectively
+    // set them as first and second, then update second if there is another misplaced element later
 
 	TreeNode first = null;
 	TreeNode second = null;
-	TreeNode prev = new TreeNode(Integer.MIN_VALUE);	// initialize to avoid avoid null pointer exception in the first comparison
+	TreeNode prev = new TreeNode(Integer.MIN_VALUE);	// initialize to avoid null pointer exception in the first comparison
 
     public void recoverTree(TreeNode root) {
         traverse(root);
@@ -35,10 +37,10 @@ public class Solution {
     		return;
     	}
     	traverse(root.left);
-    	if (first == null && root.val <= prev.val) {
+    	if (first == null && root.val <= prev.val) {   // find the first mispositioned element
     		first = prev;
     	}
-    	if (first != null && root.val <= prev.val) {
+    	if (first != null && root.val <= prev.val) {   // first not null, so this is the second mispositioned element
     		second = root;
     	}
     	prev = root;

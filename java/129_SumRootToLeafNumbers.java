@@ -26,13 +26,14 @@ public class Solution {
         return sum(root, 0);
     }
 
-    public int sum(TreeNode node, int pre) {
+    private int sum(TreeNode node, int pre) {
     	if (node == null) {
     		return 0;
     	}
-    	if (node.left == null && node.right == null) {
-    		return pre * 10 + node.val;
+        int currSum = pre * 10 + node.val;;
+    	if (node.left == null && node.right == null) { // node is a leaf
+    		return currSum;
     	}
-    	return sum(node.left, pre * 10 + node.val) + sum(node.right, pre * 10 + node.val);
+    	return sum(node.left, currSum) + sum(node.right, currSum);
     }
 }

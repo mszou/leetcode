@@ -21,7 +21,7 @@
  */
 public class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        // idea: recursive DFS + back-tracking
+        // idea: recursive DFS + back-tracking, use StringBuilder to generate strings
         List<String> res = new ArrayList<String>();
         if (root == null) {
         	return res;
@@ -37,8 +37,8 @@ public class Solution {
     	}
     	int len = sb.length();
     	sb.append(root.val);
-    	if (root.left == null && root.right == null) {
-    		res.add(sb.toString());
+    	if (root.left == null && root.right == null) { // reach a leaf
+    		res.add(sb.toString());   // add this path
     	} else {
     		sb.append("->");
     		helper(res, root.left, sb);

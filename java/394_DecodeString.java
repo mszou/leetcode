@@ -11,11 +11,13 @@
 
 public class Solution {
 	public String decodeString(String s) {
-		// idea: use Stack + StringBuilder
+		// idea: use Stack + StringBuilder, 2 stacks for pending numeric and string parts
+		// when encounter a '[', push current num & sb to stacks and reset them; when encounter a ']',
+		// append the current string to 'strStack.pop()' for 'intStack.pop()' times, then continue
 		Stack<Integer> intStack = new Stack<Integer>();
 		Stack<StringBuilder> strStack = new Stack<>();
 		StringBuilder sb = new StringBuilder();
-		int num = 0;
+		int num = 0;	// to record the numeric part
 		for (char c : s.toCharArray()) {
 			if (Character.isDigit(c)) {
 				num = num * 10 + c - '0';

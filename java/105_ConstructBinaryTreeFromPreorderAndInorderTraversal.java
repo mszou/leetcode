@@ -15,7 +15,8 @@
  */
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        // idea: Divide and Conquer
+        // idea: Divide and Conquer, head in preorder is the root of current (sub)tree, find the position of that root
+        // in inorder, then elements on its left belong to its left subtree, those on its right belong to right subtree
         // optimize: use hashmap to get the index of root in the inorder
         if (preorder == null || inorder == null || preorder.length != inorder.length) {
         	return null;

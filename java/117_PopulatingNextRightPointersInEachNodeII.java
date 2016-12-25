@@ -38,15 +38,15 @@ public class Solution {
         	prev = null;
         	head = null;
         	while (curr != null) {
-        		if (curr.left != null) {
+        		if (curr.left != null) {  // deal with curr.left
         			if (prev != null) {
         				prev.next = curr.left;
-        			} else {
+        			} else { // means haven't seen a node in lower level before
         				head = curr.left;
         			}
         			prev = curr.left;
         		}
-        		if (curr.right != null) {
+        		if (curr.right != null) { // deal with curr.right
         			if (prev != null) {
         				prev.next = curr.right;
         			} else {

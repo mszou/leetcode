@@ -14,6 +14,7 @@
  */
 public class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
+        // idea: recursive, same trees must have same roots, same left subtrees and same right subtrees
     	if (p == null && q == null) {
     		return true;
     	}
