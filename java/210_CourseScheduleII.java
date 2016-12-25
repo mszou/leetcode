@@ -18,7 +18,7 @@
 
 public class Solution {
 	// idea: BFS. start with a node with 0 indegree, schedule this course and reduce 1 to the indegrees of all courses that
-	// have it as prerequiste. repeat this process until no node with 0 indegree, see whether we scheduled all the courses.
+	// have it as prerequiste. Repeat this process until no more 0-indegree nodes, see whether we scheduled all the courses.
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
 		int[] indegree = new int[numCourses];
 		List<List<Integer>> adjs = new ArrayList<>();	// Adjacency List for the graph
@@ -41,7 +41,7 @@ public class Solution {
 		int count = 0;
 		while (!queue.isEmpty()) {
 			int curr = queue.poll();
-			res[count++] = curr;
+			res[count++] = curr;	// schedule this course in result
 			for (int next : adjs.get(curr)) {
 				if (--indegree[next] == 0) {
 					queue.offer(next);

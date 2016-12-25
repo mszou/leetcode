@@ -20,7 +20,7 @@ public class Solution {
 	// Both BFS(better) and DFS can be used to solve it using the idea of topological sort.
 
 	// sol 1: BFS. start with a node with 0 indegree, schedule this course and reduce 1 to the indegrees of all courses that
-	// have it as prerequiste. repeat this process until no node with 0 indegree, see whether we scheduled all the courses.
+	// have it as prerequiste. Repeat this process until no more 0-indegree nodes, see whether we scheduled all the courses.
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
 		int[][] graph = new int[numCourses][numCourses];	// Adjacency Matrix for the graph
 		int[] indegree = new int[numCourses];	// indegree[i] stores # prerequisites for course i
@@ -32,7 +32,7 @@ public class Solution {
 				indegree[curr]++;
 			}
 		}
-		int count = 0;	// # courses that can be scheduled so far
+		int count = 0;	// # courses that we have scheduled so far
 		Queue<Integer> queue = new LinkedList<Integer>();
 		for (int i = 0; i < indegree.length; i++) {
 			if (indegree[i] == 0) {

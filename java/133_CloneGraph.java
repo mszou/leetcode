@@ -34,7 +34,7 @@ public class Solution {
         ArrayList<UndirectedGraphNode> nodes = new ArrayList<UndirectedGraphNode>();
         HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
         
-        // clone nodes
+        // clone nodes, DFS, add in next nodes by checking the neighbors of existing nodes
         nodes.add(node);
         map.put(node, new UndirectedGraphNode(node.label));
         int start = 0;
@@ -49,7 +49,7 @@ public class Solution {
         	start++;
         }
 
-        // clone neighbors
+        // clone neighbors (edges)
         for (UndirectedGraphNode n : nodes) {
         	UndirectedGraphNode newNode = map.get(n);
         	for (UndirectedGraphNode nb : n.neighbors) {

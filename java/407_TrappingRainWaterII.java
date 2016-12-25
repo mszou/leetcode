@@ -15,9 +15,9 @@
  */
 
 public class Solution {
-	// idea: use min-heap. consider borders first because the lowest bar determines the height of the bukkit water.
-	// Step: 1. Create Cell(row, col, height); 2. PriorityQueue on Cell of all 4 borders;
-	// 3. Process each element in queue, and add surrounding blocks into queue.; 4. Mark checked block
+	// idea: create a Cell class, including row, col, height. use a min-heap on Cell to keep the lowest cell
+	// start from the lowest bar on the border, do BFS in 4 directions and accumulate the differences in
+	// height if find lower cells. Process cell in queue, and add unvisited surrounding cells into the queue.
 
 	public class Cell {
 		int row;
@@ -34,7 +34,7 @@ public class Solution {
 		if (heightMap == null || heightMap.length < 3 || heightMap[0].length < 3) {
 			return 0;
 		}
-		PriorityQueue<Cell> q = new PriorityQueue<>(1, new Comparator<Cell>() {
+		PriorityQueue<Cell> pq = new PriorityQueue<>(1, new Comparator<Cell>() {
 			public int compare(Cell a, Cell b) {
 				return a.height - b.height;
 			}
@@ -44,29 +44,29 @@ public class Solution {
 		boolean[][] visited = new boolean[m][n];
 		// first add all the cells on the borders to the queue
 		for (int i = 0; i < m; i++) {
-			q.offer(new Cell(i, 0, heightMap[i][0]));
+			pq.offer(new Cell(i, 0, heightMap[i][0]));
 			visited[i][0] = true;
-			q.offer(new Cell(i, n - 1, heightMap[i][n - 1]));
+			pq.offer(new Cell(i, n - 1, heightMap[i][n - 1]));
 			visited[i][n - 1] = true;
 		}
 		for (int i = 0; i < n; i++) {
-			q.offer(new Cell(0, i, heightMap[0][i]));
+			pq.offer(new Cell(0, i, heightMap[0][i]));
 			visited[0][i] = true;
-			q.offer(new Cell(m - 1, i, heightMap[m - 1][i]));
+			pq.offer(new Cell(m - 1, i, heightMap[m - 1][i]));
 			visited[m - 1][i] = true;
 		}
 		// need to check the heights of neighbors in four directions
 		int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 		int res = 0;
-		while (!q.isEmpty()) {
-			Cell cell = q.poll();	// pick the lowest bar
+		while (!pq.isEmpty()) {
+			Cell cell = pq.poll();	// pick the lowest bar
 			for (int[] dir : directions) {
 				int row = cell.row + dir[0];
 				int col = cell.col + dir[1];
 				if (row >= 0 && row < m && col >= 0 && col < n && !visited[row][col]) {
 					visited[row][col] = true;
 					res += Math.max(0, cell.height - heightMap[row][col]);
-					q.offer(new Cell(row, col, Math.max(heightMap[row][col], cell.height)));
+					pq.offer(new Cell(row, col, Math.max(heightMap[row][col], cell.height)));
 				}
 			}
 		}
