@@ -17,6 +17,7 @@
  */
 
 public class Solution {
+	// Topological sort, difference from LC207 is to return the result of schedule
 	// idea: BFS. start with a node with 0 indegree, schedule this course and reduce 1 to the indegrees of all courses that
 	// have it as prerequiste. Repeat this process until no more 0-indegree nodes, see whether we scheduled all the courses.
 	public int[] findOrder(int numCourses, int[][] prerequisites) {

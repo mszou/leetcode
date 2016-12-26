@@ -17,7 +17,7 @@
 
 public class Solution {
 	// idea: this problem is equivalent to detecting a cycle in the graph. an edge from u to v means u is prerequisite of v.
-	// Both BFS(better) and DFS can be used to solve it using the idea of topological sort.
+	// Both BFS(better) and DFS can be used to solve it using the idea of "topological sort".
 
 	// sol 1: BFS. start with a node with 0 indegree, schedule this course and reduce 1 to the indegrees of all courses that
 	// have it as prerequiste. Repeat this process until no more 0-indegree nodes, see whether we scheduled all the courses.
