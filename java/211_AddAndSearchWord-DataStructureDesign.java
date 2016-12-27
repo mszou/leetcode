@@ -16,13 +16,8 @@
  * You should be familiar with how a Trie works. If not, please work on this problem: Implement Trie (Prefix Tree) first.
  */
 
-// Your WordDictionary object will be instantiated and called as such:
-// WordDictionary wordDictionary = new WordDictionary();
-// wordDictionary.addWord("word");
-// wordDictionary.search("pattern");
 
-// idea: first use Trie as the data structure. 
-// When searching word with '.', DFS and backtracking to check all the children letters
+// idea: use Trie, When encounter '.', do DFS and backtracking to check all the children letters
 
 class TrieNode {
 	public TrieNode[] children;
@@ -43,8 +38,7 @@ public class WordDictionary {
     // Adds a word into the data structure.
     public void addWord(String word) {
         TrieNode node = root;
-        for (int i = 0; i < word.length(); i++) {
-        	char c = word.charAt(i);
+        for (char c : word.toCharArray()) {
         	if (node.children[c - 'a'] == null) {
         		node.children[c - 'a'] = new TrieNode();
         	}
@@ -78,3 +72,8 @@ public class WordDictionary {
     	}
     }
 }
+
+// Your WordDictionary object will be instantiated and called as such:
+// WordDictionary wordDictionary = new WordDictionary();
+// wordDictionary.addWord("word");
+// wordDictionary.search("pattern");

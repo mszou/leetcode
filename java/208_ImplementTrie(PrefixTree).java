@@ -11,15 +11,14 @@
 
 class TrieNode {
     // Initialize your data structure here.
-    // idea: use an Array of TrieNode (length = 26) to represent children for each node
-    // public char val;
-    public boolean isWord;
-    public TrieNode[] children = new TrieNode[26];
-    public TrieNode() {}
-    // TrieNode(char c) {
-    // 	TrieNode node = new TrieNode();
-    // 	node.val = c;
-    // }
+
+    // public char val;     // the value of a TrieNode == 'a' + index as a child
+    public TrieNode[] children;  // at most 26 children
+    public boolean isWord;  // a flag to show whether it is the end of a word
+    public TrieNode() {
+    	children = new TrieNode[26];
+        isWord = false;
+    }
 }
 
 public class Trie {
@@ -32,8 +31,7 @@ public class Trie {
     // Inserts a word into the trie.
     public void insert(String word) {
         TrieNode node = root;
-        for (int i = 0; i < word.length(); i++) {
-        	char c = word.charAt(i);
+        for (char c : word.toCharArray()) {
         	if (node.children[c - 'a'] == null) {
         		node.children[c - 'a'] = new TrieNode();
         	}
@@ -45,8 +43,7 @@ public class Trie {
     // Returns if the word is in the trie.
     public boolean search(String word) {
         TrieNode node = root;
-        for (int i = 0; i < word.length(); i++) {
-        	char c = word.charAt(i);
+        for (char c : word.toCharArray()) {
         	if (node.children[c - 'a'] == null) {
         		return false;
         	}
@@ -59,8 +56,7 @@ public class Trie {
     // that starts with the given prefix.
     public boolean startsWith(String prefix) {
         TrieNode node = root;
-        for (int i = 0; i < prefix.length(); i++) {
-        	char c = prefix.charAt(i);
+        for (char c : prefix.toCharArray()) {
         	if (node.children[c - 'a'] == null) {
         		return false;
         	}
@@ -69,3 +65,8 @@ public class Trie {
         return true;
     }
 }
+
+// Your Trie object will be instantiated and called as such:
+// Trie trie = new Trie();
+// trie.insert("somestring");
+// trie.search("key");

@@ -75,6 +75,7 @@ public class Solution {
 	private TrieNode root;
 	private List<String> res;
 
+	// add word to the Trie
 	private void addWord(String str) {
 		if (str == null || str.length() == 0) {
 			return;
@@ -93,7 +94,7 @@ public class Solution {
 	public List<String> findAllConcatenatedWordsInADict(String[] words) {
 		root = new TrieNode();
 		for (String word : words) {
-			addWord(word);
+			addWord(word);	// Build trie with given words
 		}
 		res = new ArrayList<String>();
 		dfs(root, 0);
@@ -109,12 +110,13 @@ public class Solution {
 		searchWord(node, root, count);
 	}
 
+	// node1 goes along the current word, node2 goes along the trie tree from root
 	private void searchWord(TrieNode node1, TrieNode node2, int count) {
-		if (node2.isCombo) {
+		if (node2.isCombo) {	// there is concatenated word(s)  node2
 			return;
 		}
-		if (node2.isEnd) {
-			dfs(node1, count + 1);
+		if (node2.isEnd) {	// finish a word
+			dfs(node1, count + 1);	// continue to check the rest part
 		}
 		for (int i = 0; i < 26; i++) {
 			if (node1.children[i] != null && node2.children[i] != null) {

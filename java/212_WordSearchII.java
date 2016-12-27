@@ -17,8 +17,8 @@
  */
 
 public class Solution {
-	// idea: use Trie data structure. First use the given words to build a Trie tree. then use dfs + backtracking
-	// to search the board, mark visited positions in the current path as '#', and resume after finishing
+	// idea: use Trie data structure. First use the given words to build a Trie tree. then use DFS + backtracking
+	// to search the board, mark visited positions in the current path as '#', and recover it after finishing
 
 	class TrieNode {
 		TrieNode[] children = new TrieNode[26];
@@ -42,38 +42,38 @@ public class Solution {
 	}
 
 	public List<String> findWords(char[][] board, String[] words) {
-		List<String> res = new ArrayList<String>();
+		HashSet<String> set = new HashSet<String>();	// avoid duplicate results
 		TrieNode root = buildTrie(words);
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				dfs(board, i, j, root, res);
+				dfs(board, i, j, root, set);
 			}
 		}
+		List<String> res = new ArrayList<String>(set);
 		return res;
 	}
 
-	public void dfs(char[][] board, int i, int j, TrieNode node, List<String> res) {
+	public void dfs(char[][] board, int i, int j, TrieNode node, HashSet<String> set) {
 		char c = board[i][j];
 		if (c == '#' || node.children[c - 'a'] == null) {	// cannot be a word
 			return;
 		}
 		node = node.children[c - 'a'];
 		if (node.word != null) {	// so far is a word
-			res.add(node.word);
-			node.word = null;	// avoid duplicate
+			set.add(node.word);
 		}
 		board[i][j] = '#';	// mark as visited (in current path)
 		if (i > 0) {
-			dfs(board, i - 1, j, node, res);	// go up
+			dfs(board, i - 1, j, node, set);	// go up
 		}
 		if (j > 0) {
-			dfs(board, i, j - 1, node, res);	// go left
+			dfs(board, i, j - 1, node, set);	// go left
 		}
 		if (i < board.length - 1) {
-			dfs(board, i + 1, j, node, res);	// go down
+			dfs(board, i + 1, j, node, set);	// go down
 		}
 		if (j < board[0].length - 1) {
-			dfs(board, i, j + 1, node, res);	// go right
+			dfs(board, i, j + 1, node, set);	// go right
 		}
 		board[i][j] = c;	// backtracking
 	}

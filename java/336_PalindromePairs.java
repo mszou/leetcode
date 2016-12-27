@@ -16,10 +16,10 @@ public class Solution {
 	 * @return all pairs of distinct indices s.t. concatenation of the two words is a palindrome
 	 */
     public List<List<Integer>> palindromePairs(String[] words) {
-        // idea 1: naive solution: O(n^2*k) (k is the average length of each word)
+        // naive solution: O(n^2*k) Time (k is the average length of each word)
         // For each word, go through the array and check whether the concatenated string is a palindrome or not.
         
-        // optimized idea: HashMap<word, index> O(n*k^2)
+        // optimized idea: use HashMap<word, index> to store indices, O(n*k^2) Time
         List<List<Integer>> res = new ArrayList<>();
         if (words == null || words.length == 0) {
             return res;
@@ -33,15 +33,15 @@ public class Solution {
                 // split words[i] at j, and check in which part axis can be
                 String str1 = words[i].substring(0, j);
                 String str2 = words[i].substring(j);
-                if (isPalindrome(str1)) {   // axis at the center of str1
+                if (isPalindrome(str1)) {   // axis in the middle of str1
                     String str2rvs = new StringBuilder(str2).reverse().toString();
-                    if (map.getOrDefault(str2rvs, i) != i) {    // map contains str2rvs and the index != i
+                    if (map.getOrDefault(str2rvs, i) != i) {    // map contains str2rvs and is not the word itself
                         res.add(Arrays.asList(map.get(str2rvs), i));
                     }
                 }
-                if (isPalindrome(str2) && str2.length() != 0) { // check length to avoid duplicates ""
+                if (isPalindrome(str2) && str2.length() != 0) {   // // to avoid duplicate in processing the other word first
                     String str1rvs = new StringBuilder(str1).reverse().toString();
-                    if (map.getOrDefault(str1rvs, i) != i) {
+                    if (map.getOrDefault(str1rvs, i) != i) {    // map contains str1rvs and is not the word itself
                         res.add(Arrays.asList(i, map.get(str1rvs)));
                     }
                 }
