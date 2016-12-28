@@ -17,7 +17,8 @@
 
 public class BSTIterator {
 	// idea: use stack. The smallest number in BST is the most down-left node of the tree, since it has no
-	// left child, the next smallest is the most down-left node of the right sub-tree of the current node.
+	// left child, if it has right child, the next smallest is the most down-left node of the right subtree;
+    // if it doesn't have right child, i.e. it is a leaf, the next smallest is its parent.
 	// Therefore, always go all the way down its left branch and push the nodes into the stack.
 	private Stack<TreeNode> stack = new Stack<TreeNode>();
 
@@ -33,7 +34,9 @@ public class BSTIterator {
     /** @return the next smallest number */
     public int next() {
         TreeNode curr = stack.pop();    // the most down-left node in current BST is current smallest number
-        fillStack(curr.right);  // push left children in right sub-tree, where the next smallest is located
+        if (curr.right != null) {   // has right child
+            fillStack(curr.right);  // push left children in right subtree
+        }
         return curr.val;
     }
 

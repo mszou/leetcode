@@ -47,13 +47,14 @@ public class NestedIterator implements Iterator<Integer> {
     public boolean hasNext() {
         while (!stack.empty()) {
         	NestedInteger curr = stack.peek();
-        	if (curr.isInteger()) {
+        	if (curr.isInteger()) {    // is a single integer
         		return true;
-        	}
-        	stack.pop();
-        	for (int i = curr.getList().size() - 1; i >= 0; i--) {
-        		stack.push(curr.getList().get(i));
-        	}
+        	} else {   // is a nested list
+                stack.pop();
+                for (int i = curr.getList.size() - 1; i >= 0; i--) {
+                    stack.push(curr.getList().get(i));
+                }
+            }
         }
         return false;
     }

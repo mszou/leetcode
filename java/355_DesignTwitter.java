@@ -27,15 +27,15 @@
 
 public class Twitter {
 	// OO Design (a Tweet class, a User class)
-	// idea: HashMap + PriorityQueue
-	private static int timeStamp = 0;
+	// idea: HashMap + PriorityQueue (heap)
+	private static int timeStamp = 0;  // used for time order
 
 	private Map<Integer, User> userMap;	// userMap<userId, user>, easy to find whether this user exists
 
 	private class Tweet {
 		public int id;
 		public int time;
-		public Tweet next;
+		public Tweet next;    // point to next Tweet
 		public Tweet(int id) {	// constructor
 			this.id = id;
 			time = timeStamp++;
@@ -64,7 +64,7 @@ public class Twitter {
 			}
 		}
 
-		// everytime user posts a new tweet, add it to the head of tweet list.
+		// every time user posts a new tweet, add it to the head of tweet list.
 		public void post(int id) {
 			Tweet t = new Tweet(id);
 			t.next = tweet_head;

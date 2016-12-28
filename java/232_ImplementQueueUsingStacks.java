@@ -11,6 +11,8 @@
  */
 
 class MyQueue {
+	// idea: use 2 stacks, one for input, in stack order; the other for output, in queue order
+	// push elements onto stack1, transfer to stack2 when needed, the reversal can be done by batch
 	Stack<Integer> stack1;	// input, stack order, LIFO
 	Stack<Integer> stack2;	// output, queue order, FIFO
 

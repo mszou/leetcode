@@ -21,16 +21,19 @@
  * }
  */
 public class Codec {
-	// idea: Serialize: print the tree in preorder traversal, split nodes with "," and 
-	// use "#" to denote the null node; Deserialize: use a queue to store the preorder
+	// idea: Serialize: print the tree in preorder traversal, split nodes with ',' and 
+	// use '#' to denote the null node; Deserialize: use a queue to store the preorder,
+    // take values to make nodes and then DFS. a node followed by two '#'s is a leaf
 	
-	// private static final String spliter = ",";
+	// // the notation for spliter and null node can be customized as well
+    // private static final String spliter = ",";
 	// private static final String nullNode = "#";
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
         serialize(root, sb);
+        sb.deleteCharAt(sb.length() - 1);   // remove the last ','
         return sb.toString();
     }
 

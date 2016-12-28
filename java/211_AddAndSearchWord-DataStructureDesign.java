@@ -17,7 +17,7 @@
  */
 
 
-// idea: use Trie, When encounter '.', do DFS and backtracking to check all the children letters
+// idea: use Trie. When encounter '.', do DFS and backtracking to check all the children letters
 
 class TrieNode {
 	public TrieNode[] children;
@@ -59,7 +59,7 @@ public class WordDictionary {
     	}
     	char c = word.charAt(index);
     	if (c == '.') {
-    		for (int i = 0; i < 26; i++) {
+    		for (int i = 0; i < 26; i++) {    // DFS
     			if (node.children[i] != null) {
     				if (find(word, index + 1, node.children[i])) {
     					return true;

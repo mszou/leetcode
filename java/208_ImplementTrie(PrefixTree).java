@@ -13,10 +13,10 @@ class TrieNode {
     // Initialize your data structure here.
 
     // public char val;     // the value of a TrieNode == 'a' + index as a child
-    public TrieNode[] children;  // at most 26 children
+    public TrieNode[] children;  // possible next letters are its children
     public boolean isWord;  // a flag to show whether it is the end of a word
     public TrieNode() {
-    	children = new TrieNode[26];
+    	children = new TrieNode[26];   // at most 26 children
         isWord = false;
     }
 }
