@@ -16,7 +16,8 @@ public class Solution {
 	 */
     public int compareVersion(String version1, String version2) {
     	// idea: compare versions from higher level to lower level, until they are different
-    	// use a function of Integer, a.compareTo(b) returns 1 (a>b), -1 (a<b), or 0 (a=b)
+    	// function for Integer a.compareTo(b) returns 1 (a > b), -1 (a < b), or 0 (a = b)
+        // first split the strings by level
         String[] level1 = version1.split("\\.");	// escape character of dot
         String[] level2 = version2.split("\\.");
         

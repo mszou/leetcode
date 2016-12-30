@@ -13,13 +13,14 @@
 
 public class Solution {
     public int titleToNumber(String s) {
+        // idea: like 26-based system, compute each digit, every left shift equals to *26
         if (s == null || s.length() == 0) {
         	return 0;
         }
         int num = 0;
-        for (int i = 0; i < s.length(); i++) {
+        for (char c : s.toCharArray()) {
         	num *= 26;
-        	num += s.charAt(i) - 'A' + 1;
+        	num += c - 'A' + 1;
         }
         return num;
     }

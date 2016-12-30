@@ -6,14 +6,16 @@
 public class Solution {
     public int rob(int[] nums) {
         // idea: DP. consider each value in 2 cases: rob or not rob. O(n) Time, O(1) Space
-        int prevYes = 0;	// max money can get if rob current house
-        int prevNo = 0;		// max money can get if not rob current house
+        // use two variables to store the max money can get so far if rob / not rob this house
+        int prevRob = 0, prevNotRob = 0;
         // traverse all the nums, and update these two cases
         for (int n : nums) {
-        	int temp = prevNo;	// if rob current house, the prev cannot be robbed
-        	prevNo = Math.max(prevNo, prevYes);	// not rob current house, max is the max at prev
-        	prevYes = n + temp;	// rob current house, add the money to what you already got
+        	int currRob = prevNotRob + n;  // if rob curr, prev cannot be robbed
+            int currNotRob = Math.max(prevNotRob, prevRob); // if not rob curr, take the max
+            // update values for next round
+            prevRob = currRob;
+            prevNotRob = currNotRob;
         }
-        return Math.max(prevNo, prevYes);
+        return Math.max(prevRob, prevNotRob);
     }
 }

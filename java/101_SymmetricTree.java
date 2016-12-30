@@ -27,7 +27,7 @@
  * }
  */
 public class Solution {
-	// sol 1: recursive. take advantage of the mirror symmetry between left & right subtrees
+	// sol 1: recursive. left subtree and right subtrees should be mirror symmetric
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {
         	return true;

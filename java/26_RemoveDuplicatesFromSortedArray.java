@@ -9,11 +9,12 @@
 
 public class Solution {
     public int removeDuplicates(int[] nums) {
-    	// idea: use two pointers, swap duplicate element with next unidentical number
+    	// idea: use 2 pointers, one for traversal, the other goes as the result array grows
+        // the result only takes in unidentical numbers during traversal the whole array
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int size = 0;	// make sure no duplicates before pointer "size"
+        int size = 0;	// make sure no duplicates before this pointer 'size'
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != nums[size]) {	// find next unidentical number: nums[i]
                 nums[++size] = nums[i];

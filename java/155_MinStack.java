@@ -27,8 +27,8 @@
 
 public class MinStack {
     // idea: use two stacks, where stack stores all the numbers being pushed, and minStack
-    // stores the min elements: (a min element is the minimum at the time being pushed)
-    // So the top of minStack is always the minimum element in stack
+    // stores the min elements: (a min element is the minimum at the time it being pushed)
+    // So the top of minStack is always the minimum element currently in the stack
 	private Stack<Integer> stack;
 	private Stack<Integer> minStack;
 
@@ -43,7 +43,7 @@ public class MinStack {
         if (minStack.empty()) {
         	minStack.push(x);
         } else {
-        	if (x <= minStack.peek()) {    // x is smaller than the top of minStack
+        	if (x <= minStack.peek()) {    // x is currently the minimum
         		minStack.push(x);
         	}
         }

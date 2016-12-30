@@ -6,9 +6,9 @@
 
  public class Solution {
     public int[] plusOne(int[] digits) {
-        // The complexity is O(1)
-        // computation: f(n) = 9/10 + 1/10 * O(n-1)  (probability of carry = 1/10)
-        //  ==>  O(n) =  10 / 9 = 1.1111 = O(1)
+        // computation for Big O: f(n) = 9/10 + 1/10 * O(n-1) (Pr(carry) = 1/10)
+        //  ==>  O(n) =  10 / 9 = 1.1111 = O(1), so the Time Complexity is O(1)
+
         // idea: add one from the least significant digit
         if (digits == null || digits.length == 0) {
             return null;
@@ -19,11 +19,12 @@
                 digits[i] ++;	// plus one directly
                 return digits;
             } else {
-                digits[i] = 0;
+                digits[i] = 0;  // set this digit to 0, pass "+1" to higher digit
             }
         }
-        int[] res = new int[n+1];
-        res[0] = 1;
+        // if program reaches here, the original number must be all 9
+        int[] res = new int[n + 1];
+        res[0] = 1; // add a leading 1
         return res;
     }
 }

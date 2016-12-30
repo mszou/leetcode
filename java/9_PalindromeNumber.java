@@ -1,6 +1,5 @@
 /**
  * Determine whether an integer is a palindrome. Do this without extra space.
- *
  * Some hints:
  * Could negative integers be palindromes? (ie, -1)
  * You cannot convert the integer to string, note the restriction of using extra space.
@@ -10,7 +9,7 @@
 
 public class Solution {
     public boolean isPalindrome(int x) {
-    	// idea: check whether x == reverse(x)
+    	// idea: check whether x == reverse(x), if overflow during reversal, it cannot be palindrome
         if (x < 0) {	// negative integers cannot be palindrome
         	return false;
         }

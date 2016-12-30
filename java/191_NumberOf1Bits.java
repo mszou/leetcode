@@ -15,7 +15,8 @@ public class Solution {
 		// 	n >>>= 1;
 		// }
 
-		// sol 2: x & (x-1) helps to remove right most 1 for x, more efficient
+		// sol 2: x & (x-1) helps to remove right-most 1 for x, more efficient
+		// e.g. 101100 & 101011 = 101000 (removed the right-most 1 in 101100)
 		while (n != 0) {
 			n = n & (n - 1);
 			count++;

@@ -23,11 +23,11 @@
  */
 public class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
-    	// idea: recursively check whether there is a path in subtree whose sum plus root.val is the target sum
+    	// idea: recursively check whether there is a path in subtree whose sum = target sum - root.val
         if (root == null) {
         	return false;
         }
-        if (root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) {  // reach a leaf
         	return root.val == sum;
         }
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);

@@ -14,14 +14,15 @@
 public class Solution {
     public int maxProfit(int[] prices) {
     	// idea: only one transaction, so find the greatest ascending difference.
+        // traverse the array, record the minimum price so far and maximal profit so far
         if (prices == null || prices.length <= 1) {
             return 0;
         }
         int min = Integer.MAX_VALUE;    // record the minimal price so far
         int profit = 0; // record the maximal profit so far
-        for (int cur : prices) {
-            min = Math.min(cur, min);
-            profit = Math.max(profit, cur - min);
+        for (int curr : prices) {
+            min = Math.min(curr, min);
+            profit = Math.max(profit, curr - min);   // update, if find a greater difference
         }
         return profit;
     }

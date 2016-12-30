@@ -14,7 +14,7 @@
  */
 public class Solution {
     public int maxDepth(TreeNode root) {
-        // idea: naive recursive sol.
+        // idea: naive recursive sol, find the larger maxDepth of left & right subtrees, then plus 1
         if (root == null) {
         	return 0;
         }

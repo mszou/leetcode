@@ -16,13 +16,18 @@ public class Solution {
         }
         return -1;
 
-		// // sol 2: use two pointers, compare the substring starting from i with needle (check charAt(j))
-		// for (int i = 0; i <= haystack.length() - needle.length(); i++) {
-		// 	for (int j = 0; ; j++) { // compare needle.charAt(j) & haystack.charAt(i + j)
-		// 		if (j == needle.length()) return i;
-		// 		if (needle.charAt(j) != haystack.charAt(i + j)) break;
-		// 	}
-		// }
-		// return -1;
+		// sol 2: use two pointers, compare the substring starting from i with needle (check charAt(j))
+		for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            int j = 0;
+            for (; j < needle.length(); j++) {
+                if (needle.charAt(j) != haystack.charAt(i + j)) {
+                    break;
+                }
+            }
+            if (j == needle.length()) {
+                return i;
+            }
+		}
+		return -1;
     }
 }

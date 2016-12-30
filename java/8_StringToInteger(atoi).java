@@ -14,39 +14,39 @@
 
 public class Solution {
     public int myAtoi(String str) {
-    	// idea: first disgard whitespace chars w/ str.trim(), then check whether the sign is '-'
+    	// idea: first remove whitespace chars using str.trim(), then check whether the sign is '-'(negative).
     	// convert characters into numerical values digit by digit, then deal with possible overflow problem.
         if (str == null || str.length() == 0) {
         	return 0;
         }
         str = str.trim();	// disgard whitespace characters
-        Boolean neg = false;
+        boolean negative = false;
         int index = 0;
         // deal with the sign
-        if (str.charAt(index) == '-') {
-        	neg = true;
+        if (str.charAt(index) == '-') { // negative
+        	negative = true;
         	index++;
         } else if (str.charAt(index) == '+') {
         	index++;
         }
-        long num = 0;	// use long instead of int to address overflow
+        long num = 0;	// use long instead of int to avoid overflow
         for (; index < str.length(); index++) {
         	char c = str.charAt(index);
-        	if (c < '0' || c > '9') {
+        	if (c < '0' || c > '9') {  // not a valid numerical value
         		break;
         	}
         	num = num * 10 + (c - '0');
-        	if (num > Integer.MAX_VALUE) {
-        		if (neg) {
+        	if (num > Integer.MAX_VALUE) { // Overflow
+        		if (negative) {
         			return Integer.MIN_VALUE;
         		} else {
         			return Integer.MAX_VALUE;
         		}
         	}
         }
-        if (neg) {
+        if (negative) {
         	num = 0 - num;
         }
-        return (int)num;
+        return (int)num;    // convert to int
     }
 }

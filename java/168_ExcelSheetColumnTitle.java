@@ -12,18 +12,24 @@
 
  public class Solution {
     public String convertToTitle(int n) {
-    	String res = "";
-        if (n <= 0) {
-        	return res;
-        }
-        // // recursive solution
+        // idea: keep dividing (n - 1) by 26
+
+        // // recursive sol
+        // String res = "";
+        // if (n <= 0) {
+        //     return res;
+        // }
         // return convertToTitle((n - 1) / 26) + (char)((n - 1) % 26 + 'A');
         
         // non-recursive sol
-        while (n > 0) {
-        	res = (char)((n - 1) % 26 + 'A') + res;
-        	n = (n - 1) / 26;
+        StringBuilder sb = new StringBuilder();
+        if (n <= 0) {
+            return sb.toString();
         }
-        return res;
+        while (n > 0) {
+            sb.append((char)((n - 1) % 26 + 'A'));
+            n = (n - 1) / 26;
+        }
+        return sb.reverse().toString();
     }
 }

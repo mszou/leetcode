@@ -11,26 +11,28 @@
 public class Solution {
     public boolean isPalindrome(String s) {
     	// idea: use two pointers from head and tail, compare pairs of characters until they meet
-        if (s == null || s.length() == 0) {
+        // use Character.isLetterOrDigit(c) to check if c is an alphanumeric character
+        // use Character.toLowerCase(c) to convert c to lower case before comparing
+        if (s == null || s.length() <= 1) {
             return true;
         }
-        int head = 0, tail = s.length() - 1;
+        int left = 0, right = s.length() - 1;
         char cHead, cTail;
-        while (head < tail) {
-            cHead = s.charAt(head);
-            cTail = s.charAt(tail);
+        while (left < right) {
+            cHead = s.charAt(left);
+            cTail = s.charAt(right);
             // only consider alphanumeric characters
             if (!Character.isLetterOrDigit(cHead)) {
-                head++;
+                left++;
             } else if (!Character.isLetterOrDigit(cTail)) {
-                tail--;
+                right--;
             } else {
             	// case-insensitive: convert characters to lower case before comparing
                 if (Character.toLowerCase(cHead) != Character.toLowerCase(cTail)) {
                     return false;
                 }
-                head++;
-                tail--;
+                left++;
+                right--;
             }
         }
         return true;

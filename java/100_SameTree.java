@@ -15,10 +15,10 @@
 public class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         // idea: recursive, same trees must have same roots, same left subtrees and same right subtrees
-    	if (p == null && q == null) {
+    	if (p == null && q == null) {  // both null, then same
     		return true;
     	}
-    	if (p == null || q == null) {
+    	if (p == null || q == null) {  // either null, then not same
     		return false;
     	}
         if (p.val != q.val) {

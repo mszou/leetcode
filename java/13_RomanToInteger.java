@@ -8,8 +8,9 @@
 
  public class Solution {
     public int romanToInt(String s) {
-    	// idea: use a hashmap to store the Roman characters and their corresponding value
-    	// compute the value from lower digits to higher digits
+    	// idea: use a HashMap to store the Roman characters and their corresponding value
+    	// Compute the value from lower digits to higher digits, if a smaller unit occurs before
+        // a larger unit, we should subtract its value from the res; otherwise, add it to the res
     	if (s == null || s.length() == 0) {
     		return 0;
     	}
@@ -25,9 +26,10 @@
     	int len = s.length();
     	int res = map.get(s.charAt(len - 1));  // first get the lowest digit
     	for (int i = len - 2; i >= 0; i--) {   // compute from right to left
-    		if (map.get(s.charAt(i+1)) <= map.get(s.charAt(i))) {
+    		// check whether the previous letter is a smaller or larger unit
+            if (map.get(s.charAt(i+1)) <= map.get(s.charAt(i))) {
     			res += map.get(s.charAt(i));
-    		} else {
+    		} else {  // small unit before large unit
     			res -= map.get(s.charAt(i));
     		}
     	}

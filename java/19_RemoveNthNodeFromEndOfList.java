@@ -20,14 +20,14 @@
 public class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         // idea: use two pointers (fast & slow)
-        // first move the fast pointer n places forward, then move both at the same speed.
-        // when the fast pointer reaches the end, the slow pointer will be at the right position to remove
+        // first move the fast pointer n places forward, then move both pointers at the same speed.
+        // when the fast pointer reaches the end, the slow pointer will point to the position to remove
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode fast = dummy, slow = dummy;
         // move the fast pointer n places forward
         for (int i = 0; i < n; i++) {
-            if (fast == null) {	// the length of list is less than n
+            if (fast.next == null) {	// the length of list is less than n
                 return null;
             }
             fast = fast.next;
@@ -37,7 +37,7 @@ public class Solution {
             fast = fast.next;
             slow = slow.next;
         }
-        // remove the target node
+        // remove (skip) the target node, i.e. 'slow.next'
         slow.next = slow.next.next;
         return dummy.next;
     }

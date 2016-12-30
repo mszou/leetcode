@@ -10,11 +10,11 @@
 
 public class Solution {
     public String countAndSay(int n) {
-    	// idea: iterately count the previous string, use StringBuilder
+    	// idea: iterately count the previous string, use StringBuilder for each round
         String oldString = "1";
         while (n > 1) {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < oldString.length(); i++) {
+            for (int i = 0; i < oldString.length(); i++) {  // count and say
             	int count = 1;
             	while ((i + 1) < oldString.length() && oldString.charAt(i) == oldString.charAt(i + 1)) {
             		count++;

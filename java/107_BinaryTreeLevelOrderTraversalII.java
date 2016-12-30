@@ -36,7 +36,7 @@ public class Solution {
         while (!queue.isEmpty()) {
         	int levelSize = queue.size();
         	List<Integer> list = new LinkedList<Integer>();
-        	for (int i = 0; i < levelSize; i++) {
+        	for (int i = 0; i < levelSize; i++) {  // traverse current level
         		if (queue.peek().left != null) {
         			queue.offer(queue.peek().left);
         		}
@@ -45,7 +45,7 @@ public class Solution {
         		}
         		list.add(queue.poll().val);
         	}
-        	res.add(0, list);
+        	res.add(0, list);  // insert this level to the beginning
         }
         return res;
     }

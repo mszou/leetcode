@@ -18,17 +18,18 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        // idea: two pointers, move "fast" 2 steps forward and "slow" 1 step at a time
-        // if the Linked List has a cycle, fast and slow will meet at some point.
+        // idea: use two pointers, let 'fast' go 2 steps at a time while 'slow' goes 1 step at a time.
+        // If the Linked List has a cycle, they will meet at some point and never reach the end.
         if (head == null || head.next == null) {
             return false;
         }
+
         // version 1
         // initial positions are not important, set them different to let the while condition holds
         ListNode fast = head.next;
         ListNode slow = head;
         while (fast != slow) {
-            if (fast == null || fast.next == null) {	// reaches the end
+            if (fast == null || fast.next == null) {	// reaches the end, no cycle
                 return false;
             }
             fast = fast.next.next;
@@ -36,7 +37,7 @@ public class Solution {
         }
         return true;
 
-		// // version 2
+		// // version 2, same principle, different code
 		// ListNode fast = head;
 		// ListNode slow = head;
 		// while (fast.next != null && fast.next.next != null) {	// not reach the end

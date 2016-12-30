@@ -26,7 +26,7 @@
  */
 public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        // idea: use a queue
+        // idea: use a queue (LinkedList) to store the next bunch of nodes to be traversed
         List<List<Integer>> res = new LinkedList<List<Integer>>();
         if (root == null) {
         	return res;
@@ -36,7 +36,7 @@ public class Solution {
         while (!queue.isEmpty()) {
         	int levelSize = queue.size();	// # nodes in the current level
         	List<Integer> list = new LinkedList<Integer>();
-        	for (int i = 0; i < levelSize; i++) {
+        	for (int i = 0; i < levelSize; i++) {  // traverse current level
         		if (queue.peek().left != null) {
         			queue.offer(queue.peek().left);
         		}

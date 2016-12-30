@@ -13,9 +13,11 @@
 
 public class Solution {
     public int removeElement(int[] nums, int val) {
-    	// idea: use two pointers from the start and end, put elements of target value at the end by swapping
+    	// idea: use two pointers from the start and end. the left pointer is used for traversal.
+        // when it encounters a target, swap it with the number that right pointer points.
+        // In this way, we put all target elements at the end of the array, and size = right + 1
         int left = 0;
-        int right = nums.length - 1;
+        int right = nums.length - 1;    // right points to next position to be swapped
         // elements behind pointer "right" are all instances of target value
         while (left <= right) {
             if (nums[left] == val) {

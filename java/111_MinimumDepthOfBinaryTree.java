@@ -14,15 +14,16 @@
  */
 public class Solution {
     public int minDepth(TreeNode root) {
-    	// idea: recursively check the depth of subtrees
+    	// idea: recursively check the depth of subtrees and choose the smaller one
         if (root == null) {
         	return 0;
         }
-        int left = minDepth(root.left);
-        int right = minDepth(root.right);
-        if (left == 0 || right == 0) {	// only one child subtree or no children
-        	return Math.max(left, right) + 1;
+        if (root.left == null) {    // no left child
+            return minDepth(root.right) + 1;
+        } else if (root.right == null) {    // no right child
+            return minDepth(root.left) + 1;
+        } else {    // choose the subtree with smaller minDepth
+            return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
         }
-        return Math.min(left, right) + 1;
     }
 }

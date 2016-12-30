@@ -23,12 +23,12 @@ public class Solution {
         int count = 0;	// index in res, position to write
         // write to res row by row
         for (int i = 0; i < numRows; i++) {
-            int interval = period - 2 * i;
-            for (int j = i; j < s.length(); j += period) {
+            int interval = period - 2 * i;  // interval between two chars within one period
+            for (int j = i; j < s.length(); j += period) {  // first char in i-th row is the i-th char in s
                 res[count] = s.charAt(j);
                 count++;
                 // for rows in middle (0 < i < numRows-1), there are 2 characters in one period
-                if (i > 0 && i < numRows - 1 && j + interval < s.length() && count < s.length()) {
+                if (i > 0 && i < numRows - 1 && j + interval < s.length()) {
                     res[count] = s.charAt(j + interval);
                     count++;
                 }

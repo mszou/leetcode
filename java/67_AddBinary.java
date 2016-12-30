@@ -17,16 +17,16 @@
         }
         StringBuilder sb = new StringBuilder();
         int i = a.length() - 1, j = b.length() - 1; // two pointers from the lowest digits
-        int carry = 0;
-        while (i >= 0 || j >= 0 || carry == 1) { // for any one of these, we should do add
+        int carry = 0;  // use 'carry' to store the sum and carry together
+        while (i >= 0 || j >= 0 || carry == 1) { // for any of these cases, we should do add
         	if (i >= 0) {
         		carry += a.charAt(i--) - '0';
         	}
         	if (j >= 0) {
         		carry += b.charAt(j--) - '0';
         	}
-        	sb.append((char)('0' + carry % 2));
-        	carry = carry / 2;
+        	sb.append((char)('0' + carry % 2));    // only take the last digit
+        	carry = carry >> 1;
         }
         return sb.reverse().toString();
     }
