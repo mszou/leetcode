@@ -9,10 +9,11 @@
 
 public class Solution {
     public int countPrimes(int n) {
-        // idea: instead of finding primes, we eliminate composite numbers
+        // idea: instead of finding primes, we eliminate composite numbers. first set all true,
+        // then eliminate multiples of 2, multiples of 3, etc until multiples of sqrt(n).
         // The "Sieve of Eratosthenes" uses an extra O(n) memory and its runtime complexity is O(n log log n)
-        boolean[] isPrime = new boolean[n]; // represent whether 0 ~ (n-1) is prime
-        // initialization
+        boolean[] isPrime = new boolean[n]; // isPrime[i] is true if i is a prime number
+        // initialization, first set them all true
         for (int i = 2; i < n; i++) {	// because 0 and 1 are not primes
             isPrime[i] = true;  
         }
@@ -21,7 +22,7 @@ public class Solution {
             if (!isPrime[i]) {  // already eliminated by its divisor
                 continue;
             }
-            for (int j = i * i; j < n; j += i) {    // elinimate the multiples of i from i^2
+            for (int j = i * i; j < n; j += i) {    // eliminate the multiples of i from i^2
                 isPrime[j] = false;
             }
         }

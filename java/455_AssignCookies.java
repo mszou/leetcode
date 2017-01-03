@@ -21,10 +21,11 @@ public class Solution {
 	public int findContentChildren(int[] g, int[] s) {
 		// idea: Greedy. Since here each child can only be assigned at most 1 cookie,
 		// simply sort the greed factors and cookie size and start from the child with min g
+		// assign each child with the smallest cookie that content him until reach the end
 		Arrays.sort(g);
 		Arrays.sort(s);
-		int i = 0;
-		for (int j = 0; i < g.length && j < s.length; j++) {
+		// i is the pointer on children, j is the pointer on cookies
+		for (int i = 0, j = 0; i < g.length && j < s.length; j++) {
 			if (g[i] <= s[j]) {	// child i can be content with cookie j
 				i++;
 			}

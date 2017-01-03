@@ -27,4 +27,5 @@ public class Solution {
 		}
 		return true;
 	}
+	// follow-up: if the inputs contain unicode characters, then use a HashMap<char, freq>
 }

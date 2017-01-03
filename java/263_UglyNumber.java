@@ -6,6 +6,7 @@
 
 public class Solution {
     public boolean isUgly(int num) {
+        // idea: remove all the 2,3,5 factors and check whether the num ends up with 1.
         if (num <= 0) {
         	return false;
         }

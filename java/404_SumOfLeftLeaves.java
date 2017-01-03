@@ -34,7 +34,7 @@ public class Solution {
     	sum += sumOfLeftLeaves(root.right);
     	return sum;
 
-    	// sol 2: iterative, use a stack, push non-leaf nodes that may have left leaves
+    	// sol 2: iterative, use a stack, push non-leaf nodes that may have left leaves onto stack
     	Stack<TreeNode> stack = new Stack<TreeNode>();
     	stack.push(root);
     	while (!stack.empty()) {

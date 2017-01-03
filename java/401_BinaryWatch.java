@@ -13,20 +13,20 @@
  */
 
 public class Solution {
-	// sol 1: simplest, use bitCount()
+	// sol 1: simplest, use Integer.bitCount() to check every time expression
 	public List<String> readBinaryWatch(int num) {
 		List<String> times = new ArrayList<>();
 		for (int h = 0; h < 12; h++) {
 			for (int m = 0; m < 60; m++) {
 				if (Integer.bitCount(h) + Integer.bitCount(m) == num) {
-					times.add(String.format("%d:%02d", h, m));
+					times.add(String.format("%d:%02d", h, m));	// in format
 				}
 			}
 		}
 		return times;
 	}
 
-	// sol 2: use backtracking
+	// sol 2: use backtracking, generate hour with i LEDs and minute with (num - i) LEDs
 	public List<String> readBinaryWatch(int num) {
 		List<String> times = new ArrayList<>();
 		int[] h = new int[]{8,4,2,1};

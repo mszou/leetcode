@@ -7,11 +7,13 @@
 
 public class Solution {
 	public boolean isPowerOfFour(int num) {
-		// idea: power of four only have one '1' bit in their binary notation, and that 1 is located at odd position
+		// idea: power of four only have one bit of 1 in their binary notation, and that 1 is located at odd position
 		if (num <= 0) {
 			return false;
 		}
 		return (num & (num - 1)) == 0 && (num & 0xAAAAAAAA) == 0;   // or use (num & 0x55555555) != 0
+		// numbers satisfying the left half are power of 2 (have only one bit of 1 regardless of position)
 		// the right half is to eliminate numbers with '1' at even position, i.e. power of 2 but not power of 4
+		// 0xAAAAAAAA = 10101010...1010
 	}
 }

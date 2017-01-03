@@ -9,7 +9,7 @@
 
 public class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
-        // sol 1: use 2 hashsets. Time: O(n)
+        // sol 1: use 2 hashsets.   O(n) Time.
         HashSet<Integer> set = new HashSet<Integer>();
         HashSet<Integer> interset = new HashSet<Integer>();
         for (int n1 : nums1) {	// put all numbers in nums1 into the set
@@ -19,7 +19,7 @@ public class Solution {
             if (set.contains(n2)) {
                 interset.add(n2);
                 set.remove(n2);
-            }	// note: add(), contains(), remove() all O(1) time
+            }	// note: add(), contains(), remove() are all O(1) time operations
         }
 
         // // sol 2: sort the arrays and use two pointers. Time: O(nlogn)

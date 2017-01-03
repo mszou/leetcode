@@ -13,8 +13,8 @@
 
 public class Solution {
     public boolean isHappy(int n) {
-    	// idea: the process either ends in 1 or loops in a cycle, use a set to record 
-    	// the sums that appeared in the process to detect loop cycle
+    	// idea: the process either ends in 1 or loops in a cycle, so use a set to
+    	// record the numbers that already occurred in the process to detect cycle
         HashSet<Integer> set = new HashSet<Integer>();
         while (n != 1) {
             if (!set.add(n)) {  // loop cycle appears
@@ -27,7 +27,7 @@ public class Solution {
     
     private int getNext(int n) {
         int sum = 0;
-        // add the squares of every digit
+        // add the squares of every digit, from right to left
         while (n != 0) {
             sum += (n % 10) * (n % 10);
             n /= 10;

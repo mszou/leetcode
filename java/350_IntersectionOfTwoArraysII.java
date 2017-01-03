@@ -14,7 +14,8 @@
 public class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
         // sol 1: use hashmap. Time: O(m+n), Space: O(m) (nums1.length = m, nums2.length = n)
-        // put numbers in nums1 into hashmap<number in nums1, count(difference)>. 
+        // put numbers in nums1 into HashMap<number in nums1, count(difference)>. 
+        // use list to store result first then transfer to array because the size is unknown.
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         ArrayList<Integer> result = new ArrayList<Integer>();
         for (int i = 0; i < nums1.length; i++) {

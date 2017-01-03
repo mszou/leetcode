@@ -12,24 +12,29 @@
 
 
 public class NumArray {
-	// Time complexity: O(n) for initialization, O(1) query.
-	int[] nums;
+	// idea: use an array to store the accumulative sums from nums[0], if the range doesn't start from
+    // beginning, sumRange(i,j) = sums[j]-sum[i-1]. O(n) Time for initialization, O(1) query, O(n) Space.
+    // To save space, can also use nums array to store sums, and original nums can be got from subtraction.
+	int[] sums;
 
     public NumArray(int[] nums) {	// compute the accumulative sum
-        for (int i = 1; i < nums.length; i++) {
-        	nums[i] += nums[i - 1];
+        if (nums.length != 0) {
+            sums = new int[nums.length];
+            sums[0] = nums[0];
+            for (int i = 1; i < nums.length; i++) {
+                sums[i] = nums[i] + sums[i - 1];
+            }
         }
-        this.nums = nums;
     }
 
     public int sumRange(int i, int j) {
         if (i == 0) {
-        	return nums[j];
+        	return sums[j];
+        } else {
+            return sums[j] - sums[i - 1];
         }
-        return nums[j] - nums[i - 1];
     }
 }
-
 
 // Your NumArray object will be instantiated and called as such:
 // NumArray numArray = new NumArray(nums);

@@ -10,10 +10,12 @@
 public class Solution {
     public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
         // idea: find the four boundaries of the overlapped area, then compute total area
+        // Note that if no overlap, we should set right = left and top = bottom to make overlap = 0
         int left = Math.max(A, E);
         int right = Math.max(Math.min(C, G), left);	// right = left if no overlap horizontally
         int bottom = Math.max(B, F);
         int top = Math.max(Math.min(D, H), bottom);	// top = bottom if no overlap virtically
+        // rectangle1 - overlap + rectangle2
         return (C - A) * (D - B) - (right - left) * (top - bottom) + (G - E) * (H - F);
     }
 }

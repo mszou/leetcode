@@ -10,8 +10,8 @@
 
 public class Solution {
     public String reverseVowels(String s) {
-        // idea: two pointers from left & right, find a pair of vowels and swap them
-        // use a HashSet<Character> to reduce the look up time to O(1)
+        // idea: use two pointers from left & right, find vowel pairs and swap them until pointers meet
+        // use a HashSet<Character> storing all vowels to reduce the look up time to O(1)
         if (s == null || s.length() <= 1) {
         	return s;
         }
@@ -29,17 +29,18 @@ public class Solution {
         char[] chars = s.toCharArray();
         int left = 0, right = s.length() - 1;
         while (left < right) {
-        	if (!vowels.contains(chars[left])) {	// find the left vowel
+            // find a pair of vowels from left & right for swapping, skip consonants
+        	if (!vowels.contains(chars[left])) {
         		left++;
         		continue;
         	}
-        	if (!vowels.contains(chars[right])) {	// find the right vowel
+        	if (!vowels.contains(chars[right])) {
         		right--;
         		continue;
         	}
-        	char c = chars[left];
+        	char temp = chars[left];
         	chars[left] = chars[right];
-        	chars[right] = c;
+        	chars[right] = temp;
         	left++;
         	right--;
         }

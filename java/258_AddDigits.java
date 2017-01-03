@@ -16,8 +16,24 @@ public class Solution {
         if (num <= 0) {
             return num;
         }
-        // O(1) runtime sol
-        // idea: all multiples of 9 will end up in 9, others end up in num % 9
+
+        // sol 1: naive
+        while (num > 9) {
+        	num = next(num);
+        }
+        return num;
+
+        // sol 2: all possible results are 1~9, and all multiples of 9 will
+        // end up in 9, others will end up in num % 9. O(1) Time.
         return 1 + (num - 1) % 9;
+    }
+
+    private int next(int num) {
+    	int res = 0;
+    	while (num > 0) {
+    		res += num % 10;
+    		num /= 10;
+    	}
+    	return res;
     }
 }

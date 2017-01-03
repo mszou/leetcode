@@ -31,18 +31,19 @@ public class Solution {
         return res;
     }
 
-    private void helper(List<String> res, TreeNode root, StringBuilder sb) {
-    	if (root == null) {
+    // continue DFS from current node 'node' with the StringBuilder 'sb'
+    private void helper(List<String> res, TreeNode node, StringBuilder sb) {
+    	if (node == null) {
     		return;
     	}
     	int len = sb.length();
-    	sb.append(root.val);
-    	if (root.left == null && root.right == null) { // reach a leaf
+    	sb.append(node.val);
+    	if (node.left == null && node.right == null) { // reach a leaf
     		res.add(sb.toString());   // add this path
     	} else {
     		sb.append("->");
-    		helper(res, root.left, sb);
-    		helper(res, root.right, sb);
+    		helper(res, node.left, sb);
+    		helper(res, node.right, sb);
     	}
     	sb.setLength(len);	// back-tracking
     }

@@ -18,9 +18,9 @@ public class Solution {
         char[] chars = s.toCharArray();
         int left = 0, right = s.length() - 1;
         while (left < right) {
-        	char c = chars[left];
+        	char temp = chars[left];
         	chars[left] = chars[right];
-        	chars[right] = c;
+        	chars[right] = temp;
         	left++;
         	right--;
         }

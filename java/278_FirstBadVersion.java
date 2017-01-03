@@ -10,7 +10,7 @@
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        // idea: Binary Search, keep checking isBadVersion(mid). O(logn) Time.
+        // idea: Binary Search, check isBadVersion(mid) until find the first bad. O(logn) Time.
         int start = 1, end = n, mid;
         while (start < end) {
         	mid = start + (end - start) / 2;

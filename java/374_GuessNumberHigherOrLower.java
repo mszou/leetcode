@@ -19,18 +19,18 @@
 
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
-        // binary search. 
-        int start = 1, end = n, mid;
-        while (start <= end) {
-        	mid = start + (end - start) / 2;
-        	if (guess(mid) == 0) {
-        		return mid;
-        	} else if (guess(mid) == 1) {
-        		start = mid + 1;
-        	} else {
-        		end = mid - 1;
-        	}
+        // binary search. keep checking guess(mid) until find the correct number
+        int begin = 1, end = n, mid;
+        while (begin < end) {
+            mid = begin + (end - begin) / 2;
+            if (guess(mid) == 0) {
+                return mid;
+            } else if (guess(mid) > 0) {
+                begin = mid + 1;
+            } else {
+                end = mid;
+            }
         }
-        return 0;
+        return begin;
     }
 }

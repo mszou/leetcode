@@ -8,17 +8,18 @@
 
 public class Solution {
     public void moveZeroes(int[] nums) {
-        // idea: 2 pointers. move all the non-zero elements advance
+        // idea: move all the non-zero elements advance, then fill the rest places with 0.
+        // use two pointers, one for scanning nums, the other points to the pos in result.
         if (nums == null || nums.length == 0) {
             return;
         }
-        int slow = 0, n = nums.length;
-        for (int fast = 0; fast < n; fast++) {
+        int slow = 0;
+        for (int fast = 0; fast < nums.length; fast++) {
             if (nums[fast] != 0) {
-                nums[slow++] = nums[fast];
+                nums[slow++] = nums[fast];  // move non-zero elements advance
             }
         }
-        while (slow < n) {	// fill zeroes
+        while (slow < nums.length) {	// fill zeroes
             nums[slow++] = 0;
         }
     }

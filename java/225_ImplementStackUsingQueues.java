@@ -12,7 +12,7 @@
 
 class MyStack {
     // idea: every time you push a new element, move it to the front of the queue by
-    // polling all the elements in front of it in the queue and adding them again
+    // polling all the elements in front of it in the queue and adding them again.
     // in this way, you'll get the elements in reversed order
     Queue<Integer> queue;
     public MyStack() {

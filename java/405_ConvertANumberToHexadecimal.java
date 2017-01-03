@@ -18,6 +18,7 @@
  */
 
 public class Solution {
+	// idea: convert 4 bits at a fime from right to left and create a mapping
 	char[] map = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
     
     public String toHex(int num) {
@@ -28,7 +29,7 @@ public class Solution {
 		while (num != 0) {
 			int temp = (num & 0b1111);	// get the final 4 bits
 			sb.append(map[temp]);
-			num >>>= 4;
+			num >>>= 4;	// right shift 4 bits (unsigned)
 		}
 		return sb.reverse().toString();
     }

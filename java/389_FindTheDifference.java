@@ -14,7 +14,8 @@
 
 public class Solution {
 	public char findTheDifference(String s, String t) {
-		// idea: similar to "single number" problem, use XOR on characters
+		// idea: combine s and t together, then we'll find that all the characters occur even times
+		// except our target. so similar to the "single number" problem, use XOR on characters
 		char c = t.charAt(t.length() - 1);
 		for (int i = 0; i < s.length(); i++) {
 			c ^= s.charAt(i);

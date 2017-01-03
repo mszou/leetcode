@@ -1,5 +1,5 @@
 /**
- * Given  an  arbitrary  ransom  note  string  and  another  string  containing  letters from  all  the  magazines,  write  a  function  that  will  return  true  if  the  ransom   note  can  be  constructed  from  the  magazines ;  otherwise,  it  will  return  false.   
+ * Given  an  arbitrary  ransom  note  string  and  another  string  containing  letters from  all  the  magazines,  write  a  function  that  will  return  true  if  the  ransom note  can  be  constructed  from  the  magazines;  otherwise,  it  will  return  false.   
  * Each  letter  in  the  magazine  string  can  only  be  used  once  in  your  ransom  note.
  * Note:
  * You may assume that both strings contain only lowercase letters.
@@ -10,7 +10,7 @@
 
 public class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        // // sol 1: use Map<char, times>
+        // // sol 1: use Map<character, available times>
         // HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         // for (char m : magazine.toCharArray()) {
         // 	if (map.containsKey(m)) {
@@ -21,7 +21,7 @@ public class Solution {
         // }
         // for (char r : ransomNote.toCharArray()) {
         // 	int newCount = map.getOrDefault(r, 0) - 1;
-        // 	if (newCount < 0) {
+        // 	if (newCount < 0) {    // this letter is not available
         // 		return false;
         // 	} else {
         // 		map.put(r, newCount);
@@ -29,13 +29,13 @@ public class Solution {
         // }
         // return true;
 
-        // sol 2: use array. arr[i] records the times of i-th letter occurs in magazine
-        int[] arr = new int[26];
-        for (int i = 0; i < magazine.length(); i++) {
-        	arr[magazine.charAt(i) - 'a']++;
+        // sol 2: use array. count[i] records the times of i-th letter occurs in magazine
+        int[] count = new int[26];
+        for (char m : magazine.toCharArray()) {
+        	count[m - 'a']++;
         }
-        for (int j = 0; j < ransomNote.length(); j++) {
-        	if (--arr[ransomNote.charAt(j) - 'a'] < 0) {
+        for (char r : ransomNote.toCharArray()) {
+        	if (--count[r - 'a'] < 0) {
         		return false;
         	}
         }
