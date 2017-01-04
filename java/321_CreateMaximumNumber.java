@@ -22,27 +22,25 @@ public class Solution {
         // idea: divide into 2 sub-problems: 1. find the max number of length i within one array;
         // 2. merge 2 numbers from 2 arrays (i digits from nums1 and k-i digits from nums2)
         int m = nums1.length, n = nums2.length;
-        if (k <= 0 || m + n < k) {
+        if (k < 0 || k > m + n) {
         	return null;
         }
         int[] res = new int[k];
         if (k == 0) {
         	return res;
         }
-        if (m + n == k) {
+        if (k == m + n) {
         	res = merge(nums1, nums2);
         	return res;
-        } else {
-        	// the max & min number of digits that should be selected from nums1
-        	int max = m >= k ? k : m;
-        	int min = n >= k ? 0 : k - n;
-        	// Arrays.fill(res, -1);
-        	for (int i = min; i <= max; i++) {
-        		int[] temp = merge(getMax(nums1, i), getMax(nums2, k - i));
-        		res = isGreater(res, 0, temp, 0) ? res : temp;
-        	}
-        	return res;
         }
+        // determine the max & min number of digits that should be picked from nums1
+        int max = m >= k ? k : m;
+        int min = n >= k ? 0 : k - n;
+        for (int i = min; i <= max; i++) {
+            int[] temp = merge(getMax(nums1, i), getMax(nums2, k - i));
+            res = isGreater(res, 0, temp, 0) ? res : temp;
+        }
+        return res;
     }
 
     // merge two arrays nums1 and nums2 to get a max result
@@ -58,7 +56,7 @@ public class Solution {
     	return res;
     }
 
-    // compare nums1 from index i with nums2 from index j, if same, then compare next digits until not same
+    // compare nums1 from index i with nums2 from index j, digit by digit
     private boolean isGreater(int[] nums1, int i, int[] nums2, int j) {
     	for (; i < nums1.length && j < nums2.length; i++, j++) {
     		if (nums1[i] > nums2[j]) {
@@ -68,7 +66,7 @@ public class Solution {
     			return false;
     		}
     	}
-    	return i != nums1.length;	// if reaches the end
+    	return i != nums1.length;	// if nums1 has more elements
     }
 
     // get the max number array of length k within single array nums

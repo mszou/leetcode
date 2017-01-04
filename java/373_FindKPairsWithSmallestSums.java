@@ -21,8 +21,7 @@
 
 public class Solution {
 	public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-		// idea: use min_heap to keep track on next minimum pair sum, and only need to maintain k candidates in the heap
-		// O(klogk) Time.
+		// idea: maintain k candidates of pairs in a min-heap. O(klogk) Time.
 		List<int[]> res = new ArrayList<>();
 		if (nums1.length == 0 || nums2.length == 0 || k == 0) {
 			return res;

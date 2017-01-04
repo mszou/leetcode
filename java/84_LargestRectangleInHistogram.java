@@ -9,10 +9,11 @@
 
 public class Solution {
 	public int largestRectangleArea(int[] heights) {
-		// idea: use a stack. We traverse all bars from left to right, maintain a stack of bars.
-		// Every bar is pushed to stack once. A bar is popped from stack when a bar of smaller height is seen.
-		// When a bar is popped, we calculate the area with the popped bar as smallest bar.
-		// The current index tells us the ‘right index’ and index of previous item in stack is the ‘left index’.
+		// idea: we traverse and add the bars one by one, if a bar is no shorter than the previous one, it can definitely
+		// increase the rectangle area, so we need to pay attention to decreasing heights. Keep a stack to store heights 
+		// when traversing from left to right. Heights in the stack are always non-descending. When we visit a bar whose
+		// height <= the bar on the top of stack, pop it from stack and calculate the area with the popped bar as smallest
+		// bar. The current index tells us the ‘right index’ and index of previous one in stack is the ‘left index’.
 		if (heights == null || heights.length == 0) {
 			return 0;
 		}

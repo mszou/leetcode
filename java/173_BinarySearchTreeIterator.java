@@ -16,11 +16,11 @@
  */
 
 public class BSTIterator {
-	// idea: use stack. The smallest number in BST is the most down-left node of the tree, since it has no
-	// left child, if it has right child, the next smallest is the most down-left node of the right subtree;
+    // idea: use stack. The smallest number in BST is the most down-left node of the tree, since it has no
+    // left child, if it has right child, the next smallest is the most down-left node of the right subtree;
     // if it doesn't have right child, i.e. it is a leaf, the next smallest is its parent.
-	// Therefore, always go all the way down its left branch and push the nodes into the stack.
-	private Stack<TreeNode> stack = new Stack<TreeNode>();
+    // Therefore, always go all the way down its left branch and push the nodes into the stack.
+    private Stack<TreeNode> stack = new Stack<TreeNode>();
 
     public BSTIterator(TreeNode root) {
         fillStack(root);
