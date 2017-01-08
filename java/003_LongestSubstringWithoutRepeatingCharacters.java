@@ -9,42 +9,43 @@
 
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
-        // idea: use 2 pointers (leftBound & i) to limit the substring + hashset/hashmap to achieve uniqueness
+        // idea: substring in the sliding window bounded by 2 pointers (left & i),
+        // use hashset / hashmap to check uniqueness. O(n) Time, O(n) Space.
         if (s == null || s.length() == 0) {
             return 0;
         }
-        int max = 0;    // maximal length so far
-        int leftBound = 0;	// point to the head of current substring
+        int maxLen = 0;    // maximal length so far
+        int left = 0;	// point to the head of current substring
         // sol 1: HashSet
         HashSet<Character> set = new HashSet<Character>();
         for (int i = 0; i < s.length(); i++) {
-            // remove the left part and update leftBound if s.charAt(i) hits
+            // keep removing the character from left until no duplicate
             if (set.contains(s.charAt(i))) {
-                while (leftBound < i && s.charAt(leftBound) != s.charAt(i)) {
-                    set.remove(s.charAt(leftBound));
-                    leftBound++;
+                while (left < i && s.charAt(left) != s.charAt(i)) {
+                    set.remove(s.charAt(left));
+                    left++;
                 }
-                leftBound++;
+                left++;
             } else {
                 set.add(s.charAt(i));
-                max = Math.max(max, i - leftBound + 1);
+                maxLen = Math.max(maxLen, i - left + 1);
             }
         }
-        return max;
+        return maxLen;
         
         // sol 2: HashMap<char, index>
         // HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         // for (int i = 0; i < s.length(); i++) {
-        //     // remove the left part and update leftBound if s.charAt(i) hits
+        //     // remove the left part and update left if s.charAt(i) hits
         //     if (map.containsKey(s.charAt(i))) {
-        //         while (leftBound < map.get(s.charAt(i))) {
-        //             map.remove(s.charAt(leftBound++));
+        //         while (left < map.get(s.charAt(i))) {
+        //             map.remove(s.charAt(left++));
         //         }
-        //         map.remove(s.charAt(leftBound++));
+        //         map.remove(s.charAt(left++));
         //     } 
         //     map.put(s.charAt(i), i);
-        //     max = Math.max(max, i - leftBound + 1);
+        //     maxLen = Math.max(maxLen, i - left + 1);
         // }
-        // return max;
+        // return maxLen;
     }
 }

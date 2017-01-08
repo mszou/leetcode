@@ -17,8 +17,11 @@
  */
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode(0);
-        ListNode pointer = head;
+        // idea: add nodes pair by pair, use a carry to record if the sum > 9
+        // remember to consider l1 not null, l2 not null and carry not 0 after while loop
+        // O(m+n) Time, O(max(m,n)) Space.
+        ListNode dummy = new ListNode(0);   // add a head node for return list
+        ListNode pointer = dummy;   // pointer node for constucting result
         int sum = 0, carry = 0;
         while (l1 != null && l2 != null) {
         	sum = l1.val + l2.val + carry;
@@ -45,6 +48,6 @@ public class Solution {
         if (carry != 0) {
         	pointer.next = new ListNode(carry);
         }
-        return head.next;
+        return dummy.next;
     }
 }

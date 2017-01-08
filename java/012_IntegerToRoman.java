@@ -8,21 +8,22 @@
 
  public class Solution {
     public String intToRoman(int num) {
-    	// idea: From large unit to small, check how many times num contains
+    	// idea: For each unit from large to small, check how many times num contains
+        // use StringBuilder to construct string.
         if (num < 1 || num > 3999) {    // invalid range
         	return null;
         }
         int[] nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
         String[] romans = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         StringBuilder res = new StringBuilder();
-        int digit = 0;
+        int unitIdx = 0;
         while (num > 0) {
-        	int times = num / nums[digit];
-        	num = num % nums[digit];
-        	for (; times > 0; times--) {
-        		res.append(romans[digit]);
+        	int times = num / nums[unitIdx];   // compute how many times num contains this unit
+        	for (; times > 0; times--) {   // repeat that times
+        		res.append(romans[unitIdx]);
         	}
-        	digit++;
+            num = num % nums[unitIdx];  // update num
+        	unitIdx++; // move to next unit
         }
         return res.toString();
     }

@@ -12,8 +12,9 @@
 
 public class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        // idea: Anagrams have same 1st anagram in lexicographical order (as keyStr), so use HashMap<keyStr, anagrams>
-        // For each string, convert it to char array then sort the chars to get the 1st anagram
+        // idea: use HashMap<keyStr, anagrams>. Anagrams have same 1st anagram in lexicographical order (as keyStr).
+        // For each string, convert to char array then sort the chars to get the 1st anagram.
+        // O(nklogk) Time, n is the number of strings, k is length of each string. O(n) Space.
         if (strs == null || strs.length == 0) {
             return new ArrayList<List<String>>();
         }
