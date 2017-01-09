@@ -20,7 +20,7 @@ public class Solution {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == word.charAt(0)) {	// match the first letter, then start searching
 					if (find(board, i, j, word, 0)) {
-						return true;
+						return true;	// counter +1 if requires to count the number
 					}
 				}
 			}
@@ -37,9 +37,9 @@ public class Solution {
 		}
 		if (board[row][col] == word.charAt(index)) {	// find a match, then search further
 			char c = board[row][col];
-			board[row][col] = '#';	// indicate that this char has been used
+			board[row][col] = '#';	// indicate that this char has been used, can also use "board[row][col] ^= 256"
 			boolean exists = find(board, row + 1, col, word, index + 1) || find(board, row - 1, col, word, index + 1) || find(board, row, col + 1, word, index + 1) || find(board, row, col - 1, word, index + 1);
-			board[row][col] = c;	// backtracking
+			board[row][col] = c;	// backtracking, use "board[row][col] ^= 256" again if is used above
 			return exists;
 		}
 		return false;

@@ -12,13 +12,14 @@
 
 public class Solution {
     public void sortColors(int[] nums) {
-    	// idea: use two pointers from left and right
-    	// put 0's before "left" and 2's after "right" by swapping
+    	// idea: one-pass, use two pointers from left and right, put 0's before "left"
+    	// and 2's after "right" by swapping.  O(n) Time, O(1) Space.
         if (nums == null || nums.length <= 1) {
             return;
         }
         int left = 0, right = nums.length - 1;	// set two pointers
-        for (int i = 0; i <= right; ) {	// i is the current pointer, analyze nums[i]
+        int i = 0;  // i is the current pointer, analyze nums[i]
+        while (i <= right) {
             if (nums[i] == 0) {
                 swap(nums, i, left);
                 left++;

@@ -15,17 +15,15 @@
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         // sol 1: Binary Search Twice. first compare the heads of each row to find the row index,
-        // then second binary search in this row to find the target
+        // then second binary search in this row to find the target.    O(logm + logn) Time.
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return false;
         }
         int m = matrix.length, n = matrix[0].length;
-        int rowIdx, colIdx;
-        
         // 1st Binary Search to find the row index 
-        int start = 0, end = m - 1, mid;
+        int start = 0, end = m - 1;
         while (start <= end) {
-            mid = start + (end - start) / 2;
+            int mid = start + (end - start) / 2;
             if (matrix[mid][0] == target) {
                 return true;
             } else if (matrix[mid][0] < target) {
@@ -34,15 +32,15 @@ public class Solution {
                 end = mid - 1;
             }
         }   // ends with start == end + 1
+        int rowIdx;
         if (end >= 0 && matrix[end][0] <= target) {
             rowIdx = end;
         } else if (start < m && matrix[start][0] <= target) {
             rowIdx = start;
-        } else {
+        } else {    // target out of the range
             return false;
         }
-        
-        // 2nd Binary Search to find the column index
+        // 2nd Binary Search to find the target in the selected row
         start = 0;
         end = n - 1;
         while (start <= end) {
@@ -56,5 +54,8 @@ public class Solution {
             }
         }
         return false;
+
+        // sol 2: treat the matrix as a sorted array of length m*n, and Binary Search
+        // when m*n is large, may cause overflow.  O(log(mn)) Time = O(logm + logn)
     }
 }

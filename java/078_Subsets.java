@@ -16,7 +16,7 @@
  */
 
 public class Solution {
-	// idea: DFS + backtracking (recursion)
+	// sol 1: DFS + backtracking (recursion), O(2^n) Time.
 	public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> res = new ArrayList<>();
 		if (nums == null || nums.length == 0) {
@@ -24,17 +24,37 @@ public class Solution {
 		}
 		// Arrays.sort(nums);
 		List<Integer> list = new ArrayList<Integer>();
-		helper(res, list, nums, 0);
+		dfs(res, list, nums, 0);
 		return res;
 	}
 
-	private void helper(List<List<Integer>> res, List<Integer> list, int[] nums, int start) {
-		res.add(new ArrayList<Integer>(list));
+	private void dfs(List<List<Integer>> res, List<Integer> list, int[] nums, int start) {
+		res.add(new ArrayList<Integer>(list));	// first add the current list to result
 		for (int i = start; i < nums.length; i++) {
 			list.add(nums[i]);
-			helper(res, list, nums, i + 1);
+			dfs(res, list, nums, i + 1);
 			list.remove(list.size() - 1);
 		}
 		return;
+	}
+
+	// sol 2: bit manipulation. there are 2^n subsets for array of length n. If we use 1 and 0
+	// to express whether to take this num in subset or not, all the subsets can be expressed
+	// by all binary expressions of length n from 0..0 to 1..1, corresponding to 0 ~ 2^n - 1.
+	// So we simply check: if k & (1<<i) != 0, then the (0-based) k-th subset contains nums[i]
+	public List<List<Integer>> subsets(int[] nums) {
+		int totalNumber = 1 << nums.length;	// 2^n subsets total
+		List<List<Integer>> res = new ArrayList<>();
+		// Arrays.sort(nums);
+		for (int i = 0; i < totalNumber; i++) {
+			List<Integer> subset = new ArrayList<Integer>();
+			for (int j = 0; j < nums.length; j++) {
+				if ((i & (1 << j)) != 0) {
+					subset.add(nums[j]);
+				}
+			}
+			res.add(subset);
+		}
+		return res;
 	}
 }

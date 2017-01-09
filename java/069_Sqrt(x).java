@@ -5,12 +5,12 @@
 
  public class Solution {
     public int mySqrt(int x) {
-    	// idea: Binary Search, use division instead of multiplication (when computing square)
-        if (x <= 1) {
+    	// idea: Binary Search, when computing square, use division instead of
+        // multiplication to avoid overflow.    O(logn) Time.
+        if (x <= 1) {   // for cases x = 0 and x = 1
         	return x;
         }
-        int low = 1;
-        int high = x;
+        int low = 1, high = x;
         while (low <= high) {
         	int mid = low + (high - low) / 2;
         	if (mid > x / mid) {	// mid^2 > x

@@ -19,11 +19,12 @@ public class Solution {
 		// idea: two pointers fast & slow starting from the beginning, move fast k places forward (to the 
     	// position that original tail should be in rotated list), then move two pointers (length - k)
     	// places simultaneously, when fast reaches the end, slow points to the end node in rotated list
+        // remember to consider the case that k >= length.      O(n) Time, O(1) Space.
         if (head == null || head.next == null || k == 0) {
             return head;
         }
-        int length = getLength(head);	// use a user-defined function to get the length of the list
-        k = k % length;	// how many moves that actually needed (for k >= length)
+        int len = getLength(head);	// get the length of the list
+        k = k % len;	// how many moves that actually needed (if k >= len, more than one round)
         if (k == 0) {
             return head;
         }
@@ -35,14 +36,14 @@ public class Solution {
         for (int i = 0; i < k; i++) {
             fast = fast.next;	// first move fast k places forward
         }
-        // move (length - k) places, when fast reaches the end, slow points to the end node in rotated list
+        // move (len - k) places, when fast reaches the end, slow points to the end node in rotated list
         while (fast.next != null) { 
             slow = slow.next;
             fast = fast.next;
         }
-        fast.next = dummy.next;	// connect to the original head
+        fast.next = dummy.next;	// connect the original tail to the original head
         dummy.next = slow.next;	// let dummy(pseudo-head) point to the new head
-        slow.next = null;	// slow is the end, pointing to NULL
+        slow.next = null;	// slow is the end, break the link (pointing to NULL)
         return dummy.next;
     }
     

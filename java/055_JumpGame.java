@@ -15,10 +15,11 @@ public class Solution {
 		}
 		int farthest = nums[0];	// records the farthest position that can be reached so far
 		for (int i = 0; i < nums.length; i++) {
-			if (i <= farthest && nums[i] + i > farthest) {
-				farthest = nums[i] + i;
+			if (farthest < i) {	// means we cannot reach position i, as well as positions after i
+				return false;
 			}
-			if (farthest >= nums.length - 1) {
+			farthest = Math.max(farthest, nums[i] + i);	// update farthest position
+			if (farthest >= nums.length - 1) {	// can reach the last index
 				return true;
 			}
 		}

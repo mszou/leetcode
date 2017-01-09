@@ -14,20 +14,20 @@
 public class Solution {
     public String simplifyPath(String path) {
     	// idea: split the path from slashes, then simplify it according to different cases
-        // Use a LinkedList to record the stack.
-    	StringBuilder sb = new StringBuilder("/");
+        // Use a LinkedList to record the stack.    O(n) Time. O(n) Space.
+    	StringBuilder sb = new StringBuilder("/"); // start with "/"
     	LinkedList<String> pathStack = new LinkedList<String>();
     	for (String s : path.split("/")) {
-    		if (s.equals("..")) {
+    		if (s.equals("..")) { // go one level above
     			if (!pathStack.isEmpty()) {
-    				pathStack.removeLast();
+    				pathStack.removeLast(); // equivalent to pop stack
     			}
-    		} else if (!s.equals("") && !s.equals(".")) {
+    		} else if (!s.equals("") && !s.equals(".")) { // skip "." and ""
     			pathStack.add(s);
     		}
     	}
     	for (String s : pathStack) {
-    		sb.append(s + "/");
+    		sb.append(s + "/");   // construct string with items in the stack
     	}
     	if (!pathStack.isEmpty()) {
     		sb.setLength(sb.length() - 1);  // remove the last '/'

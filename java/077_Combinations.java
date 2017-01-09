@@ -13,25 +13,25 @@
  */
 
 public class Solution {
-	// idea: DFS + backtracking
+	// idea: DFS + backtracking.	O(n^min{k,n-k}) Time.
 	public List<List<Integer>> combine(int n, int k) {
 		List<List<Integer>> res = new ArrayList<>();
 		if (k == 0 || k > n) {
 			return res;
 		}
-		helper(res, new ArrayList<Integer>(), 1, n, k);
+		dfs(res, new ArrayList<Integer>(), 1, n, k);
 		return res;
 	}
 
-	// choose (rest) numbers from start to n to form a comination
-	private void helper(List<List<Integer>> res, List<Integer> comb, int start, int n, int rest) {
-		if (rest == 0) {
+	// choose k numbers from start to end to form a comination with comb
+	private void dfs(List<List<Integer>> res, List<Integer> comb, int start, int end, int k) {
+		if (k == 0) {
 			res.add(new ArrayList<Integer>(comb));
 			return;
 		}
-		for (int i = start; i <= n; i++) {
+		for (int i = start; i <= end; i++) {
 			comb.add(i);
-			helper(res, comb, i + 1, n, rest - 1);
+			dfs(res, comb, i + 1, end, k - 1);
 			comb.remove(comb.size() - 1);
 		}
 	}
