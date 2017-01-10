@@ -21,7 +21,7 @@
  * }
  */
 public class Solution {
-    // sol 1: recursive.
+    // sol 1: recursive.    O(n) Time, O(1) Space.
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         if (root == null) {
@@ -37,7 +37,8 @@ public class Solution {
         return res;
     }
 
-    // // sol 2: iterative. use stack, first push all left children, then pop and traverse right sub-tree
+    // // sol 2: iterative. use stack, first push all left children, then pop
+    // // one and traverse its right sub-tree. O(n) Time, O(height) Space.
     // public List<Integer> inorderTraversal(TreeNode root) {
     //     List<Integer> res = new ArrayList<Integer>();
     //     if (root == null) {

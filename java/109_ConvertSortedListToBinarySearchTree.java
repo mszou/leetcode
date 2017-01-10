@@ -21,6 +21,7 @@
  */
 public class Solution {
 	// sol 1: straight forward, recursive, always take the middle node as root
+    // use two pointers to find the middle node.    O(n) Time, O(1) Space.
     public TreeNode sortedListToBST(ListNode head) {
         return sortedListToBST(head, null);
     }
@@ -29,20 +30,20 @@ public class Solution {
     	if (start == null || start == end) {
     		return null;
     	}
+        // use two pointers to find middle node
     	ListNode fast = start;
     	ListNode slow = start;
-    	// find middle node
     	while (fast.next != end && fast.next.next != end) {
     		fast = fast.next.next;
     		slow = slow.next;
     	}
-    	TreeNode root = new TreeNode(slow.val);
+    	TreeNode root = new TreeNode(slow.val);    // take middle node as root
     	root.left = sortedListToBST(start, slow);
     	root.right = sortedListToBST(slow.next, end);
     	return root;
     }
 
-    // sol 2: optimized, divide and conquer, recursively break the list into two halves
+    // sol 2: divide and conquer, recursively break the list into two halves
     public TreeNode sortedListToBST(ListNode head) {
     	if (head == null) {
     		return null;

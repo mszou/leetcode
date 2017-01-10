@@ -21,15 +21,16 @@
  * }
  */
 public class Solution {
-	// idea: recursively generate leftTrees and rightTrees for each root
+	// idea: recursively generate leftTree and rightTree for each root
     public List<TreeNode> generateTrees(int n) {
         List<TreeNode> res = new ArrayList<TreeNode>();
         if (n <= 0) {
             return res;
         } else {
-            return genTrees(1, n);	// self-defined function to generate trees
+            return genTrees(1, n);	// generate trees using 1~n
         }
     }
+
     public List<TreeNode> genTrees(int start, int end) {
         List<TreeNode> res = new ArrayList<TreeNode>();
         if (start > end) {
@@ -50,4 +51,7 @@ public class Solution {
         }
         return res;
     }
+
+    // sol 2: DP. see https://discuss.leetcode.com/topic/2940/java-solution-with-dp
+    // dp[i] stores the result until length i. but DP consumes a lot of space.
 }

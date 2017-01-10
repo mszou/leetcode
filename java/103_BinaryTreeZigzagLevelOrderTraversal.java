@@ -27,10 +27,10 @@
  */
 
 public class Solution {
-	// sol 1: write a zigzag method taking in level number and traverse the tree (DFS). 
-	// For each level, use a LinkedList to store the nodes that already visited, then for a new node:
+	// sol 1: For each level, use a LinkedList to store the nodes that already visited in this level.
 	// if the current node is in odd level, insert at the beginning of the LinkedList for that level;
 	// if the current node is in even level, insert at the end of the LinkedList for that level.
+	// this difference was achieved within a zigzag method taking in level number (different from 102)
 	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<>();
 		if (root == null) {

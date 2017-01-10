@@ -26,8 +26,8 @@
  * }
  */
 public class Solution {
-	// idea: recursively check whether the value of the node is in valid range
-	// use long instead of int to deal with the edge cases
+	// idea: recursively check whether the value of the current node is in valid range
+	// use long instead of int to deal with the edge cases. O(n) Time, no extra space.
     public boolean isValidBST(TreeNode root) {
         return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }

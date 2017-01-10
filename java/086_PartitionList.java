@@ -17,10 +17,11 @@
  */
 public class Solution {
     public ListNode partition(ListNode head, int x) {
-        // idea: add nodes to two lists separately, then join them
+        // idea: add nodes to two lists separately, then join them. O(n) Time.
         if (head == null || head.next == null) {
             return head;
         }
+        // two pseudo head for two lists
         ListNode smallerDummy = new ListNode(0);
         ListNode greaterDummy = new ListNode(0);
         ListNode smaller = smallerDummy, greater = greaterDummy;
@@ -35,7 +36,7 @@ public class Solution {
             head = head.next;
         }
         greater.next = null;
-        smaller.next = greaterDummy.next;
+        smaller.next = greaterDummy.next;   // join greater list after smaller list
         return smallerDummy.next;
     }
 }

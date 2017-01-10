@@ -27,24 +27,24 @@
  */
 public class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        // idea: recursion + backtracking
+        // idea: recursive, dfs + backtracking
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> list = new ArrayList<Integer>();
-        helper(root, sum, res, list);
+        List<Integer> path = new ArrayList<Integer>();
+        dfs(root, sum, res, path);
         return res;
     }
 
-    private void helper(TreeNode root, int sum, List<List<Integer>> res, List<Integer> list) {
+    private void dfs(TreeNode root, int sum, List<List<Integer>> res, List<Integer> path) {
     	if (root == null) {
     		return;
     	}
-    	list.add(root.val);
-    	if (root.left == null && root.right == null && root.val == sum) {	// current root is a leave
-    		res.add(new ArrayList(list));
+    	path.add(root.val);
+    	if (root.left == null && root.right == null && root.val == sum) {  // find a path
+    		res.add(new ArrayList(path));
     	} else {
-    		helper(root.left, sum - root.val, res, list);
-    		helper(root.right, sum - root.val, res, list);
+    		dfs(root.left, sum - root.val, res, path);
+    		dfs(root.right, sum - root.val, res, path);
     	}
-    	list.remove(list.size() - 1);
+    	path.remove(path.size() - 1);  // backtracking
     }
 }

@@ -17,7 +17,7 @@ public class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         // idea: Divide and Conquer. last one in postorder is the root of current (sub)tree, find the position of that root
         // in inorder, then elements on its left belong to its left subtree, elements on its right belong to right subtree
-        // optimize: use hashmap to get the index of root in the inorder
+        // optimize: use HashMap to store the index of nodes in the inorder.    O(n) Time, O(n) Space.
         if (inorder == null || postorder == null || inorder.length != postorder.length) {
         	return null;
         }

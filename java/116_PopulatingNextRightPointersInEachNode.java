@@ -35,9 +35,10 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        // idea: do populating level by level, for a current node, let the next pointer of left child point to right child,
-        // and let the next pointer of right child point to the left child of the next right node of the current node
-        TreeLinkNode levelStart = root;
+        // idea: this is a perfect binary tree, so every node has two children. Do populating level by level, for a
+        // current node, let the next pointer of left child point to right child, and let the next pointer of right
+        // child point to the left child of the next right node of the current node.    O(n) Time, O(1) Space.
+        TreeLinkNode levelStart = root; // the first node in this level
         while (levelStart != null) {
         	TreeLinkNode cur = levelStart;	// current node in this level
         	while (cur != null) {
@@ -49,7 +50,7 @@ public class Solution {
         		}
         		cur = cur.next;
         	}
-        	levelStart = levelStart.left;
+        	levelStart = levelStart.left;  // first node in next level is its left child
         }
     }
 }

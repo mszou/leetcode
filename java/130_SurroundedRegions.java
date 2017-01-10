@@ -14,9 +14,9 @@
  */
 
 public class Solution {
-	// idea: DFS, start from 'O's on the edge, find all 'O's that are not in surrounded regions.
-	// only 2 kinds of 'O' will not be flipped: 1. on the edge; 2. adjacent to an unflippable 'O'
-	public final int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+	// idea: DFS. only 2 kinds of 'O's will not be flipped: 1.on the edge; 2.adjacent to an unflippable 'O'
+	// so start from 'O's on the edge, DFS to mark all unflippable 'O's, then flip other 'O's.	O(n^2) Time.
+	public final int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};	// four directions
 
 	public void solve(char[][] board) {
 		if (board == null || board.length < 2 || board[0].length < 2) {
@@ -39,7 +39,7 @@ public class Solution {
 				dfs(board, m - 1, j);
 			}
 		}
-		// flip captured 'O's
+		// flip captured 'O's, unflippable 'O's were marked as '*'s
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (board[i][j] == 'O') {
@@ -51,6 +51,7 @@ public class Solution {
 		}
 	}
 
+	// do dfs and mark vistited 'O's as '*'s.
 	private void dfs(char[][] board, int x, int y) {
 		if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
 			return;

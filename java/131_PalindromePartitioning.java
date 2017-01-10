@@ -14,25 +14,25 @@ public class Solution {
 	public List<List<String>> partition(String s) {
 		List<List<String>> res = new ArrayList<>();
 		List<String> list = new ArrayList<String>();
-		helper(res, list, s, 0);
+		dfs(res, list, s, 0);
 		return res;
 	}
 
-	private void helper(List<List<String>> res, List<String> list, String s, int start) {
+	private void dfs(List<List<String>> res, List<String> list, String s, int start) {
 		if (start == s.length() && list.size() > 0) {
 			res.add(new ArrayList<String>(list));
 		} else {
 			for (int i = start; i < s.length(); i++) {
-				if (isPal(s, start, i)) {	// s.substring(start, i + 1) is palindromic
+				if (isPalin(s, start, i)) {	// s.substring(start, i + 1) is palindromic
 					list.add(s.substring(start, i + 1));
-					helper(res, list, s, i + 1);
+					dfs(res, list, s, i + 1);
 					list.remove(list.size() - 1); 	// backtracking
 				}
 			}
 		}
 	}
 
-	private boolean isPal(String s, int start, int end) {
+	private boolean isPalin(String s, int start, int end) {	// O(n) to check palindrome
 		while (start < end) {
 			if (s.charAt(start++) != s.charAt(end--)) {
 				return false;

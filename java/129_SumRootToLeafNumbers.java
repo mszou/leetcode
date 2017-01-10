@@ -23,17 +23,18 @@
 public class Solution {
     public int sumNumbers(TreeNode root) {
         // idea: record the sum of previous nodes in the path, recursively add in child and update sum
-        return sum(root, 0);
+        // O(n) Time, O(1) Space.
+        return getSum(root, 0);
     }
 
-    private int sum(TreeNode node, int pre) {
+    private int getSum(TreeNode node, int prev) {
     	if (node == null) {
     		return 0;
     	}
-        int currSum = pre * 10 + node.val;;
+        int currSum = prev * 10 + node.val;
     	if (node.left == null && node.right == null) { // node is a leaf
     		return currSum;
     	}
-    	return sum(node.left, currSum) + sum(node.right, currSum);
+    	return getSum(node.left, currSum) + getSum(node.right, currSum);
     }
 }

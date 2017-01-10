@@ -34,8 +34,9 @@
  */
 public class Solution {
     public void flatten(TreeNode root) {
-        // recursively flatten the subtrees, because the order is the same as preorder traversal,
-        // we should flatten the right subtree first, then left subtree
+        // idea: recursively flatten the subtrees, because the order is actually same as preorder traversal,
+        // we flatten in 'reversed' preorder, i.e. for a node, flatten its right subtree first, then append
+        // to the flattened left subtree, together append to this node.
         flatten(root, null);
     }
 

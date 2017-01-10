@@ -7,7 +7,7 @@
 
 public class Solution {
     public List<String> restoreIpAddresses(String s) {
-    	// idea: use three pointers to cut the string, then check their validness
+    	// idea: use three pointers to split the string, and check their validness. O(n^3) Time.
         List<String> res = new ArrayList<String>();
         int len = s.length();
         for (int i = 1; i < 4 && i < len - 2; i++) {
@@ -27,9 +27,12 @@ public class Solution {
     }
     
     public boolean isValid(String s){	// valid range: [0, 255]
+        // string only has digits, so all invalid cases: length, has leading 0, greater than 255
         if (s.length() > 3 || s.length() == 0 || (s.charAt(0) == '0' && s.length() > 1) || Integer.parseInt(s) > 255) {
             return false;
         }
         return true;
     }
+
+    // sol 2: DFS + backtracking
 }

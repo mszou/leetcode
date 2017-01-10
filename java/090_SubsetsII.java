@@ -20,21 +20,22 @@ public class Solution {
 		if (nums == null || nums.length == 0) {
 			return res;
 		}
-		List<Integer> list = new ArrayList<Integer>();
 		Arrays.sort(nums);
-		helper(res, list, nums, 0);
+		List<Integer> list = new ArrayList<Integer>();
+		dfs(res, list, nums, 0);
 		return res;
 	}
 
-	private void helper(List<List<Integer>> res, List<Integer> list, int[] nums, int start) {
-		res.add(new ArrayList<Integer>(list));
+	private void dfs(List<List<Integer>> res, List<Integer> subset, int[] nums, int start) {
+		res.add(new ArrayList<Integer>(subset));	// add the current subset first
 		for (int i = start; i < nums.length; i++) {
-			if (i != start && nums[i] == nums[i - 1]) {	// duplicates
+			// must add nums[start] to make sure subset containing duplicate nums can be added once
+			if (i != start && nums[i] == nums[i - 1]) {	// avoid duplicate subset
 				continue;
 			}
-			list.add(nums[i]);
-			helper(res, list, nums, i + 1);
-			list.remove(list.size() - 1);
+			subset.add(nums[i]);
+			dfs(res, subset, nums, i + 1);
+			subset.remove(subset.size() - 1);
 		}
 	}
 }

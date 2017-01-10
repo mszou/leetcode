@@ -12,7 +12,7 @@
 
 public class Solution {
     public int numDecodings(String s) {
-        // idea: DP solution. Either from left to right or from right to left is OK.
+        // idea: DP. Either from left to right or from right to left can work.  O(n) Time, O(n) Space.
         if (s == null || s.length() == 0) {
         	return 0;
         }
@@ -47,3 +47,32 @@ public class Solution {
         // return ways[n];
     }
 }
+
+// // follow up: return all the possible decode ways of given string s.    DFS
+// public List<String> decode(String s) {
+//     List<String> res = new ArrayList<>();
+//     if (s == null || s.length() == 0) {
+//         return res;
+//     }
+//     dfs("", res, s, 0);
+//     return res;
+// }
+
+// public void dfs(String temp, List<String> res, String s, int pos) {
+//     if (pos >= s.length()) {
+//         res.add(temp);
+//         return;
+//     }
+//     int num1 = s.charAt(pos) - '0';
+//     if (num1 > 0 && num1 <= 9) {
+//         char c = (char)(num1 + 'A' - 1);
+//         dfs(temp + c, res, s, pos + 1);
+//     }
+//     if (pos + 1 < array.length) {
+//         int num2 = Integer.parseInt(s.substring(pos, pos + 2));
+//         if (num2 >= 10 && num2 <= 26) {
+//             char c = (char)(num2 + 'A' - 1);
+//             dfs(temp + c, res, s, pos + 2);
+//         }
+//     }
+// }

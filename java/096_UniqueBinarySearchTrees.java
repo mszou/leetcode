@@ -12,7 +12,8 @@
 
 public class Solution {
     public int numTrees(int n) {
-    	// idea: DP. nums[i] is # unique BST's for i numbers
+    	// idea: DP. nums[i] is # unique BST's for i numbers. O(n^2) Time, O(n) Space.
+        // Actually the dp array is a Catalan Number array.
         if (n == 0) {
             return 1;
         }
