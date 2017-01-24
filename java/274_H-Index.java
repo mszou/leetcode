@@ -12,17 +12,17 @@
 
 public class Solution {
     public int hIndex(int[] citations) {
-        // idea: use an array ("counts") of length (N + 1), counts[i] records the number of papers
-        // that each have i citations, in this way, the sum from counts[i] to counts[N] equals to
-        // the number of papers having at least i citations. 	O(n) Time, O(n) Space.
+        // idea: use an array ("counts") of length n+1, counts[i] records the number of papers
+        // that each have i citations, in this way, the sum from counts[i] to counts[n] equals
+        // to the number of papers having at least i citations. 	O(n) Time, O(n) Space.
         if (citations == null || citations.length == 0) {
             return 0;
         }
         int len = citations.length;
         int[] counts = new int[len + 1];   
         for (int i = 0; i < len; i++) {
-            if (citations[i] >= len) {
-                counts[len]++;	// counts[len] is used to record all papers having more than len citations
+            if (citations[i] >= len) {  // if # citations exceeds len
+                counts[len]++;	// counts[len] records # papers having at least len citations
             } else {
                 counts[citations[i]]++;
             }
@@ -30,7 +30,7 @@ public class Solution {
         int sum = 0;
         for (int i = len; i >= 0; i--) {
             sum += counts[i];	// add up the counts from right to left
-            if (sum >= i) {	// once find one possible value, that is the h-index
+            if (sum >= i) {	// once find one eligible value, that is the h-index
                 return i;
             }
         }

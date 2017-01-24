@@ -10,7 +10,7 @@ public class Solution {
 		dp[0] = 0;
 		for (int i = 1; i <= n; i++) {
 			int min = Integer.MAX_VALUE;
-			// for every j that j*j <= i, try taking j*j as one addend
+			// for every j that j*j <= i, try taking j*j as one addend, find the min #
 			for (int j = 1; i - j * j >= 0; j++) {
 				min = Math.min(min, dp[i - j * j] + 1);
 			}

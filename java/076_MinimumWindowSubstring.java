@@ -11,7 +11,7 @@
 
 public class Solution {
     public String minWindow(String s, String t) {
-        // idea: use 2 pointers (to define a window) and hashmap (to record characters and times)
+        // idea: use 2 pointers (sliding window) and hashmap (to record characters and times)
         // 1. 2 pointers start from the beginning; 2. Move the right pointer to find a valid window;
         // 3. When a valid window is found, move the left pointer to shrink the size of the window.
         if (s == null || s.length() < t.length() || s.length() == 0) {

@@ -22,7 +22,7 @@ public class Solution {
         int min = prices[0];
         for (int i = 1; i < prices.length; i++) {
             min = Math.min(prices[i], min);     // minimal price on the left-hand side
-            left[i] = Math.max(left[i-1], prices[i]-min);   // maximal profit on the left-hand side
+            left[i] = Math.max(left[i - 1], prices[i] - min);   // maximal profit on the left-hand side
         }
         
         // DP from right to left;

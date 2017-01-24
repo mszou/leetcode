@@ -13,12 +13,12 @@ public class Solution {
         if (k >= len / 2) {
         	return quickSolve(prices);
         }
-        int[][] dp = new int[k+1][len];
+        int[][] dp = new int[k + 1][len];
         for (int i = 1; i <= k; i++) {
         	int max = -prices[0];
         	for (int j = 1; j < len; j++) {
-        		dp[i][j] = Math.max(dp[i][j-1], prices[j] + max);
-        		max = Math.max(max, dp[i-1][j-1] - prices[j]);
+        		dp[i][j] = Math.max(dp[i][j - 1], prices[j] + max);
+        		max = Math.max(max, dp[i - 1][j - 1] - prices[j]);
         	}
         }
         return dp[k][len-1];

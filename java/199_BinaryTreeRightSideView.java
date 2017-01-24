@@ -21,9 +21,11 @@
  */
 public class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        // idea: DFS, first go right branch all the way to leaf, they are all in right side view
-        // then traverse left subtrees and check if there are nodes in deeper levels can be seen
-        // the i-th element in the result is the right-most node in i-th level. root is Level 0.
+        // idea: DFS, first go along right branch until reach leaf, those nodes are all in right
+        // side view. then traverse left subtrees and check if there are nodes in deeper levels
+        // can be seen. The size of result should be the same as the height of the tree, because
+        // the i-th element in result is the right-most node in i-th level. (root is Level 0.)
+        // In this way, we make sure that the first node we visit in each level is the right-most.
         List<Integer> res = new ArrayList<Integer>();
         rightView(root, res, 0);
         return res;
@@ -33,7 +35,7 @@ public class Solution {
     	if (node == null) {
     		return;
     	}
-    	if (res.size() == level) {	// means no value for this level yet
+    	if (res.size() == level) {	// means no node for this level yet
     		res.add(node.val);
     	}
     	rightView(node.right, res, level + 1);

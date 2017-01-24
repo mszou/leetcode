@@ -23,8 +23,8 @@
  */
 
 public class Codec {
-	// idea: encode the string as "length / string", e.g. "a", "ab", "abc"
-	// should be encoded as "1/a2/ab/3/abc"
+	// idea: encode the string as "length/string", e.g. "a", "ab", "abc" should be encoded as "1/a2/ab/3/abc"
+	// when decoding, first find the '/', number before it is the length, take substring after '/' accordingly
 
 	// Encodes a list of strings to a single string.
 	public String encode(List<String> strs) {
@@ -38,11 +38,11 @@ public class Codec {
 	// Decodes a single string to a list of strings
 	public List<String> decode(String s) {
 		List<String> res = new ArrayList<String>();
-		int i = 0;
+		int i = 0;	// i is the start index of current encoded substring
 		while (i < s.length()) {
 			int slash = s.indexOf('/', i);	// find the first slash after i
-			int len = Integer.valueOf(s.substring(i, slash));
-			i = slash + len + 1;
+			int len = Integer.valueOf(s.substring(i, slash));	// extract the number
+			i = slash + len + 1;	// move pointer to next substring
 			res.add(s.substring(slash + 1, i));
 		}
 		return res;

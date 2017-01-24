@@ -6,8 +6,9 @@
 
 public class Solution {
 	public int singleNumber(int[] nums) {
-		// idea: bit manipulation. We need 2 bits to store (00,01 and 10 as 0/3,1,2) loop: 00->01->10->00
-		// Let 'ones' be the lower bit, 'twos' be the higher bit. First time number appear, save it in 'ones'.
+		// idea: bit manipulation. We need 2 bits to store (00, 01 and 10 as 0/3,1,2) loop: 00->01->10->00
+		// 'ones' records the result of XOR of all numbers that have appeared once, 'twos' records the result
+		// of XOR of all numbers that have appeared twice. First time a number appears, save it in 'ones'.
 		// Second time, clear 'ones' and save it in 'twos'. Third time -> if 'twos' has it, then clear.
 		// So the update rule is: ones = (ones ^ nums[i]) & ~twos; twos = (twos ^ nums[i]) & ~ones
 		int ones = 0, twos = 0;

@@ -16,32 +16,34 @@ public class Solution {
 	 * @return all pairs of distinct indices s.t. concatenation of the two words is a palindrome
 	 */
     public List<List<Integer>> palindromePairs(String[] words) {
-        // naive solution: O(n^2*k) Time (k is the average length of each word)
-        // For each word, go through the array and check whether the concatenated string is a palindrome or not.
+        // naive solution: For each word, go through the array and check whether the concatenated
+        // string is a palindrome or not.   O(n^2*k) Time (k is the average length of each word)
         
-        // optimized idea: use HashMap<word, index> to store indices, O(n*k^2) Time
+        // sol 2: For each word, try separating it into two parts, if one part is palindromic,
+        // then check whether the reverse of the other part is another word in the given list.
+        // use HashMap<word, index> to store index of each word.    O(n*k^2) Time, O(n) Space.
         List<List<Integer>> res = new ArrayList<>();
-        if (words == null || words.length == 0) {
+        if (words == null || words.length < 2) {
             return res;
         }
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         for (int i = 0; i < words.length; i++) {
             map.put(words[i], i);	// put all words into map
         }
-        for (int i = 0; i < words.length; i++) {    // for each word, separate it into two parts
-            for (int j = 0; j <= words[i].length(); j++) {    // here is "<=" because "" needs to be considered
-                // split words[i] at j, and check in which part axis can be
+        // for words[i], split it at j, and check in which part the axis can be
+        for (int i = 0; i < words.length; i++) {    
+            for (int j = 0; j <= words[i].length(); j++) {    // "<=" because "" needs to be considered
                 String str1 = words[i].substring(0, j);
                 String str2 = words[i].substring(j);
-                if (isPalindrome(str1)) {   // axis in the middle of str1
+                if (isPalindrome(str1)) {   // axis can be the middle of str1
                     String str2rvs = new StringBuilder(str2).reverse().toString();
-                    if (map.getOrDefault(str2rvs, i) != i) {    // map contains str2rvs and is not the word itself
+                    if (map.getOrDefault(str2rvs, i) != i) {    // map contains str2rvs and is another word
                         res.add(Arrays.asList(map.get(str2rvs), i));
                     }
                 }
-                if (isPalindrome(str2) && str2.length() != 0) {   // // to avoid duplicate in processing the other word first
+                if (isPalindrome(str2) && str2.length() != 0) {   // avoid duplicate in processing the other word first
                     String str1rvs = new StringBuilder(str1).reverse().toString();
-                    if (map.getOrDefault(str1rvs, i) != i) {    // map contains str1rvs and is not the word itself
+                    if (map.getOrDefault(str1rvs, i) != i) {    // map contains str1rvs and is another word
                         res.add(Arrays.asList(i, map.get(str1rvs)));
                     }
                 }

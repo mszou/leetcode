@@ -11,13 +11,13 @@
 public class Solution {
     public int findPeakElement(int[] nums) {
         // idea: Binary Search. Because nums[i] ≠ nums[i+1], we can compare nums[mid] & nums[mid+1] and
-        // move pointers to make sure nums[start] > nums[start-1] and nums[end] > nums[end-1] always true 
+        // move pointers to let nums[start] > nums[start-1] and nums[end] > nums[end-1]. O(logn) Time.
         if (nums == null || nums.length == 0) {
             return 0;
         }
         int start = 0, end = nums.length - 1;
         while (start < end) {
-            int mid = (start + end) >> 1;   // equivalent to (start + end) / 2
+            int mid = start + （end - start) / 2;
             if (nums[mid] < nums[mid + 1]) {
                 start = mid + 1;    // move start
             } else {

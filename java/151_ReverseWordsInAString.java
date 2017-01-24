@@ -14,23 +14,23 @@
 
 public class Solution {
     public String reverseWords(String s) {
-        // idea: use array + StringBuilder. O(n) Time, O(n) Space.
+        // idea: split the string by spaces, append words from right to left. O(n) Time, O(n) Space.
         if (s == null || s.length() == 0) {
         	return "";
         }
-        String[] array = s.split(" ");
+        String[] words = s.split(" ");
         StringBuilder sb = new StringBuilder();
-        for (int i = array.length - 1; i >= 0; i--) {
-        	if (!array[i].equals("")) {
-        		sb.append(array[i]).append(" ");
+        for (int i = words.length - 1; i >= 0; i--) {
+        	if (!words[i].equals("")) {
+        		sb.append(words[i]).append(" ");
         	}
         }
         if (sb.length() == 0) {
         	return "";
         } else {
-        	return sb.toString().substring(0, sb.length() - 1);	// remove the last " "
+        	return sb.toString().substring(0, sb.length() - 1);	// remove the last space " "
         }
 
-        // sol 2: use stack + StringBuilder. O(n) Time, O(n) Space.
+        // sol 2: use stack (store words) + StringBuilder. O(n) Time, O(n) Space.
     }
 }

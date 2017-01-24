@@ -60,34 +60,34 @@ public class Solution {
     	TreeNode prev = null;	// previously traversed node
     	stack.push(root);
 
-        // The commented part leads to Time Limit Exceed
-    	// while (!stack.empty()) {
-     //        TreeNode curr = stack.peek();
-     //        // go down the tree. check if current node is leaf,
-     //        // if so, process it and pop stack; otherwise, keep going down
-    	// 	if (prev == null || prev.left == curr || prev.right == curr) {
-     //            // prev == null is the situation for the root node
-    	// 		if (curr.left != null) {
-    	// 			stack.push(curr.left);
-    	// 		} else if (curr.right != null) {
-    	// 			stack.push(curr.right);
-    	// 		} else {
-     //                stack.pop();
-     //                res.add(curr.val);
-     //            }
-     //        // go up the tree from left node, need to check if there is a right child
-     //        // if yes, push it to stack; otherwise, process parent and pop stack
-    	// 	} else if (curr.left == prev) {
-    	// 		if (curr.right != null) {
-    	// 			stack.push(curr.right);
-    	// 		}
-     //        // go up the tree from right node, after coming back from right node, process parent node and pop stack.
-    	// 	} else if (curr.right == prev) {
-     //            stack.pop();
-     //            res.add(curr.val);
-     //        }
-    	// 	prev = curr;
-    	// }
+        // // The commented part leads to Time Limit Exceed
+        // while (!stack.empty()) {
+        //     TreeNode curr = stack.peek();
+        //     // go down the tree. check if current node is leaf,
+        //     // if so, process it and pop stack; otherwise, keep going down
+        //     if (prev == null || prev.left == curr || prev.right == curr) {
+        //         // prev == null is the situation for the root node
+        //         if (curr.left != null) {
+        //             stack.push(curr.left);
+        //         } else if (curr.right != null) {
+        //             stack.push(curr.right);
+        //         } else {
+        //             stack.pop();
+        //             res.add(curr.val);
+        //         }
+        //         // go up the tree from left node, need to check if there is a right child
+        //         // if yes, push it to stack; otherwise, process parent and pop stack
+        //     } else if (curr.left == prev) {
+        //         if (curr.right != null) {
+        //             stack.push(curr.right);
+        //         }
+        //         // go up the tree from right node, after coming back from right node, process parent node and pop stack.
+        //     } else if (curr.right == prev) {
+        //         stack.pop();
+        //         res.add(curr.val);
+        //     }
+        //     prev = curr;
+        // }
 
         while (!stack.isEmpty()) {
             TreeNode temp = stack.peek();

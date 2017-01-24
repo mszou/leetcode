@@ -11,12 +11,12 @@
 
 public class Solution {
     public int nthUglyNumber(int n) {
-    	// idea: DP. uglys[i] is the (i+1)th ugly number. O(n) Time, O(n) Space.
-        // An ugly number must be multiplied by either 2, 3, or 5 from a smaller ugly number. So use 3 pointers and
-        // everytime add the min(uglys[p2]*2, uglys[p3]*3, uglys[p5]*5) as the next ugly number, then move the pointers
+    	// idea: DP. An ugly number must be product of either 2, 3, or 5 and a smaller ugly number.
+        // Use pointers p2,p3,p5, pointing to the ugly numbers that should be multiplied next. Then
+        // next ugly number is min(uglys[p2]*2, uglys[p3]*3, uglys[p5]*5).  O(n) Time, O(n) Space.
         int[] uglys = new int[n];   // array of ugly numbers
         uglys[0] = 1;   // 1 is the first ugly number
-        int p2 = 0, p3 = 0, p5 = 0;	// pointers for three lists
+        int p2 = 0, p3 = 0, p5 = 0;	// pointers for three lists, initialized at 0, i.e. 1 is the next to be multiplied by all of them
         for (int i = 1; i < n; i++) {
             int lastNumber = uglys[i - 1];
             // move the pointers
@@ -31,6 +31,6 @@ public class Solution {
             }            
             uglys[i] = Math.min(Math.min(uglys[p2] * 2, uglys[p3] * 3), uglys[p5] * 5);
         }
-        return uglys[n-1];
+        return uglys[n - 1];
     }
 }

@@ -17,9 +17,9 @@
 
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // idea: kind of Binary Search. every time we compare the element at the top right corner with the target, then we can:
-        // 1. rule out the first row (if < target); 2. rule out the last column (if > target); 3. find target (if == target)
-        // Therefore, we can get the result within at most m+n comparison, i.e. O(m+n) Time.
+        // idea: kind of Binary Search. every time we compare the element at the top right corner with the target, there are
+        // 3 possible cases: 1. < target, then rule out the first row; 2. > target, then rule out the last column; 3. == target,
+        // then we find target. Therefore, we can get the result within at most m + n comparisons, so O(m+n) Time, O(1) Space.
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
         	return false;
         }

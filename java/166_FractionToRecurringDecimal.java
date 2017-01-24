@@ -5,7 +5,6 @@
  * Given numerator = 1, denominator = 2, return "0.5".
  * Given numerator = 2, denominator = 1, return "2".
  * Given numerator = 2, denominator = 3, return "0.(6)".
- *
  * Hint:
  * No scary math, just apply elementary math knowledge. Still remember how to perform a long division?
  * Try a long division on 4/9, the repeating part is obvious. Now try 4/333. Do you see a pattern?
@@ -14,8 +13,8 @@
 
 public class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
-    	// idea: first integral part, then fractional. for fractional part, use a hashmap to record 
-    	// possible repeating remainders and corresponding starting indices
+    	// idea: first compute integral part, then fractional. For fractional part, use HashMap to record 
+    	// possible repeating remainders and corresponding starting indices for recurring decimal.
         if (denominator == 0) {
             return "NaN";	// not a number
         }
@@ -24,14 +23,13 @@ public class Solution {
         }
         StringBuilder res = new StringBuilder();
         // append "-" if negative
-        if ((numerator > 0) ^ (denominator > 0)) {  // XOR
+        if ((numerator > 0) ^ (denominator > 0)) {  // XOR, either is negative
             res.append("-");
         }
         long num = Math.abs((long)numerator);
         long den = Math.abs((long)denominator);
-        
         // integral part
-        res.append(num / den);
+        res.append(num / den);  // append the integral part of the result
         num %= den;
         if (num == 0) { // result is an integer
             return res.toString();
@@ -42,6 +40,7 @@ public class Solution {
         HashMap<Long, Integer> map = new HashMap<Long, Integer>();
         while (num != 0) {
             if (map.containsKey(num)) {
+                // enclose the repeating part in parentheses
                 res.insert(map.get(num), "(");
                 res.append(")");
                 break;

@@ -16,7 +16,7 @@
 
 public class Solution {
 	// idea: use DFS to find every island, when visiting a '1', search for continuous '1' in four directions
-	// and change those '1's within the same island to '0'
+	// and change those '1's to '0', then go on to look for next island.	O(mn) Time, O(1) Space.
 	public int numIslands(char[][] grid) {
 		if (grid == null || grid.length == 0 || grid[0].length == 0) {
 			return 0;
@@ -25,7 +25,7 @@ public class Solution {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				if (grid[i][j] == '1') {
-					DFSMarking(grid, i, j);
+					dfsMarking(grid, i, j);
 					count++;
 				}
 			}
@@ -33,14 +33,14 @@ public class Solution {
 		return count;
 	}
 
-	private void DFSMarking(char[][] grid, int i, int j) {
+	private void dfsMarking(char[][] grid, int i, int j) {
 		if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != '1') {
 			return;
 		}
 		grid[i][j] = '0';
-		DFSMarking(grid, i + 1, j);
-		DFSMarking(grid, i - 1, j);
-		DFSMarking(grid, i, j + 1);
-		DFSMarking(grid, i, j - 1);
+		dfsMarking(grid, i + 1, j);
+		dfsMarking(grid, i - 1, j);
+		dfsMarking(grid, i, j + 1);
+		dfsMarking(grid, i, j - 1);
 	}
 }

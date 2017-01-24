@@ -22,19 +22,19 @@
  */
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // idea: for general binary tree, no rules on values so cannot compare values.
+        // idea: for general binary tree, no rules on values so cannot compare values.  O(n) Time, O(1) Space.
         // recursively check if p and q are in the subtree, if both in the current subtree, the result would be their LCA;
-        // if only one in the subtree, the result would be that node; the result is null only when neither are in that subtree
+        // if only one in the subtree, the result would be that node; the result is null only when neither in that subtree
         if (root == null || root == p || root == q) {
         	return root;
         }
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if (left == null) {
+        if (left == null) { // neither in left subtree, so both in right subtree
         	return right;
-        } else if (right == null) {
+        } else if (right == null) { // neither in right subtree, so both in left subtree
         	return left;
-        } else {
+        } else {    // in either subtrees
         	return root;
         }
     }

@@ -30,6 +30,7 @@
 public class Solution {
 	// idea: Union find. use trees to represent a list of islands. roots[c] = p means p is
 	// the parent of c. Do roots[root[...roots[c]]] can trace to the root of their island.
+	// for a new point, findIsland takes O(logn) Time, 
 	int[][] directions = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
 	public List<Integer> numIslands2(int m, int n, int[][] positions) {

@@ -26,29 +26,51 @@
  * };
  */
 public class Solution {
-    // idea: DFS, use a map to store the mapping from each node in original graph to the cloned graph
+    // idea: use a map to store the mapping from each node in original graph to that in the cloned graph
+    
+    // sol 1: DFS. clone the nodes and neighbors by DFS
+    private HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        return clone(node);
+    }
+
+    private UndirectedGraphNode clone(UndirectedGraphNode node) {
+        if (node == null) {
+            return null;
+        }
+        if (map.containsKey(node)) {
+            return map.get(node);
+        }
+        UndirectedGraphNode clonedNode = new UndirectedGraphNode(node.label);
+        map.put(node, clonedNode);
+        for (UndirectedGraphNode neighbor : node.neighbors) {
+            clonedNode.neighbors.add(clone(neighbor));
+        }
+        return clonedNode;
+    }
+
+    //sol 2: BFS, first clone all nodes and build the mapping, then clone edges (neighborhood)
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null) {
         	return null;
         }
         ArrayList<UndirectedGraphNode> nodes = new ArrayList<UndirectedGraphNode>();
         HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
-        
-        // clone nodes, DFS, add in next nodes by checking the neighbors of existing nodes
+        // clone nodes, BFS, add in next nodes by checking the neighbors of existing nodes
         nodes.add(node);
         map.put(node, new UndirectedGraphNode(node.label));
-        int start = 0;
-        while (start < nodes.size()) {
-        	UndirectedGraphNode head = nodes.get(start);
-        	for (UndirectedGraphNode neighbor : head.neighbors) {
+        int index = 0;
+        while (index < nodes.size()) {
+        	UndirectedGraphNode curr = nodes.get(index);
+        	for (UndirectedGraphNode neighbor : curr.neighbors) {
         		if (!map.containsKey(neighbor)) {
         			map.put(neighbor, new UndirectedGraphNode(neighbor.label));
         			nodes.add(neighbor);
         		}
         	}
-        	start++;
+        	index++;
         }
-
         // clone neighbors (edges)
         for (UndirectedGraphNode n : nodes) {
         	UndirectedGraphNode newNode = map.get(n);
@@ -56,7 +78,6 @@ public class Solution {
         		newNode.neighbors.add(map.get(nb));
         	}
         }
-
         return map.get(node);
     }
 }

@@ -5,8 +5,9 @@
 
 public class Solution {
 	public int rangeBitwiseAnd(int m, int n) {
-		// idea: bit manipulation & shift. last bit of (odd AND even) is 0
-		// There are at least an odd num and an even num when m != n, so right shift m, n until they equal
+		// idea: bit manipulation & shift. A bit in m & n is 1 only when both m & n have 1 at that bit.
+		// So if m == n, res = m; when m != n, there are at least an odd num and an even num (different
+		// in last bit), so last bit is 0. Similar for rest bits, so right shift m, n until they equal.
 		if (m == 0) {
 			return 0;
 		}
@@ -14,7 +15,7 @@ public class Solution {
 			return m;
 		}
 		int shiftBits = 0;
-		while (m != n) {
+		while (m != n) {	// right shift until m == n
 			m >>= 1;
 			n >>= 1;
 			shiftBits++;

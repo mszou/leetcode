@@ -6,8 +6,8 @@
 
 public class Solution {
 	public String largestNumber(int[] nums) {
-		// idea: convert the array into string array and sort to get the max number.	O(n) Space.
-		// Time complexity: assume: nums.length=n, avg length of Strings in s_nums is k, then
+		// idea: Convert the nums into strings and sort them to get the max number.	O(n) Space.
+		// Time complexity: assume: nums.length = n, avg length of Strings in s_nums is k, then
 		// Compare 2 strings:O(k); Sort:O(nlogn); Appending:O(n); Total:O(nklognk)+O(n)=O(nklognk)
 		if (nums == null || nums.length == 0) {
 			return "";
@@ -16,6 +16,7 @@ public class Solution {
 		for (int i = 0; i < nums.length; i++) {
 			s_nums[i] = String.valueOf(nums[i]);
 		}
+		// put s2 before s1 if s2+s1 forms a greater number than s1+s2
 		Arrays.sort(s_nums, new Comparator<String>() {
 			@Override
 			public int compare(String s1, String s2) {

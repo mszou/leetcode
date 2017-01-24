@@ -23,7 +23,7 @@
  */
 
 public class Solution {
-	// sol 1: (naive, recursive) Traverse.
+	// sol 1: (naive, recursive) Add root.val first, then traverse left & right subtree.	O(n) Time.
 	public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> res = new ArrayList<Integer>();
 		traverse(root, res);
@@ -39,6 +39,7 @@ public class Solution {
 	}
 
 	// sol 2 (non-recursion): use a stack, pop parent, push right child then left child.
+	// O(n) Time, O(height) Space.
 	public List<Integer> preorderTraversal(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<TreeNode>();
 		List<Integer> res = new ArrayList<Integer>();

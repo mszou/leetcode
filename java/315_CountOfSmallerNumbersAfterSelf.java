@@ -10,7 +10,7 @@
  */
 
 public class Solution {
-	// idea: use Binary Search Tree
+	// idea: use Binary Search Tree.   O(nlogn) Time, worst O(n^2).
 
 	public class TreeNode {
 		int smallCount;
@@ -43,7 +43,7 @@ public class Solution {
     		root.smallCount++;
     		root.left = insert(root.left, val, res, index, preSum);
     	} else {
-    		root.right = insert(root.right, val, res, index, root.smallCount + preSum + (root.val < val ? 1 : 0));//only adding 1 on preSum if root.val is only smaller than val
+    		root.right = insert(root.right, val, res, index, root.smallCount + preSum + (root.val < val ? 1 : 0));    // only adding 1 on preSum if root.val is smaller than val
         }
         return root;
     }

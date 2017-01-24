@@ -6,8 +6,8 @@
 
 public class Solution {
     public int rob(int[] nums) {
-        // idea: since two adjacent houses cannot be robbed on the same night, we can choose the larger amount of 
-        // two cases: the first house not robbed or the last house not robbed, then break the circle at that point
+        // idea: houses in a circle, so first & last are adjacent. Since they cannot be both robbed, we choose the larger result
+        // between not robbing the first one and not robbing the last one, break the circle into a line.    O(n) Time, O(1) Space.
         if (nums == null || nums.length == 0) {
         	return 0;
         }
@@ -19,12 +19,12 @@ public class Solution {
     }
 
     private int helper(int[] nums, int start, int end) {
-    	int include = 0, exclude = 0;
+    	int rob = 0, notrob = 0;   // the max money can get if rob this house or not
     	for (int i = start; i <= end; i++) {
-    		int in = include, ex = exclude;
-    		include = ex + nums[i];
-    		exclude = Math.max(in, ex);
+    		int preRob = rob, preNot = notrob;    // previous rob or not
+    		rob = preNot + nums[i];
+    		notrob = Math.max(preRob, preNot);
     	}
-    	return Math.max(include, exclude);
+    	return Math.max(rob, notrob);
     }
 }

@@ -9,7 +9,8 @@
 public class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
         // idea: Greedy, traverse from one point, when the tank is empty, reset and restart from next station
-        // adding up gas[i] and cost[i] to compute the total gas and cost
+        // sum up gas[i] and cost[i] to compute the total gas and cost. can complete iff. sumGas >= sumCost
+        // O(n) Time, O(1) Space.
         int sumGas = 0, sumCost = 0;
         int start = 0, tank = 0;
         for (int i = 0; i < gas.length; i++) {

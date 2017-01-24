@@ -20,20 +20,21 @@ public class Solution {
         	return 0;
         }
 
-        // // sol 1(naive, recursive): O(n) Time.
+        // // sol 1(naive, recursive): # nodes = 1(root) + # in left subtree + # in right subtree.  O(n) Time.
         // return 1 + countNodes(root.left) + countNodes(root.right);
 
-    	// sol 2 (iterative): O(logn * logn) Time. iterate logn times and computing height takes logn time
-        // for each (non-leaf) node, at least one of its subtrees (left or right) is complete
+    	// sol 2 (iterative): for each non-leaf node, at least one of its subtrees (left or right) is
+        // completely filled. A completely filled binary tree of height h has 2^h - 1 nodes. So we can
     	// always add the count of the complete subtree, and then analyse the subtree on the other side
+        // O(logn * logn) Time. iterate logn times and computing height takes logn time
     	int count = 0, h = height(root);
     	while (root != null) {
-    		// right subtree may have (h-1) or (h-2) levels
-    		if (height(root.right) == h - 1) {	// means left subtree is full
-    			count += 1 << h - 1;	// # nodes in left subtree + root = 2 ^ h nodes
+    		// left subtree has (h-1) levels, while right subtree may have (h-1) or (h-2) levels
+    		if (height(root.right) == h - 1) {	// means left subtree is sure to be full
+    			count += 1 << h - 1;	// # nodes in left subtree (2^h - 1) + root = 2^h nodes
     			root = root.right;
-    		} else {	// right sub-tree is a full (h-2)-level binary tree
-    			count += 1 << h - 2;	// # nodes in right subtree + root = 2 ^ (h - 1) nodes
+    		} else {	// means right subtree is a full (h-2)-level binary tree
+    			count += 1 << h - 2;	// # nodes in right subtree (2^(h-1) - 1) + root = 2^(h-1) nodes
     			root = root.left;
     		}
     		h--;

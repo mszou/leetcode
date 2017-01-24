@@ -15,18 +15,16 @@
 // Java Iterator interface reference:
 // https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html
 class PeekingIterator implements Iterator<Integer> {
-	// use a variable 'next' to store the next Integer
-	// the boolean isEnd is used to mark if the iterator doesn't have next
-	private Integer next = null;
+	private Integer next = null;	// used to store the next Integer
 	private Iterator<Integer> iter;
-	private boolean isEnd = false;
+	private boolean isEnd = false;	// used to mark if the iterator doesn't have next
 
 	public PeekingIterator(Iterator<Integer> iterator) {
 		// initialize any member here.
 		iter = iterator;
 		if (iter.hasNext()) {
-			next = iter.next();
-		} else {
+			next = iter.next();	// record the next integer
+		} else {	// no next integer
 			isEnd = true;
 		}
 	}
@@ -40,8 +38,8 @@ class PeekingIterator implements Iterator<Integer> {
 	// Override them if needed.
 	@Override
 	public Integer next() {
-		Integer res = next;
-		if (iter.hasNext()) {
+		Integer res = next;	// take the result that should be returned
+		if (iter.hasNext()) {	// update the next integer
 			next = iter.next();
 		} else {
 			next = null;

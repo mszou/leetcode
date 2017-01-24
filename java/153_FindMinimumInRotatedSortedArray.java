@@ -7,7 +7,7 @@
 
 public class Solution {
     public int findMin(int[] nums) {
-        // No duplicates. Binary Search to find the position of pivot. O(logn) Time
+        // idea: No duplicates. Binary Search to find the position of pivot. O(logn) Time
         if (nums == null || nums.length == 0) {
             return -1;
         }
@@ -17,9 +17,9 @@ public class Solution {
                 return nums[start];
             }
             int mid = start + (end - start) / 2;
-            if (nums[mid] >= nums[start]) {    // min at the right half
+            if (nums[mid] >= nums[start]) {    // left half in order, so min in the right half
                 start = mid + 1;
-            } else {    // min at the left half
+            } else {    // right half in order, so min in the left half (including mid)
                 end = mid;
             }
         }

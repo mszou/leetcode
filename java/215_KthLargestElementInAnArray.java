@@ -14,61 +14,53 @@ public class Solution {
     //     return nums[n - k];
     // }
         
-    // sol 2: use a priority queue (heap) which always keeps the largest k numbers so far: 
-    // O(nlgk) Time + O(k) memory
+    // sol 2: use priority queue (min-heap) which always keeps the largest k numbers so far: 
+    // O(nlogk) Time + O(k) Space
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         for (int val : nums) {
             pq.offer(val);
-            if(pq.size() > k) {
-                pq.poll();
+            if (pq.size() > k) {    // size exceeds k
+                pq.poll();  // remove the smallest in the heap
             }
         }
         return pq.peek();
     }
 
-    // // sol 3: user-defined quick select (partion method, like quick sort):
+    // // sol 3: quick select (partition method, like quick sort):
     // // Time: O(n) for best case / O(n^2) for worst case, O(1) Space
-    // public int findKthLargest(int[] nums, int k) {
-    //     return quickSelect(nums, k - 1, 0, nums.length - 1);
-    // }
+    public int findKthLargest(int[] nums, int k) {
+        return quickSelect(nums, 0, nums.length - 1, nums.length - k + 1);
+    }
 
-    // // find the target element (whose index should be k in the sorted array) in the range [left, right]
-    // private int quickSelect(int[] arr, int k, int left, int right) {
-    // 	// choose a pivot element (mid), put all elements > pivot to the right, < pivot to the left
-    //     int pivot = arr[left + (right - left) / 2];
-    //     int orgL = left, orgR = right;
-    //     while (left <= right) {
-    //     	// from right to left, find the first element < pivot
-    //         while (arr[left] > pivot) {
-    //             left++;
-    //         }
-    //         // from left to right, find the first element > pivot
-    //         while (arr[right] < pivot) {
-    //             right--;
-    //         }
-    //         // swap arr[left] & arr[right]
-    //         if (left <= right) {
-    //             swap(arr, left, right);
-    //             left++;
-    //             right--;
-    //         }
-    //     }
-    //     // when while loop ends, it should be left == right + 1
-    //     // if now right >= k, then k-th element should be in the left half
-    //     if (orgL < right && k <= right) {
-    //     	return quickSelect(arr, k, orgL, right);
-    //     }
-    //     // if now left <= k, then k-th element should be in the right half
-    //     if (left < orgR && k >= left) {
-    //     	return quickSelect(arr, k, left, orgR);
-    //     }
-    //     return arr[k];
-    // }
+    // return the kth smallest element in the range [left, right]
+    private int quickSelect(int[] nums, int left, int right, int k) {
+        // choose a pivot element (mid), put all elements > pivot to the right, < pivot to the left
+        int pivot = nums[right];    // take the right-most number as pivot
+        int i = left, j = right - 1;    // make sure nums[0, i) < pivot, nums(j, right) >= pivot
+        while (i <= j) {
+            // swap nums[i] with nums[j] if nums[i] > pivot
+            if (nums[i] > pivot) {
+                swap(nums, i, j);
+                j--;
+            } else {
+                i++;
+            }   // can be written as "if (nums[i++] > pivot) swap(nums, --i, --j);" with initially j = right
+        }   // when while loop ends, it should be i == j + 1
+        swap(nums, i, right);   // finally move pivot to its final place
+        int count = i - left + 1;   // count the number of nums that < pivot from left
+        if (count == k) {
+            return nums[i];
+        } else if (count > k) {
+            return quickSelect(nums, left, i - 1, k);
+        } else {
+            return quickSelect(nums, i + 1, right, k - count);
+        }
+    }
     
-    // private void swap(int[] a, int i, int j) {
-    //     final int tmp = a[i];
-    //     a[i] = a[j];
-    //     a[j] = tmp;
-    // }
+    private void swap(int[] a, int i, int j) {
+        final int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
 }

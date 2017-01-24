@@ -7,21 +7,21 @@
 public class LRUCache {
 	// design a class of double-linked node, which has a key, a value and methods
 	// removeFromHead(), update() and append() to help with the process of LRUCache
-	// use a map<key, DLinkNode> to access the node of given key
+	// use a map<key, Node> to access the node of given key
 
-	private Map<Integer, DLinkNode> cache;
-	DLinkNode head = null;
-	DLinkNode tail = null;
+	private Map<Integer, Node> cache;
+	Node head = null;
+	Node tail = null;
 	int capacity;
 
 	public LRUCache(int capacity) {
-		cache = new HashMap<Integer, DLinkNode>();
+		cache = new HashMap<Integer, Node>();
 		this.capacity = capacity;
 	}
 
 	public int get(int key) {
 		if (cache.containsKey(key)) {
-			DLinkNode target = cache.get(key);
+			Node target = cache.get(key);
 			int value = target.value;
 			target.update();
 			return value;
@@ -32,30 +32,30 @@ public class LRUCache {
 
 	public void set(int key, int value) {
 		if (cache.containsKey(key)) {
-			DLinkNode target = cache.get(key);
+			Node target = cache.get(key);
 			target.value = value;
 			target.update();
 		} else {
 			if (capacity == 0) {
 				return;
 			}
-			if (cache.size() == capacity) {	// need to remove the LRU DLinkNode
+			if (cache.size() == capacity) {	// need to remove the LRU Node
 				cache.remove(head.key);
 				head.removeFromHead();
 			}
-			DLinkNode newNode = new DLinkNode(key, value);
+			Node newNode = new Node(key, value);
 			newNode.append();
 			cache.put(key, newNode);
 		}
 	}
 
 
-	class DLinkNode {
+	class Node {
 		int key;
 		int value;
-		DLinkNode left = null;
-		DLinkNode right = null;
-		public DLinkNode(int key, int value) {
+		Node left = null;
+		Node right = null;
+		public Node(int key, int value) {
 			this.key = key;
 			this.value = value;
 		}

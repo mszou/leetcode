@@ -9,22 +9,21 @@
 
 public class Solution {
 	public int[] singleNumber(int[] nums) {
-		// idea: bit manipulation with XOR. O(n) Time, O(1) Space. Suppose x,y are the two single numbers,
-		// two passes: first pass, XOR all elements, the result should exactly be x XOR y
-		// x!=y, there must be at least a 1 in the result, means x and y are different in that bit
-		// elements can be divided into two groups according whether they have 0 or 1 at that bit
-		// then in the second pass, we do XOR to two groups separately to find x and y in either group
+		// idea: bit manipulation with XOR. 2 pass. Suppose x,y are the two single numbers, we first do XOR to all
+		// the elements, we should get the result of x XOR y. Since x!=y, there must be at least a 1 in the result,
+		// means x and y are different in that bit. Then we divide elements into two groups according to whether
+		// they have 0 or 1 at that bit and do XOR in two groups separately to find x,y.	O(n) Time, O(1) Space.
 		int diff = 0;
 		for (int n : nums) {
-			diff ^= n;
+			diff ^= n;	// get the result of x XOR y
 		}
 		
-		diff &= -diff;	// get the rightmost 1 in diff
+		diff &= -diff;	// only keep the rightmost 1 in diff
 		int[] res = new int[2];	// res[0] and res[1] used for two groups respectively
 		for (int num : nums) {
 			if ((num & diff) == 0) {	// num has 0 on that bit
 				res[0] ^= num;
-			} else {
+			} else {	// num has 1 on that bit
 				res[1] ^= num;
 			}
 		}

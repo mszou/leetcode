@@ -11,23 +11,24 @@
  */
 
 public class Solution {
-	// idea: backtracking, for number 1~9, add one, dfs, then remove (backtracking)
-
+	// idea: DFS + backtracking, for 1~9, add one number, dfs, then remove and backtracking, for each combination
+	// only count the small -> large permutation.
 	public List<List<Integer>> combinationSum3(int k, int n) {
 		List<List<Integer>> res = new ArrayList<>();
-		if (k > 9 || n < k || n > 9 * k) {
+		if (k > 9 || n < k || n > 9 * k) {	// because no duplicate nums allowed in combination
 			return res;
 		}
 		combination(res, new ArrayList<Integer>(), k, 1, n);
 		return res;
 	}
 
+	// DFS to find k numbers from 'start' to form a sum target based on the current list
 	private void combination(List<List<Integer>> res, List<Integer> list, int k, int start, int target) {
 		if (list.size() == k && target == 0) {	// find a combination
 			res.add(new ArrayList<Integer>(list));
 			return;
 		}
-		for (int i = start; i <= 9; i++) {
+		for (int i = start; i <= 9; i++) {	// try from start to 9
 			if (i > target) {
 				break;
 			}

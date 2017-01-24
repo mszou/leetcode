@@ -6,8 +6,8 @@
 
 public class Solution {
 	public boolean isStrobogrammatic(String num) {
-		// idea: Since only 0,1,6,8,9 are valid numbers after rotation, we can use a HashMap
-		// to store the mapping then check the character pairs in corresponding positions
+		// idea: Since only 0,1,6,8,9 are valid numbers after rotation, we can use a HashMap to store the
+		// mapping then check the character pairs in corresponding positions.	O(n) Time, O(1) Space.
 		HashMap<Character, Character> map = new HashMap<>();
 		map.put('0', '0');
 		map.put('1', '1');

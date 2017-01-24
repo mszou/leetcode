@@ -9,8 +9,9 @@
 
 public class Solution {
 	public List<String> findRepeatedDnaSequences(String s) {
-		// idea: use two hashset (seen & repeated). O(n) Time, Space:(n-10)*10 character in the mem
-		// improvement: can do some encoding on the substrings to reduce the space complexity
+		// idea: use two HashSet (seen & repeated). O(n) Time, Space:(n-10)*10 character in the mem
+		// optimization: do some encoding on the substrings to reduce the space complexity, e.g.
+		// 'A'->00, 'C'->01, 'G'->10, 'T'->11, then we can express each substring with a integer
 		if (s == null || s.length() < 10) {
 			return new ArrayList<String>();
 		}

@@ -12,7 +12,7 @@
 class TrieNode {
     // Initialize your data structure here.
 
-    // public char val;     // the value of a TrieNode == 'a' + index as a child
+    // public char val;     // a TrieNode can either have a value ( = 'a' + index as a child), or use its index as its ID
     public TrieNode[] children;  // possible next letters are its children
     public boolean isWord;  // a flag to show whether it is the end of a word
     public TrieNode() {
@@ -37,7 +37,7 @@ public class Trie {
         	}
         	node = node.children[c - 'a'];
         }
-        node.isWord = true;
+        node.isWord = true; // mark the end of the word
     }
 
     // Returns if the word is in the trie.

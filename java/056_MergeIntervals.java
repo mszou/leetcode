@@ -19,8 +19,9 @@
 public class Solution {
 	public List<Interval> merge(List<Interval> intervals) {
 		// idea: sort the intervals in ascending starting point, then merge if have overlap
+		List<Interval> res = new ArrayList<Interval>();
 		if (intervals == null || intervals.size() == 0) {
-			return intervals;
+			return res;
 		}
 		Collections.sort(intervals, new Comparator<Interval>(){
 			@Override
@@ -28,7 +29,6 @@ public class Solution {
 				return a.start - b.start;
 			}
 		});
-		List<Interval> res = new ArrayList<Interval>();
 		Interval last = intervals.get(0);
 		for (int i = 1; i < intervals.size(); i++) {
 			Interval cur = intervals.get(i);

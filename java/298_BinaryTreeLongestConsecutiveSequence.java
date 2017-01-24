@@ -22,6 +22,8 @@
 
 public class Solution {
 	// idea: DFS, check whether left.val or right.val is the next consecutive number
+	
+	// sol 1: with global variable
 	private int max = 0;	// need a global variable to record the max length
 
 	public int longestConsecutive(TreeNode root) {
@@ -44,5 +46,24 @@ public class Solution {
 		max = Math.max(max, len);
 		dfs(root.left, len, root.val + 1);
 		dfs(root.right, len, root.val + 1);
+	}
+
+	// sol 2: without global variable
+	public int longestConsecutive(TreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		// the following can also be written as: dfs(root, 0, root.val - 1);
+		return Math.max(dfs(root.left, 1, root.val), dfs(root.right, 1, root.val));
+	}
+
+	private int dfs(TreeNode root, int len, int val) {
+		if (root == null) {
+			return len;
+		}
+		len = (root.val - val == 1) ? len + 1 : 1;
+		int left = dfs(root.left, len, root.val);
+		int right = dfs(root.right, len, root.val);
+		return Math.max(Math.max(left, right), len);
 	}
 }

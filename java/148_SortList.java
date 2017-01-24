@@ -11,6 +11,8 @@
  * }
  */
 public class Solution {
+    // idea: merge sort or quick sort.  O(nlogn) Time, O(1) Space.
+
 	// sol 1: merge sort. Recursively divide list into two halves, do sort and merge.
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
@@ -18,7 +20,7 @@ public class Solution {
         }
         ListNode mid = findMiddle(head);
         ListNode right = sortList(mid.next);
-        mid.next = null;
+        mid.next = null;    // break the list in half
         ListNode left = sortList(head);
         return merge(left, right);
     }
@@ -55,63 +57,64 @@ public class Solution {
     	return dummy.next;
     }
 
-    // // sol 2: quick sort. everytime select the middle node and put the nodes into 3 parts: left, middle, right
-    // public ListNode sortList(ListNode head) {
-    // 	if (head == null || head.next == null) {
-    // 		return head;
-    // 	}
-    // 	ListNode mid = findMiddle(head);
-    // 	ListNode leftDummy = new ListNode(0), leftTail = leftDummy;
-    // 	ListNode rightDummy = new ListNode(0), rightTail = rightDummy;
-    // 	ListNode middleDummy = new ListNode(0), middleTail = middleDummy;
-    // 	while (head != null) {
-    // 		if (head.val < mid.val) {
-    // 			leftTail.next = head;
-    // 			leftTail = head;
-    // 		} else if (head.val > mid.val) {
-    // 			rightTail.next = head;
-    // 			rightTail = head;
-    // 		} else {
-    // 			middleTail.next = head;
-    // 			middleTail = head;
-    // 		}
-    // 		head = head.next;
-    // 	}
-    // 	leftTail.next = null;
-    // 	middleTail.next = null;
-    // 	rightTail.next = null;
-    // 	ListNode left = sortList(leftDummy.next);
-    // 	ListNode right = sortList(rightDummy.next);
-    // 	return concat(left, middleDummy.next, right);
-    // }
 
-    // private ListNode findMiddle(ListNode head) {
-    // 	ListNode fast = head.next;
-    // 	ListNode slow = head;
-    // 	while (fast != null && fast.next != null) {
-    // 		fast = fast.next.next;
-    // 		slow = slow.next;
-    // 	}
-    // 	return slow;
-    // }
+    // sol 2: quick sort. everytime select the middle node and put the nodes into 3 parts: left, middle, right
+    public ListNode sortList(ListNode head) {
+    	if (head == null || head.next == null) {
+    		return head;
+    	}
+    	ListNode mid = findMiddle(head);
+    	ListNode leftDummy = new ListNode(0), leftTail = leftDummy;
+    	ListNode rightDummy = new ListNode(0), rightTail = rightDummy;
+    	ListNode middleDummy = new ListNode(0), middleTail = middleDummy;
+    	while (head != null) {
+    		if (head.val < mid.val) {
+    			leftTail.next = head;
+    			leftTail = head;
+    		} else if (head.val > mid.val) {
+    			rightTail.next = head;
+    			rightTail = head;
+    		} else {
+    			middleTail.next = head;
+    			middleTail = head;
+    		}
+    		head = head.next;
+    	}
+    	leftTail.next = null;
+    	middleTail.next = null;
+    	rightTail.next = null;
+    	ListNode left = sortList(leftDummy.next);
+    	ListNode right = sortList(rightDummy.next);
+    	return concat(left, middleDummy.next, right);
+    }
 
-    // private ListNode concat(ListNode left, ListNode middle, ListNode right) {
-    // 	ListNode dummy = new ListNode(0), tail = dummy;
-    // 	tail.next = left;
-    // 	tail = getTail(tail);
-    // 	tail.next = middle;
-    // 	tail = getTail(tail);
-    // 	tail.next = right;
-    // 	return dummy.next;
-    // }
+    private ListNode findMiddle(ListNode head) {
+    	ListNode fast = head.next;
+    	ListNode slow = head;
+    	while (fast != null && fast.next != null) {
+    		fast = fast.next.next;
+    		slow = slow.next;
+    	}
+    	return slow;
+    }
 
-    // private ListNode getTail(ListNode head) {
-    // 	if (head == null) {
-    // 		return null;
-    // 	}
-    // 	while (head.next != null) {
-    // 		head = head.next;
-    // 	}
-    // 	return head;
-    // }
+    private ListNode concat(ListNode left, ListNode middle, ListNode right) {
+    	ListNode dummy = new ListNode(0), tail = dummy;
+    	tail.next = left;
+    	tail = getTail(tail);
+    	tail.next = middle;
+    	tail = getTail(tail);
+    	tail.next = right;
+    	return dummy.next;
+    }
+
+    private ListNode getTail(ListNode node) {
+    	if (node == null) {
+    		return null;
+    	}
+    	while (node.next != null) {
+    		node = node.next;
+    	}
+    	return node;
+    }
 }

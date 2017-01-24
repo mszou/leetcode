@@ -48,11 +48,11 @@ public class Solution {
                     treemap.remove(h);
                 }
                 if (treemap.isEmpty()) {
-                    collect.add(new int[] { x, 0 });
+                    collect.add(new int[] {x, 0});
                 } else {
                     top = treemap.lastKey();
                     if (h > top) { // dequeuing gives a 2nd highest building
-                        collect.add(new int[] { x, top });
+                        collect.add(new int[] {x, top});
                     }
                 }
             }

@@ -26,16 +26,18 @@ public class Solution {
         // * use StringBuilder to generate strings for each line; * consider each word as " word" when computing length
         List<String> res = new LinkedList<String>();
         // fit words[i] ~ words[j-1] into a line
-        for (int i = 0, j; i < words.length; i = j) {
-        	int len = -1;
-        	for (j = i; j < words.length && len + words[j].length() + 1 <= maxWidth; j++) {
-        		len += words[j].length() + 1;   // consider the basic space separating words
-        	}
-        	StringBuilder sb = new StringBuilder(words[i]);
+        for (int i = 0; i < words.length; i = j) {
+            int len = -1;
+            int j = i;
+            while (j < words.length && len + words[j].length() + 1 > maxWidth) {
+                len += words[j].length() + 1;
+                j++;
+            }
+        	StringBuilder sb = new StringBuilder(words[i]);    // first add words[i]
         	int space = 1, extra = 0;	// length of slots, and # of slots that need extra space
-        	if (j != i + 1 && j != words.length) {	// not only one word, not last line
-        		space = (maxWidth - len) / (j - i - 1) + 1;
-        		extra = (maxWidth - len) % (j - i - 1);
+        	if (j != i + 1 && j != words.length) {	// not only one word, and not last line
+        		space = (maxWidth - len) / (j - i - 1) + 1;   // 1 is the basic space between words
+        		extra = (maxWidth - len) % (j - i - 1);   // first several slots may have an extra space
         	}
         	for (int k = i + 1; k < j; k++) {
         		for (int s = space; s > 0; s--) {
@@ -46,8 +48,8 @@ public class Solution {
         		}
         		sb.append(words[k]);
         	}
-        	int strLen = maxWidth - sb.length();
-        	while (strLen-- > 0) {
+        	int spaceLen = maxWidth - sb.length();
+        	while (spaceLen-- > 0) { // for the case only one word in the line
         		sb.append(' ');
         	}
         	res.add(sb.toString());

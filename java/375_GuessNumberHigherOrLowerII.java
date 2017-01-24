@@ -21,7 +21,7 @@
 
 public class Solution {
     // idea: 2D-DP.
-	// sol 1: iterative, table[i][j] is the min $ to guarantee win for sub-problem: range=[i,j]
+	// sol 1: iterative, table[i][j] is the min $ to guarantee win for sub-problem: range = [i,j]
     public int getMoneyAmount(int n) {
         int[][] table = new int[n+1][n+1];
         for (int j = 2; j <= n; j++) {
@@ -29,7 +29,7 @@ public class Solution {
         		int min = Integer.MAX_VALUE;
         		for (int k = i + 1; k < j; k++) {
         			// compute the cost for guessing k
-        			int temp = k + Math.max(table[i][k-1], table[k+1][j]);
+        			int temp = k + Math.max(table[i][k - 1], table[k + 1][j]);
         			min = Math.min(min, temp);	// guess k or not
         		}
         		table[i][j] = (i + 1 == j) ? i : min;

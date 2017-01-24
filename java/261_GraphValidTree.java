@@ -13,25 +13,27 @@ public class Solution {
 	public boolean validTree(int n, int[][] edges) {
 		// idea: Union find. A graph with n vertices and n - 1 edges without cycle is a tree.
 		// so we just need to check the number of edges and whether there is a cycle.
+		// Time: Worst O(n^2) (|V|*|E|), Best O(n) (|E|). O(n) Space (|V|).
 		if (n == 0 || edges.length != n - 1) {
 			return false;
 		}
 		int[] nums = new int[n];
 		Arrays.fill(nums, -1);
 		// Union find
-		for (int i = 0; i < edges.length; i++) {
-			int x = find(nums, edges[i][0]);
-			int y = find(nums, edges[i][1]);
+		for (int[] edge : edges) {
+			int x = find(nums, edge[0]);
+			int y = find(nums, edge[1]);
 			// if two vertices in the same set, then has a cycle
 			if (x == y) {
 				return false;
 			}
-			nums[x] = y;	// union
+			nums[x] = y;	// else, union these two nodes (sets)
 		}
 		return true;
 	}
 
-	private int find(int[] nums, int i) {
+	// find() takes at worst (go through all nodes) O(|V|) time and at best O(1) Time
+	private int find(int[] nums, int i) { // find the set that nums[i] belongs to
 		if (nums[i] == -1) {
 			return i;
 		} else {
