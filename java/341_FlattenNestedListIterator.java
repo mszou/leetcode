@@ -27,6 +27,8 @@
  *     public List<NestedInteger> getList();
  * }
  */
+import java.util.*;
+
 public class NestedIterator implements Iterator<Integer> {
 	// idea: use a stack, push the nestedList from end to the beginning. use getInteger()
 	// and getList() for single integers / nested lists. flatten nested lists in hasNext()
@@ -41,10 +43,11 @@ public class NestedIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        if (!hasNext()) {
-            return Integer.MIN_VALUE;
+        if (hasNext()) {
+            return stack.pop().getInteger();
+        } else {
+            throw new NoSuchElementException(); // need to import java.util.*;
         }
-        return stack.pop().getInteger();
     }
 
     @Override

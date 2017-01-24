@@ -6,13 +6,14 @@
  * You should NOT use internal library such as BigInteger.
  */
 
- public class Solution {
+public class Solution {
     public String multiply(String num1, String num2) {
     	// idea: if lengths of two strings are m & n, then the length of product will be m+n or m+n-1.
         // Start from the lowest digit, use basic multiplication priciple for each digit: the product
         // of num1[i] & num2[j] will be placed at product[i + j](carry) & product[i + j + 1]
         // O(mn) Time, O(m + n) Space
         // * using Character.getNumericValue(c) is equivalent to 'c'-'0'
+        // Note: process sign first if negative numbers are allowed, then do the same procedure.
         if (num1 == null || num1.length() == 0 || num2 == null || num2.length() == 0) {
         	return null;
         }

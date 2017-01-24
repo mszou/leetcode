@@ -19,6 +19,7 @@
  * Follow up:
  * As an added challenge, try to code it using only iterators in C++ or iterators in Java.
  */
+import java.util.*;
 
 public class Vector2D {
 	private Iterator<List<Integer>> rowItr;	// a row iterator
@@ -30,12 +31,14 @@ public class Vector2D {
 		}
 		rowItr = vec2d.iterator();
 		eleItr = rowItr.next().iterator();
-		getNextRow();
 	}
 
 	public int next() {
-		hasNext();
-		return eleItr.next();
+		if (hasNext()) {
+			return eleItr.next();
+		} else {
+			throw new NoSuchElementException();
+		}
 	}
 
 	public boolean hasNext() {
@@ -45,4 +48,9 @@ public class Vector2D {
 		}
 		return eleItr != null && eleItr.hasNext();
 	}
+
+	// // if need to implement a romove()
+	// public void remove() {
+	// 	eleItr.remove();
+	// }
 }

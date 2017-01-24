@@ -41,7 +41,7 @@ public class solution {
 	// 	return count[remain];
 	// }
 
-	// sol 2: iterative. DP, count[i] is the min # coins for amount i+1
+	// sol 2: iterative. DP, count[i] is the min # coins for amount i
 	public int coinChange(int[] coins, int amount) {
 		if (amount < 1) {
 			return 0;
@@ -50,7 +50,7 @@ public class solution {
 		int sum = 0;
 		Arrays.sort(coins);
 		// iterate from sum = 1 to amount
-		while (++sum <= amount) {
+		for (int sum = 1; sum <= amount; sum++) {
 			int min = Integer.MAX_VALUE;
 			for (int coin : coins) {
 				if (sum < coin) {
