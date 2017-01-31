@@ -34,18 +34,19 @@ public class Solution {
 		return max;
 	}
 
+	// check whether node.val is target (if so, increase len; if not, reset len) then dfs.
 	private void dfs(TreeNode node, int len, int target) {
-		if (root == null) {
+		if (node == null) {
 			return;
 		}
-		if (root.val == target) {
+		if (node.val == target) {
 			len++;
 		} else {
-			len = 1;	// reset length
+			len = 1;	// not consecutive, reset length
 		}
-		max = Math.max(max, len);
-		dfs(root.left, len, root.val + 1);
-		dfs(root.right, len, root.val + 1);
+		max = Math.max(max, len);	// update max length
+		dfs(node.left, len, node.val + 1);
+		dfs(node.right, len, node.val + 1);
 	}
 
 	// sol 2: without global variable
@@ -57,13 +58,14 @@ public class Solution {
 		return Math.max(dfs(root.left, 1, root.val), dfs(root.right, 1, root.val));
 	}
 
-	private int dfs(TreeNode root, int len, int val) {
-		if (root == null) {
+	// returns the max len of consecutive sequence going through 'node' with previous length 'len' and previous value 'val'
+	private int dfs(TreeNode node, int len, int val) {
+		if (node == null) {
 			return len;
 		}
-		len = (root.val - val == 1) ? len + 1 : 1;
-		int left = dfs(root.left, len, root.val);
-		int right = dfs(root.right, len, root.val);
+		len = (node.val - val == 1) ? len + 1 : 1;	// increase len if consecutive, otherwise reset len
+		int left = dfs(node.left, len, node.val);
+		int right = dfs(node.right, len, node.val);
 		return Math.max(Math.max(left, right), len);
 	}
 }

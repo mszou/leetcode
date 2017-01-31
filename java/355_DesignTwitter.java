@@ -26,8 +26,7 @@
 
 
 public class Twitter {
-	// OO Design (a Tweet class, a User class)
-	// idea: HashMap + PriorityQueue (heap)
+	// idea: need 2 classes: a Tweet class, a User class. use HashMap + PriorityQueue (heap)
 	private static int timeStamp = 0;  // used for time order
 
 	private Map<Integer, User> userMap;	// userMap<userId, user>, easy to find whether this user exists

@@ -1,6 +1,5 @@
 /**
  * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
- * Range Sum Query 2D
  * The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
  * Example:
  * Given matrix = [
@@ -21,10 +20,12 @@
 
 
 public class NumMatrix {
-	// idea: 2D-DP. sums[i+1][j+1] is the sum of rectangle from matrix[0][0] to matrix[i][j]
-	// then we have sums[i][j] = sums[i-1][j] + sums[i][j-1] - sums[i-1][j-1] + matrix[i-1][j-1]
+	// idea: 2D-DP. let sums[i+1][j+1] denote the sum of rectangle from matrix[0][0] to matrix[i][j],
+	// then we have sums[i][j] = sums[i-1][j] + sums[i][j-1] - sums[i-1][j-1] + matrix[i-1][j-1]. And
+    // according to Inclusion–exclusion principle, the range sum within the rectangle not from (0, 0)
+    // is equal to sums[row2+1][col2+1] - sums[row2+1][col1] - sums[row1][col2+1] + sums[row1][col1].
 	int row, col;
-	int[][] sums;
+	int[][] sums;  // accumutive sum within the rectangle
 
     public NumMatrix(int[][] matrix) {
     	row = matrix.length;

@@ -17,9 +17,9 @@ public class Solution {
         // idea: DP + bit manipulation. take advantage of the periodical laws about the occurance of 1's
         int[] count = new int[num + 1];
         
-        // sol 1: divide the binary form of the number into "previous digits + last digit"
+        // sol 1: divide the binary representation of the number into "previous digits + last digit"
         for (int i = 1; i <= num; i++) {
-        	count[i] = count[i >> 1] + (i & 1);
+        	count[i] = count[i >> 1] + (i & 1);    // # 1's in previous digits + # in last digit
         }
         return count;
 

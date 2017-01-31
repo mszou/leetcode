@@ -10,18 +10,20 @@
 
 public class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-    	// idea: DP. a super ugly number must be multiplied by one of the given primes from a smaller super ugly number.
+    	// idea: DP. A super ugly number must be the product of a smaller super ugly number and one of the given primes.
+        // Record the index of prior super ugly numbers that each prime is going to multiply next, and find the smallest
+        // among those products as next super ugly number, then update the indices.     O(mn) Time, O(m+n) Space.
         int[] times = new int[primes.length];	// record the index of ugly number to be multiplied for each given prime
         int[] uglys = new int[n];	// uglys[i] is the (i+1)th super ugly number
-        uglys[0] = 1;
+        uglys[0] = 1;   // 1 is the first super ugly number
         for (int i = 1; i < n; i++) {
         	int min = Integer.MAX_VALUE;
-        	// find the next super ugly number (smallest among the coming multiples)
+        	// find the next super ugly number (smallest among the upcoming products)
         	for (int j = 0; j < primes.length; j++) {
         		min = Math.min(min, primes[j] * uglys[times[j]]);
         	}
         	uglys[i] = min;
-        	// update the corresponding times[j]
+        	// update the times array
         	for (int j = 0; j < times.length; j++) {
         		if (uglys[times[j]] * primes[j] == min) {
         			times[j]++;

@@ -9,7 +9,8 @@
 
 public class Solution {
     public int lengthOfLIS(int[] nums) {
-        // // sol 1: use DP. dp[i] is the length of LIS ending with nums[i]. O(n^2) Time.
+        // // sol 1: DP. dp[i] is the length of LIS ending with nums[i]. For nums[i], traverse
+        // // numbers before i and update dp[i] if find a longer IS.   O(n^2) Time, O(n) Space.
         // int[] dp = new int[nums.length];
         // int maxLen = 0;
         // for (int i = 0; i < nums.length; i++) {
@@ -23,7 +24,10 @@ public class Solution {
         // }
         // return maxLen;
 
-        // sol 2: use DP + Binary Search. O(nlogn) Time.
+        // sol 2: DP + Binary Search. maxLen records the length of LIS so far while traversint the array. temp[i] records
+        // the min end value of increasing sequence of length i+1 among all visited numbers so far. For each new number,
+        // do binary search to find the insertIndex in temp. If insertIndex == maxLen, means the current number can be
+        // appended to the previous maxLen IS and form an IS of length maxLen + 1, so increase maxLen.    O(nlogn) Time.
         int[] temp = new int[nums.length];
         int maxLen = 0;
         for (int x : nums) {

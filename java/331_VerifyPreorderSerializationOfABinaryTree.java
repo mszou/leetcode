@@ -23,20 +23,23 @@
  */
 
 public class Solution {
-	// sol 1: use stack, more specificly, utilize the depth of stack.
+	// sol 1: use stack, more specificly, utilize the depth of stack. Simulate the preorder
+	// traversal on the string, a valid serialization should end up with stack depth == 0
+	// and pointer == nodes.length - 1 (the index of last leaf).
 	private int stack;
 
 	public boolean isValidSerialization(String preorder) {
 		String[] nodes = preorder.split(",");
-		int i = findLeft(nodes, 0);
+		int i = findLeaf(nodes, 0);
 		while (stack > 0) {
 			stack--;
-			i = findLeft(nodes, ++i);
+			i = findLeaf(nodes, ++i);
 		}
 		return i == nodes.length - 1;
 	}
 
-	private int findLeft(String[] nodes, int i) {
+	// push nodes into stack, from index i to next leaf
+	private int findLeaf(String[] nodes, int i) {
 		while (i < nodes.length && !nodes[i].equals("#")) {
 			stack++;
 			i++;
@@ -46,10 +49,10 @@ public class Solution {
 	
 	// sol 2.1 & 2.2: utilize the stucture of binary tree	
 	public boolean isValidSerialization(String preorder) {
-		// property 1: every non-leave node has 2 outdegree and  1 indegree (except root),
-		// and every leaf node has 0 outdegree and 1 in degree
+		// property 1: every non-leaf node has 2 outdegree and 1 indegree
+		// (except root), and every leaf node has 0 outdegree and 1 indegree
 		String[] nodes = preorder.split(",");
-		int diff = 1;	// diff = outdegree - indegree, initialized as 1
+		int diff = 1;	// diff = outdegree - indegree, initialized as 1 (for the compensation of root indegree)
 		for (String node : nodes) {
 			if (--diff < 0) {	// a new node has an indegree, so decrease diff by 1
 				return false;
@@ -63,18 +66,19 @@ public class Solution {
 		// property 2: # of leaves = # of nonleaves + 1
 		int nonleaves = 0, leaves = 0, i = 0;
 		String[] nodes = preorder.split(",");
-		// the condition after "&&" is aimed for the situation of several trees
-		for (; i < nodes.length && nonleaves + 1 != leaves; i++) {
+		// the second condition is aimed to avoid the situation of several trees
+		while (i < nodes.length && nonleaves + 1 != leaves) {
 			if (nodes[i].equals("#")) {
 				leaves++;
 			} else {
 				nonleaves++;
 			}
+			i++;
 		}
 		return nonleaves + 1 == leaves && i == nodes.length;
 	}
 
-	// sol 3: recursion
+	// sol 3: recursive
 	public boolean isValidSerialization(String preorder) {
 		String[] nodes = preorder.split(",");
 		return valid(nodes, 0) == nodes.length - 1;

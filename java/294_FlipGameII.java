@@ -7,8 +7,10 @@
  */
 
 public class Solution {
-	// idea: the player can guarantee a win when the other player cannot win after this flip
-	// Recursively check the winability for a string. use a map to memorize win & lose strings.
+	// idea: DFS. the player can guarantee a win when the other player cannot win after this flip.
+	// Recursively check the winnability for a string. use Map to memorize win & lose for strings.
+	// For a string of length n, there are at most n - 1 ways to replace "++" to "--", so the Time
+	// T(N) = (N-1) * T(N-2) = (N - 1) * (N-3) * T(N-4) ... = (N-1) * (N-3) * (N-5) * ... ~ O(N!!)
 	public boolean canWin(String s) {
 		if (s == null || s.length() < 2) {
 			return false;
@@ -18,19 +20,19 @@ public class Solution {
 	}
 
 	private boolean canWin(String s, Map<String, Boolean> map) {
-		if (map.containsKey(s)) {
+		if (map.containsKey(s)) {	// already checked s
 			return map.get(s);
 		}
 		for (int i = 1; i < s.length(); i++) {
-			if (s.charAt(i - 1) == '+' && s.charAt(i) == '+') {
-				String flip = s.substring(0, i - 1) + "--" + s.substring(i + 1);
-				if (!canWin(flip, map)) {	// the other player cannot win
+			if (s.charAt(i - 1) == '+' && s.charAt(i) == '+') {	//	s[i-1, i] is "++"
+				String flip = s.substring(0, i - 1) + "--" + s.substring(i + 1);	// flip
+				if (!canWin(flip, map)) {	// the other player cannot win on the flipped string
 					map.put(s, true);
 					return true;
 				}
 			}
 		}
-		map.put(s, false);
+		map.put(s, false);	// cannot guarantee a win on current string s
 		return false;
 	}
 }

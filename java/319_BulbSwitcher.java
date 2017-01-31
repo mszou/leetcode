@@ -13,9 +13,9 @@
 
 public class Solution {
     public int bulbSwitch(int n) {
-        // A bulb ends up on iff it is switched an odd number of times (if and only if it has an odd number of divisors).
-        // Divisors come in pairs, except when i is a square. So bulb i ends up on if and only if i is a square.
-        // Therefore, just count the square numbers.
-    	return (int) Math.sqrt(n);
+        // A bulb is on in the end iff it is switched for an odd number of times, i.e. iff it has an odd number of
+        // divisors. Since divisors come in pairs, except for perfect square numbers, we can infer that bulb i is
+        // on after n rounds iff i is a perfect square number. Therefore, just count the square numbers in [1, n].
+    	return (int) Math.sqrt(n);	// this is exactly # perfect square numbers <= n
     }	
 }

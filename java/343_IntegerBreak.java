@@ -10,22 +10,22 @@
 
 public class Solution {
     public int integerBreak(int n) {
-        // idea: we need to do break and get a greater product only when n > 4. 
-        // For n > 4, the maximum product should only contains factors 2 and 3, and 3 is preferred.
-        // proof: 1. factor 1 makes no contribution to the product, so it is wasteful
-        // 2. a factor f >= 4 can be replaced by 2 and f-2, then 2(f-2) = 2f-4 >= f. so we never need a factor >= 4. 
-        // 3. for factors 2 and 3, since 3*3 > 2*2*2, we should not use 2 more than twice
-        // corner cases: 2=1+1, 3=1+2, 4=2+2
+        // idea: only when n > 4 we can get a greater product by breaking. And for n > 4, the maximum
+        // product should only contains factors 2 and 3, and 3 is preferred.    O(n) Time, O(1) Space.
+        // proof: 1. factor 1 makes no contribution to the product, so it is wasteful.
+        // 2. a factor f>=4 can be replaced by 2 and f-2. 2(f-2) = 2f-4 >= f. so never need a factor >= 4. 
+        // 3. for 2 and 3, 3*3 > 2*2*2, so using 3 twice is better than using 2 three times.
+        // so continuously take 3's from n as long as n > 4 and take the final remainder as the last.
         
-        // for cases n == 2, 3, 4
+        // for corner cases: n == 2 (1+1), 3 (1+2), 4 (2+2)
         if (n < 4) {
-        	return n - 1;  // 1 for 2, 2 for 3
+        	return n - 1;  // actually is 1 * (n-1), i.e. 1 for 2, 2 for 3
         }
         if (n == 4) {
         	return 4;
         }
         int product = 1;
-        while (n > 4) {
+        while (n > 4) { // O(n/3) Time
         	product *= 3;
         	n -= 3;
         }

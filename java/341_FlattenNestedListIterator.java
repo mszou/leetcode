@@ -31,8 +31,8 @@ import java.util.*;
 
 public class NestedIterator implements Iterator<Integer> {
 	// idea: use a stack, push the nestedList from end to the beginning. use getInteger()
-	// and getList() for single integers / nested lists. flatten nested lists in hasNext()
-    // make sure it is always an integer on top of the stack before next() is being called.
+	// and getList() for single integers / nested lists. flatten nested lists in hasNext().
+    // Make sure it is always an integer on top of the stack before next() is being called.
 	Stack<NestedInteger> stack = new Stack<>();
 
     public NestedIterator(List<NestedInteger> nestedList) {

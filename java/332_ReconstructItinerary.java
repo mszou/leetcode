@@ -23,14 +23,14 @@ public class Solution {
 	List<String> route = new LinkedList<>();
 
 	public List<String> findItinerary(String[][] tickets) {
-		for (String[] ticket : tickets) {
+		for (String[] ticket : tickets) {	// initialize the graph (Map)
 			// canGo.computeIfAbsent(ticket[0], k -> new PriorityQueue()).add(ticket[1]);
 			if (!canGo.containsKey(ticket[0])) {
 				canGo.put(ticket[0], new PriorityQueue<String>());
 			}
 			canGo.get(ticket[0]).add(ticket[1]);
 		}
-		visit("JFK");
+		visit("JFK");	// itinerary begins with JFK
 		return route;
 	}
 
@@ -38,7 +38,7 @@ public class Solution {
 		while (canGo.containsKey(airport) && !canGo.get(airport).isEmpty()) {
 			visit(canGo.get(airport).poll());
 		}
-		route.add(0, airport);
+		route.add(0, airport);	// add after child dfs finished, so add to the front
 	}
 
 	// sol 2: iterative, use a stack

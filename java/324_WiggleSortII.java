@@ -10,8 +10,8 @@
  */
 
 public class Solution {
-	// sol 1: naive. sort then interleave the smaller half and larger half. O(nlogn) Time, O(n) Space.
-	// interleave like: MLSLSM(362514) or MLSLSMS(4736251), i.e. put median at the head & tail
+	// sol 1: naive. sort then interleave the smaller half and larger half.	O(nlogn) Time, O(n) Space.
+	// put median at the head & tail and interleave like: MLSLSM(362514) or MLSLSMS(4736251). Otherwise
 	// if interleave like SMSLML(142536), would be wrong for case (4,5,5,6), but (5,6,4,5) is correct
 	public void wiggleSort(int[] nums) {
 		if (nums == null || nums.length < 2) {
@@ -32,7 +32,7 @@ public class Solution {
 		}
 	}
 
-	// sol 2: For follow-up, O(n) Time & O(1) Space. Mapped Index (virtual index idea)
+	// sol 2: For follow-up, O(n) Time, O(1) Space. Mapped Index (virtual index idea)
 	// https://discuss.leetcode.com/topic/41464/step-by-step-explanation-of-index-mapping-in-java
 	// the time complexity depends on findKthLargest, can be done in O(n) if we use quick select
 	public void wiggleSort(int[] nums) {

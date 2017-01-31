@@ -30,14 +30,13 @@
 
 public class Solution {
 	public List<Integer> findMinHeightTrees(int n, int[][] edges) {
-		// idea: Similar to "BFS topological sort".
-		// Remove all the nodes with 1 degree (leaves), then in the next round, remove the new leaves,...
-		// repeat this process until there are only 1 or 2 nodes left, which is/are the result we want.
-		// Because the root of MHT should be the middle point of the longest leaf-to-leaf path in the graph.
-		// A tree with n nodes has n - 1 edges.			O(n) Time, O(n) Space
-		List<Integer> res = new ArrayList<>();
+		// idea: BFS, Similar to Topological Sort. Start from "leaves", remove all the nodes with 1 degree,
+		// then after the removal, there will be other nodes become new leaves, remove thm in the next round.
+		// repeat this process until there are only 1 or 2 nodes left, which is the result we want. The root
+		// of MHT is the middle point of the longest leaf-to-leaf path in the graph.	O(n) Time, O(n) Space.		
+		List<Integer> res = new ArrayList<>();	// at most two result
 		if (n == 1 && edges.length == 0) {  // corner case: single node
-			res.add(0);
+			res.add(0);	// only has a 0 in the tree
 			return res;
 		}
 		if (n == 0 || edges == null || edges.length != n - 1 || edges[0].length != 2) {
@@ -47,13 +46,13 @@ public class Solution {
 		for (int i = 0; i < n; i++) {
 			adj.add(new HashSet<>());
 		}
-		for (int[] e : edges) {		// add undirected edges
+		for (int[] e : edges) {		// add undirected edges, i.e. two directions
 			adj.get(e[0]).add(e[1]);
 			adj.get(e[1]).add(e[0]);
 		}
 		List<Integer> leaves = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
-			if (adj.get(i).size() == 1) {
+			if (adj.get(i).size() == 1) {	// add all leaves
 				leaves.add(i);
 			}
 		}
@@ -61,14 +60,14 @@ public class Solution {
 			n -= leaves.size();		// remember to subtract # leaves from n
 			List<Integer> newLeaves = new ArrayList<>();
 			for (int leaf : leaves) {
-				int next = adj.get(leaf).iterator().next();
+				int next = adj.get(leaf).iterator().next();	// leaf has only one connection
 				adj.get(next).remove(leaf);
-				if (adj.get(next).size() == 1) {
+				if (adj.get(next).size() == 1) {	// next is a new leaf
 					newLeaves.add(next);
 				}
 			}
 			leaves = newLeaves;
-		}
+		}	// end with n = 1 or n = 2, and all result(s) in 'leaves'
 		res = leaves;
 		return res;
 	}

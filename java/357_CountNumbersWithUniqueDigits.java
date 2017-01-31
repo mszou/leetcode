@@ -17,20 +17,20 @@ public class Solution {
         // sol 0: Actually there are only 11 different answers, for n from 0 to 10 (the answer for n>10 is the same as n=10).
         // You can just create a lookup table. Then this problem becomes O(1) Time in essence.
         
-        // sol 1: Math (Maybe also DP). This is a digit combination problem.
-        // consider putting digits into each position, 0 cannot be put in the first position
+        // sol 1: Math (Maybe also DP). consider putting digits into each position, 0 cannot be put in the first position
         // when n = 1, _ can hold any one from [0,...,9], so return 10;
         // when n = 2, _ _ first position has 9 choices (1~9) and second position has 9 choices (0~9 excluding first one).
-        // so there are 9*9=81 numbers with unique digits among 90 two-digit numbers. Therefore, when n=2, return 10+81=91.
-        // ... For i-digit numbers (2<=i<=10), there are 9*9*8*...*(11-i) numbers with unique digits.
-        // There is no eligible numbers among i-digit numbers when i > 10, so the result for n>10 equals to that for n = 10.
+        // so there are 9*9=81 numbers with unique digits among 90 two-digit numbers (10~99). Therefore, when n=2, return
+        // 10+81=91 ... For i-digit numbers (2<=i<=10), there are 9*9*8*...*(11-i) numbers with unique digits.
+        // There is no eligible numbers among i-digit numbers when i > 10, so the result for n>10 is same as res for n=10.
         if (n == 0) {
         	return 1;	// got this answer from the test case
         }
         int res = 10;	// answer for single-digit numbers
         int base = 9;	// the base for the multiplication of each level, here 9 choices for the fist digit
         int available = 9;  // available digits left for rest positions
-        for (int i = 2; i <= n && i <= 10; i++) {
+        n = Math.min(n, 10);
+        for (int i = 2; i <= n; i++) {
         	base *= available;
         	res += base;
         	available--;

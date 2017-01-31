@@ -32,7 +32,7 @@ public class Solution {
         if (root == null) {
         	return 0;
         }
-        int val = 0;
+        int val = 0;    // record the max sum can get from two levels below
         if (root.left != null) {
         	val += rob(root.left.left) + rob(root.left.right);
         }
@@ -42,7 +42,7 @@ public class Solution {
         return Math.max(val + root.val, rob(root.left) + rob(root.right));
     }
 
-    // sol 2: optimized, use a hashmap to store the results already got for visited subtrees
+    // sol 2: optimized, use a hashmap to store the results we already got for visited subtrees
     Map<TreeNode, Integer> map;
 
     public int rob(TreeNode root) {
@@ -50,27 +50,28 @@ public class Solution {
     	return helper(root, map);
     }
 
-    private int helper(TreeNode root, Map<TreeNode, Integer> map) {
-    	if (root == null) {
+    private int helper(TreeNode node, Map<TreeNode, Integer> map) {
+    	if (node == null) {
     		return 0;
     	}
-    	if (map.containsKey(root)) {
-    		return map.get(root);
+    	if (map.containsKey(node)) {
+    		return map.get(node);
     	}
     	int val = 0;
-    	if (root.left != null) {
-    		val += helper(root.left.left, map) + helper(root.left.right, map);
+    	if (node.left != null) {
+    		val += helper(node.left.left, map) + helper(node.left.right, map);
     	}
-    	if (root.right != null) {
-    		val += helper(root.right.left, map) + helper(root.right.right, map);
+    	if (node.right != null) {
+    		val += helper(node.right.left, map) + helper(node.right.right, map);
     	}
-    	val = Math.max(val + root.val, helper(root.left, map) + helper(root.right, map));
-    	map.put(root, val);
+    	val = Math.max(val + node.val, helper(node.left, map) + helper(node.right, map));
+    	map.put(node, val);
     	return val;
     }
 
     // sol 3: There are only 2 situations for each node: being robbed or not. Let a function return
     // two results, respectively are the max can get if this node is not robbed and if it is robbed
+    // res[0] is the max result for not robbing it and res[1] is the max result for robbing it.
     public int rob(TreeNode root) {
     	int[] res = helper(root);
     	return Math.max(res[0], res[1]);
