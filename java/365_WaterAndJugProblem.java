@@ -18,10 +18,9 @@
 
 public class Solution {
     public boolean canMeasureWater(int x, int y, int z) {
-        // idea: use the property of Bézout's identity and check if z is a multiple of GCD(x, y)
-        // z is measurable iff. z can be expressed as z = ax + by (a,b are integers)
-        // According to Bézout's identity, ax + by = i * GCD(x,y) (i is integer) and 
-        // GCD(x,y) is the smallest positive integer that can be written in this form
+        // idea: z is measurable iff. z can be expressed as z = ax + by (a,b are integers)
+        // According to Bézout's identity, if a,b != 0, ax+by = i*GCD(x,y) (i is integer)
+        // and GCD(x,y) is the smallest positive integer that can be written in this form
 
         // limit brought by the statement that water is finallly in one or both buckets
 		if (x + y < z) {
@@ -31,7 +30,7 @@ public class Solution {
 		if (x == z || y == z || x + y == z) {
 			return true;
 		}
-		// get GCD, use the property of Bézout's identity, and check if z is a multiple of GCD(x,y)
+		// use the property of Bézout's identity, check if z is a multiple of GCD(x,y)
 		return z % GCD(x, y) == 0;
     }
 

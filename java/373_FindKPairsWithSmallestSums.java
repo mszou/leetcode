@@ -21,22 +21,25 @@
 
 public class Solution {
 	public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-		// idea: maintain k candidates of pairs in a min-heap. O(klogk) Time.
+		// idea: maintain k candidates of pairs in a min-heap. The pair can be an int array as shown below or
+		// a self-defined Pair class including indices in two arrays and the sum. Since two arrays are sorted,
+		// nums1[0] & nums2[0] must be the smallest pair. We first pair k nums in nums1 with nums2[0] and put
+		// them into heap. Each time add the top pair into res and add pair with next in nums2.	O(klogk) Time.
 		List<int[]> res = new ArrayList<>();
 		if (nums1.length == 0 || nums2.length == 0 || k == 0) {
 			return res;
 		}
-		PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> (a[0] + a[1] - b[0] - b[1]));
-		for (int i = 0; i < nums1.length && i < k; i++) {
-			q.offer(new int[]{nums1[i], nums2[0], 0});	// the third entry records index in nums2
+		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (a[0] + a[1] - b[0] - b[1]));
+		for (int i = 0; i < nums1.length && i < k; i++) {	// nums after nums1[k - 1] will never be in the res
+			pq.offer(new int[]{nums1[i], nums2[0], 0});	// the third entry records index in nums2
 		}
-		while (k-- > 0 && !q.isEmpty()) {
-			int[] cur = q.poll();
-			res.add(new int[]{cur[0], cur[1]});
-			if (cur[2] == nums2.length - 1) {
+		for (int i = 1; i <= k && !pq.isEmpty(); i++) {	// take the smallest k pairs
+			int[] curr = pq.poll();
+			res.add(new int[]{curr[0], curr[1]});
+			if (curr[2] == nums2.length - 1) {
 				continue;	// reaches the end of nums2
 			}
-			q.offer(new int[]{cur[0], nums2[cur[2] + 1], cur[2] + 1});
+			pq.offer(new int[]{curr[0], nums2[curr[2] + 1], curr[2] + 1});
 		}
 		return res;
 	}

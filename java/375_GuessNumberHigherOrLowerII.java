@@ -20,44 +20,48 @@
  */
 
 public class Solution {
-    // idea: 2D-DP.
-	// sol 1: iterative, table[i][j] is the min $ to guarantee win for sub-problem: range = [i,j]
+    // idea: interval DP. dp[i][j] is the min $ to guarantee win for sub-problem in range = [i,j]
+	// sol 1: iterative
     public int getMoneyAmount(int n) {
-        int[][] table = new int[n+1][n+1];
+        int[][] dp = new int[n + 1][n + 1];
         for (int j = 2; j <= n; j++) {
         	for (int i = j - 1; i > 0; i--) {
-        		int min = Integer.MAX_VALUE;
-        		for (int k = i + 1; k < j; k++) {
-        			// compute the cost for guessing k
-        			int temp = k + Math.max(table[i][k - 1], table[k + 1][j]);
-        			min = Math.min(min, temp);	// guess k or not
-        		}
-        		table[i][j] = (i + 1 == j) ? i : min;
-        // 		System.out.println("table[" + i + "][" + j + "] = " + table[i][j]);
+                if (i + 1 == j) {
+                    dp[i][j] = i;   // two adjacent nums, we should guess the smaller one
+                } else {
+                    int min = Integer.MAX_VALUE;  // find the min cost for guessing a number in [i,j]
+                    for (int k = i + 1; k < j; k++) {
+                        // compute the cost for guessing k
+                        int temp = k + Math.max(dp[i][k - 1], dp[k + 1][j]);
+                        min = Math.min(min, temp);  // guess k or not
+                    }
+                    dp[i][j] = min;
+                } 
+        // 		System.out.println("dp[" + i + "][" + j + "] = " + dp[i][j]);
         	}
         }
-        return table[1][n];
+        return dp[1][n];
     }
 
-    // // sol 2: recursive.
-    // public int getMoneyAmount(int n) {
-    //     int[][] table = new int[n+1][n+1];
-    //     return helper(table, 1, n);
-    // }
+    // sol 2: recursive.
+    public int getMoneyAmount(int n) {
+        int[][] dp = new int[n+1][n+1];
+        return helper(dp, 1, n);
+    }
 
-    // private int helper(int[][] table, int start, int end) {
-    // 	if (start >= end) {
-    // 		return 0;
-    // 	}
-    // 	if (table[start][end] != 0) {	// already computed
-    // 		return table[start][end];
-    // 	}
-    // 	int res = Integer.MAX_VALUE;
-    // 	for (int i = start; i <= end; i++) {
-    // 		int temp = i + Math.max(helper(table, start, i - 1), helper(table, i + 1, end));
-    // 		res = Math.min(res, temp);
-    // 	}
-    // 	table[start][end] = res;
-    // 	return res;
-    // }
+    private int helper(int[][] dp, int start, int end) {
+    	if (start >= end) {
+    		return 0;
+    	}
+    	if (dp[start][end] != 0) {	// already computed
+    		return dp[start][end];
+    	}
+    	int res = Integer.MAX_VALUE;
+    	for (int i = start; i <= end; i++) {
+    		int temp = i + Math.max(helper(dp, start, i - 1), helper(dp, i + 1, end));
+    		res = Math.min(res, temp);
+    	}
+    	dp[start][end] = res;
+    	return res;
+    }
 }

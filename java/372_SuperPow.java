@@ -12,12 +12,13 @@
  * Result: 1024
  */
 
-// One knowledge: ab % k = (a%k)(b%k) % k. e.g. a^123 % k = [(a^120 % k)(a^3 % k)] % k = [((a^12 % k)^10 % k)(a^3 % k)] % k
+// knowledge: ab % k = (a % k)(b % k) % k. e.g. a^123 % k = [(a^120 % k)(a^3 % k)] % k = [((a^12 % k)^10 % k)(a^3 % k)] % k
 // Suppose f(a,b) calculates a^b % k; Then f(a,123) = [f(a,120) * f(a,3)] % k = [f(f(a,12),10) * f(a,3)] % k;
-
+// so for a^b % 1337, we divide b into several single-digit number and then compute.    O(b.length) Time.
 public class Solution {
 	public int base = 1337;
 
+    // sol 1: recursive
     public int superPow(int a, int[] b) {
         return superPow(a, b, b.length, base);
     }
@@ -37,5 +38,30 @@ public class Solution {
     		res = (res * x) % k;
     	}
     	return res;
+    }
+
+
+    // sol 2: iterative
+    public int superPow(int a, int[] b) {
+        int n = b.length;
+        int res = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            res = (res * modPower(a, b[i])) % base;
+            a = modPower(a, 10);
+        }
+        return res;
+    }
+
+    private int modPower(int a, int e) {    // computes a^e % base
+        int res = 1;
+        a = a % base;
+        while (e > 0) {
+            if ((e & 1) != 0) {
+                res = (res * a) % base;
+            }
+            e >>= 1;
+            a = (a * a) % base;
+        }
+        return res;
     }
 }

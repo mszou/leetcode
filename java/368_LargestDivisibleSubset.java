@@ -14,14 +14,17 @@
 
 public class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
-        // idea: DP, track max subset and pre-index (to form a linked list). O(n^2) Time, O(n) Space.
+        // idea: DP. first sort the nums, then use two arrays 'count' and 'pre', count[i] is the size of subset with
+        // nums[i] being the largest element, pre[i] is the index in nums of the previous element in the subset.
+        // Traverse the array, for num[i], check previous nums that can divide it and update count[i] and pre[i] if
+        // find a longer path. Track max subset and pre-index (to form a linked list).   O(n^2) Time, O(n) Space.
         int len = nums.length;
         Arrays.sort(nums);
-        int[] count = new int[len];	// count[i] stores # of elements in the subset with nums[i] as the largest element
-        int[] pre = new int[len];	// pre[i] is the original index of the previous element in the subset
+        int[] count = new int[len];
+        int[] pre = new int[len];
         Arrays.fill(count, 1);	// initialize, count is at least one for itself
         Arrays.fill(pre, -1);	// initialize, assign -1 if no previous element
-        int max = 0, index = -1;    // the # elements in the larest divisible subset so far and the index for largest number
+        int max = 0, index = -1;    // size of the largest divisible subset and the index for largest number in it
         for (int i = 0; i < len; i++) {
         	for (int j = i - 1; j >= 0; j--) {
         		if (nums[i] % nums[j] == 0) {
