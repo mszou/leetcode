@@ -14,10 +14,11 @@
  */
 
 // sol 1: Binary Search, count the elements no bigger than mid until reaches k. 4ms
+// Also use binary search to count the numbers <= mid in each row.
 public class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         int n = matrix.length;
-        int start = matrix[0][0], end = matrix[n-1][n-1];
+        int start = matrix[0][0], end = matrix[n - 1][n - 1];
         while (start < end) {
         	int mid = start + (end - start) / 2;
         	int count = 0;

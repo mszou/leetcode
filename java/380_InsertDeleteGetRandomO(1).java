@@ -22,10 +22,11 @@
  * randomSet.getRandom();
  */
 
+import java.util.*;
 public class RandomizedSet {
-	// idea: use an ArrayList to store numbers and a hashmap to store their positions in the list
+	// idea: use an ArrayList to store numbers and a hashmap to store their positions in the list.
 	// For insertion, add that num to the list and put its pos into the map. For deletion, if the
-	// target is not located at the tail of the list, swap the last one with it, then remove
+	// target is not located at the tail of the list, swap the last one with it, then remove last.
 	ArrayList<Integer> nums;
 	HashMap<Integer, Integer> pos;
 	Random rand = new Random();	// need to import java.util.*;
@@ -40,7 +41,7 @@ public class RandomizedSet {
 		if (pos.containsKey(val)) {
 			return false;
 		}
-		pos.put(val, nums.size());
+		pos.put(val, nums.size());	// insert to the end of the list
 		nums.add(val);
 		return true;
 	}
@@ -50,15 +51,14 @@ public class RandomizedSet {
 		if (!pos.containsKey(val)) {
 			return false;
 		}
-		int idx = pos.get(val);
-		if (idx < nums.size() - 1) {	// if not the last one in the list, put the last one at this position
+		int index = pos.get(val);
+		if (index < nums.size() - 1) {	// if not the last one in the list, put the last one at this position
 			int last = nums.get(nums.size() - 1);
-			nums.set(idx, last);
-			pos.put(last, idx);
+			nums.set(index, last);
+			pos.put(last, index);
 		}
-		// then remove this val
-		pos.remove(val);
-		nums.remove(nums.size() - 1);
+		pos.remove(val);	// remove this val from map
+		nums.remove(nums.size() - 1);	// remove last number in the list
 		return true;
 	}
 

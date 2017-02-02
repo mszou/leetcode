@@ -17,8 +17,8 @@
 
 public class Solution {
     public int wiggleMaxLength(int[] nums) {
-        // idea: count the number of ups and downs. O(n) Time.
-        // remeber to consider the case of all elements are same, otherwise length at least 2
+        // idea: count the number of ups and downs, pick one for each direction change.   O(n) Time.
+        // length at least 2 except for the case of all elements are same (return 1 for this case)
         if (nums == null) {
             return -1;
         }
