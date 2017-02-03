@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Map.Entry;
 
 // idea: DP. dp[i][j] is the min distance to get city j with at most i flights, i.e. i-1 connections
 // Give each city an index and use map to store the mapping, use another map to store the cities that

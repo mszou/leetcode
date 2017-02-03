@@ -29,7 +29,7 @@ public class Solution {
         for (int i = 0; i < words.length; i = j) {
             int len = -1;
             int j = i;
-            while (j < words.length && len + words[j].length() + 1 > maxWidth) {
+            while (j < words.length && len + words[j].length() + 1 <= maxWidth) {
                 len += words[j].length() + 1;
                 j++;
             }

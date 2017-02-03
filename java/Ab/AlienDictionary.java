@@ -16,9 +16,10 @@
  * There may be multiple valid order of letters, return any one of them is fine.
  */
 
-public class Solution {
-	// idea: Topological sort, BFS, using a Queue to store letters with 0 indegree
-	// compare adjacent words, the first different letter reflect the lexicographical order.
+import java.util.*;
+// idea: Topological sort, BFS, using a Queue to store letters with 0 indegree
+// compare adjacent words, the first different letters reflect the lexicographical order.
+public class AlienDictionary {
 	public String alienOrder(String[] words) {
 		String res = "";
 		if (words == null || words.length == 0) {
@@ -72,4 +73,11 @@ public class Solution {
 		}
 		return res;
 	}
+
+	public static void main(String[] args) {
+		AlienDictionary s = new AlienDictionary();
+		String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
+		System.out.println(s.alienOrder(words));
+	}
+
 }

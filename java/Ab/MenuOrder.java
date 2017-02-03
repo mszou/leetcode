@@ -1,5 +1,12 @@
-import java.util.*;
+// 餐馆点餐问题：给你一个菜单，要你输出一个金额所有能点的不同组合。要求用完所有钱。
+// 一个餐馆，菜单上各种食物价格如下
+// A， $ X.XX
+// B， $ Y.YY
+// C， $ Z.ZZ
+// D,  $ ...
+// 问现在一个人有一定数额的钱，比如 $MM.MM，如何点菜才能把钱全部花完？
 
+import java.util.*;
 // idea: DFS + backtracking. Need to set a small precision of delta for double prices.
 public class MenuOrder {
 	class Food {
