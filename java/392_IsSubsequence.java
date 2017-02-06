@@ -14,7 +14,8 @@
 
 public class Solution {
     public boolean isSubsequence(String s, String t) {
-        // idea: two pointers, find the match in t for each character in s from left to right
+        // idea: use two pointers to traverse s & t from left to right and find the matching
+        // character in t for each character in s.  O(m+n) Time.
         if (s == null || s.length() == 0) {
         	return true;
         }

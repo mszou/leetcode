@@ -15,10 +15,10 @@
  * }
  */
 public class Codec {
-// The difference from #297 for general BT is that this encoded string for BST need to be more compact.
-// So do not need to denote null node, sort the array of nodes' values can get its in-order traversal
-// idea: Serialize: use pre-order traversal, separated by space; Deserialize: get in-order traversal
-// string by sorting, then build the BST based on in-order & pre-order traversal sequences
+// The difference from #297 for general BT is that we can take advantage of the property of BST and
+// encode it into more compact string, no need to denote null node. Sorting can get inorder traversal.
+// idea: Serialize: use pre-order traversal, separate nodes by space;   Deserialize: sort to get the
+// in-order traversal sequence, then build the BST based on in-order & pre-order traversal sequences
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if (root == null) {
@@ -57,6 +57,7 @@ public class Codec {
         return buildBST(preOrder, 0, inOrder, 0, inOrder.length - 1, map);
     }
 
+    // first in preOrder is the root, find the pos of root in inOrder, nodes before it are in left subtree, after it are in right subtree
     private TreeNode buildBST(int[] preOrder, int preStart, int[] inOrder, int inStart, int inEnd, HashMap<Integer, Integer> map) {
     	if (preStart > preOrder.length - 1 || inStart > inEnd) {
     		return null;

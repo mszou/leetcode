@@ -49,11 +49,11 @@
  */
 public class Solution {
     public NestedInteger deserialize(String s) {
-        // idea: use stack, just iterate through every character in the string
+        // idea: use stack, traverse every character in the string and take in NestedIntegers
     	// if encounter '[', push current NestedInteger to stack and start a new one;
     	// if encounter ']', end current NestedInteger and pop one from the stack then continue;
     	// if encounter ',', append a new number to current NestedInteger
-    	// update pointers l & r, which define a substring
+    	// update two pointers l & r, which define a substring
     	if (s == null || s.length() == 0) {
     		return null;
     	}
@@ -82,7 +82,7 @@ public class Solution {
     			}
     			l = r + 1;
     		} else if (c == ',') {
-    			if (s.charAt(r - 1) != ']') {    // not following a nested list, then a single integer
+    			if (s.charAt(r - 1) != ']') {    // not following a nested list, so a single integer
     				String num = s.substring(l, r);
     				curr.add(new NestedInteger(Integer.valueOf(num)));
     			}

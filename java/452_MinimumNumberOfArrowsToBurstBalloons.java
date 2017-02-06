@@ -12,7 +12,9 @@
 
 public class Solution {
     public int findMinArrowShots(int[][] points) {
-        // idea: Greedy. sort the points, record the right bound for current arrow
+        // idea: Greedy. sort the balloons in ascending left bound (ascending right bound if left same),
+        // traverse balloons and track the right bound of the position we can shoot the current arrow.
+        // O(nlogn) Time, O(1) Space.
         if (points == null || points.length == 0 || points[0].length == 0) {
         	return 0;
         }
@@ -26,12 +28,12 @@ public class Solution {
         		}
         	}
         });
-        int arrowRight = points[0][1], count = 1;
+        int arrowRight = points[0][1], count = 1;   // take the right bound of first balloon
         for (int i = 1; i < points.length; i++) {
         	int[] p = points[i];
         	if (p[0] <= arrowRight) {
         		arrowRight = Math.min(arrowRight, p[1]);
-        	} else {
+        	} else {   // balloons from here cannot be burst by current arrow
         		count++;
         		arrowRight = p[1];
         	}

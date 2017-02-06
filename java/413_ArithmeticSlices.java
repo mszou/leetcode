@@ -17,14 +17,16 @@
 
 public class Solution {
     public int numberOfArithmeticSlices(int[] A) {
-        // idea: Only consider consecutive elements. if find an eligible num (A[i] - A[i - 1] == A[i - 1] - A[i - 2]),
-        // the increment in the number of arithmetic slices should be the number end with A[i-1] + 1(A[i-2]~A[i])
-        int curr = 0, sum = 0;
+        // idea: Traverse the array, if find a num A[i], s.t. A[i]-A[i-1] == A[i-1]-A[i-2], A[i] forms or extends
+        // an arithmetic sequence and it also increase # arithmetic slices. The increment = # arithmetic slices
+        // ending with A[i], i.e. # arithmetic slices ending with A[i-1] + 1(for A[i-2]~A[i]).   O(n) Time.
+        int curr = 0;   // # arithmetic slices in current sequence
+        int sum = 0;    // total # arithmetic slices
         for (int i = 2; i < A.length; i++) {
         	if (A[i] - A[i - 1] == A[i - 1] - A[i - 2]) {
         		curr += 1;
         		sum += curr;
-        	} else {
+        	} else {   // reset
         		curr = 0;
         	}
         }

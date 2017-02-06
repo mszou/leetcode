@@ -11,9 +11,10 @@
 
 public class Solution {
 	public String decodeString(String s) {
-		// idea: use Stack + StringBuilder, 2 stacks for pending numeric and string parts
+		// idea: use Stack + StringBuilder, use 2 stacks for pending numeric part and string part.
 		// when encounter a '[', push current num & sb to stacks and reset them; when encounter a ']',
-		// append the current string to 'strStack.pop()' for 'intStack.pop()' times, then continue
+		// append the current string to 'strStack.pop()' for 'intStack.pop()' times, then continue.
+		// O(n) Time, O(n) Space.
 		Stack<Integer> intStack = new Stack<Integer>();
 		Stack<StringBuilder> strStack = new Stack<>();
 		StringBuilder sb = new StringBuilder();

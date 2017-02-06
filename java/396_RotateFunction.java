@@ -15,21 +15,24 @@
  */
 
 public class Solution {
-	// idea: F(k) = 0 * Bk[0] + 1 * Bk[1] + ... + (n-1) * Bk[n-1]
-	// 	   F(k-1) = 0 * Bk-1[0] + 1 * Bk-1[1] + ... + (n-1) * Bk-1[n-1]
-	// 			  = 0 * Bk[1] + 1 * Bk[2] + ... + (n-2) * Bk[n-1] + (n-1) * Bk[0]
+	// idea: observe the law and find the relation between F(k) and F(k-1):
+	//   F(k) = 0 * Bk[0] + 1 * Bk[1] + ... + (n-1) * Bk[n-1]
+	// F(k-1) = 0 * Bk-1[0] + 1 * Bk-1[1] + ... + (n-1) * Bk-1[n-1]
+	// 		  = 0 * Bk[1] + 1 * Bk[2] + ... + (n-2) * Bk[n-1] + (n-1) * Bk[0]
 	// so F(k) - F(k-1) = Bk[1] + Bk[2] + ... + Bk[n-1] + (1-n)Bk[0]
 	//					= (Bk[0] + ... + Bk[n-1]) - nBk[0] = sum - nBk[0]
 	// and when k = 0, B[0] = A[0], when k != 0, Bk[0] = A[n-k]
 	public int maxRotateFunction(int[] A) {
+		if (A == null || A.length == 0) {
+			return 0;
+		}
 		int n = A.length;
-		int sum = 0, f_res = 0;
-		// compute F(0) and the total sum
+		int sum = 0, f_res = 0;	// total sum and the result of F function
 		for (int i = 0; i < n; i++) {
 			f_res += i * A[i];
 			sum += A[i];
 		}
-		int max = f_res;
+		int max = f_res;	// first set max as F(0)
 		// compute F(1) ~ F(n-1) and update max
 		for (int i = 1; i < n; i++) {
 			f_res = f_res + sum - n * A[n - i];

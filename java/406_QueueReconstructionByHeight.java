@@ -11,8 +11,9 @@
 
 public class Solution {
 	public int[][] reconstructQueue(int[][] people) {
-		// idea: first pick up the tallest guys and sort them according to their k values
-		// then insert the next tallest guy(s) into k-th position, repeat until all inserted
+		// idea: first pick up the tallest guy, (if more than one, sort them in ascending k values)
+		// then insert the next tallest guy(s) into it's k-th position, repeat until all inserted.
+		List<int[]> res = new LinkedList<>();
 		// sort the people in descending height, and ascending k when heights are the same
 		Arrays.sort(people, new Comparator<int[]>(){
 			@Override
@@ -24,10 +25,9 @@ public class Solution {
 				}
 			}
 		});
-		List<int[]> res = new LinkedList<>();
 		for (int[] p : people) {
 			res.add(p[1], p);	// insert this person into k-th position
 		}
-		return res.toArray(new int[people.length][]);	// transfer list to array
+		return res.toArray(new int[people.length][]);	// change list to array
 	}
 }

@@ -13,13 +13,14 @@
  */
 
 public class Solution {
-	// idea: look at this as a directed weighted graph, if a/b=k, then the weight of a->b is k, b-a is 1/k,
+	// idea: consider this as a directed weighted graph, if a/b=k, then the weight of a->b is k, b->a is 1/k,
 	// Then a query x/y is to find a path from node x to node y. use DFS to find such path.
 	public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
 		HashMap<String, ArrayList<String>> pairs = new HashMap<>();
 		HashMap<String, ArrayList<Double>> weights = new HashMap<>();
-		for (int i = 0; i < equations.length; i++) {
-			String dividend = equations[i][0], divisor = equations[i][1];
+		for (int i = 0; i < equations.length; i++) {	// initialize the graph
+			String dividend = equations[i][0];
+			String divisor = equations[i][1];
 			if (!pairs.containsKey(dividend)) {
 				pairs.put(dividend, new ArrayList<String>());
 				weights.put(dividend, new ArrayList<Double>());
@@ -36,7 +37,7 @@ public class Solution {
 		double[] res = new double[queries.length];
 		for (int i = 0; i < queries.length; i++) {
 			String[] query = queries[i];
-			res[i] = dfs(query[0],query[1], pairs, weights, new HashSet<String>(), 1.0);
+			res[i] = dfs(query[0], query[1], pairs, weights, new HashSet<String>(), 1.0);
 			if (res[i] == 0.0) {
 				res[i] = -1.0;
 			}

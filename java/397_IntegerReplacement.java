@@ -23,16 +23,16 @@
 
 public class Solution {
 	public int integerReplacement(int n) {
-		// idea: To get 1 ASAP, n/2 is faster, so try to get more intermediate even numbers
-		// i.e. for an odd number, using +1 or -1 depends on whether the bit before last bit is 0 or 1
-		// we can always replace the odd n with a number ending with 00 by +1 or -1
-		// note that for case n = 3, n - 1 is better than n + 1, and be careful about Integer.MAX_VALUE
+		// idea: n/2 is faster to reach, so we should try to get more intermediate even numbers, i.e.
+		// for an odd n, use +1 or -1 to make it multiple of 4 because it's better than multiple of 2.
+		// If n ends with 01, then replace n with n-1; if n ends with 11, then replace n with n+1.
+		// note that for case n = 3, n-1 is better than n+1. and be careful about Integer.MAX_VALUE
 		int count = 0;
-		if (n == Integer.MAX_VALUE) {	// Integer.MAX_VALUE is all 1, but cannot actually increment n
+		if (n == Integer.MAX_VALUE) {	// Integer.MAX_VALUE is all 1, but we cannot do +1 to it
 			return 32;
 		}
 		while (n > 1) {
-			if ((n & 1) == 0) {	// even
+			if ((n & 1) == 0) {	// n is even
 				n >>>= 1;
 			} else {
 				if (n == 3 || (n & 2) == 0) {	// n == 3 or n ends with 01

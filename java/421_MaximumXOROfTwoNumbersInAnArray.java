@@ -1,5 +1,5 @@
 /**
- * Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
+ * Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 2^31.
  * Find the maximum result of ai XOR aj, where 0 ≤ i, j < n.
  * Could you do this in O(n) runtime?
  * Example:
@@ -11,8 +11,8 @@
 public class Solution {
 	public int findMaximumXOR(int[] nums) {
 		// idea: begin from the most significant bit (MSB), with mask 100..0, 110..0,..., 1..10, 1..11,
-		// iterately determine each bit of the final result. use a hashset to store the first i bits of
-		// each number (num & mask), and update the max by checking the existance of greater XOR result.
+		// iterately determine each bit of the final result. use a HashSet to store the prefix of each
+		// number (use num & mask), and update the max by checking the existance of greater XOR result.
 		// an important law: if a ^ b = c, then c ^ a = b, c ^ b = a
 		// e.g. given [14, 11, 7, 3]([1110, 1011, 0111, 0011]), then starting from MSB i = 3
 		// 1. i = 3, mask = 1000, set = {1000, 0000}, max = 1000;
@@ -26,7 +26,7 @@ public class Solution {
 			for (int num : nums) {
 				prefixSet.add(num & mask);	// in each round, only see the prefixes of the numbers
 			}
-			int temp = max | (1 << i);	// the greater XOR result that we might get in this iteration
+			int temp = max | (1 << i);	// the only possible greater XOR result that we might get in this iteration
 			for (int prefix : prefixSet) {
 				// if there is a target in the prefixSet that has prefix ^ target = that greater temp
 				// then according to the law, temp ^ prefix = the target

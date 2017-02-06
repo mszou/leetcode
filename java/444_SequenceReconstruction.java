@@ -32,7 +32,7 @@ public class Solution {
 	public boolean sequenceReconstruction(int[] org, int[][] seqs) {
 		// idea: BFS Topological sort. The sequence can be uniquely reconstructed iff. there is only 1 node
 		// with 0 indegree at any time during recunstruction until no node left.	O(n) Time, O(n) Space.
-		Map<Integer, Set<Integer>> map = new HashMap<>();	// a map to store nums after it
+		Map<Integer, Set<Integer>> map = new HashMap<>();	// store <num i, nums after i>
 		Map<Integer, Integer> indegree = new HashMap<>();	// store indegree of each num, can also use array
 		for (int[] seq : seqs) {
 			if (seq.length == 1) {	// a single number sequence
@@ -40,7 +40,7 @@ public class Solution {
 					map.put(seq[0], new HashSet<>());
 					indegree.put(seq[0], 0);
 				}
-			} else {
+			} else {	// put every adjacent pair into map
 				for (int i = 0; i < seq.length - 1; i++) {
 					if (!map.containsKey(seq[i])) {
 						map.put(seq[i], new HashSet<>());

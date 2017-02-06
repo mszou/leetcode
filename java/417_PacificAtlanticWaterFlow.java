@@ -20,10 +20,10 @@
 
 public class Solution {
 	// idea: DFS or BFS
-	int[][] directions = new int[][]{{1, 0},{-1, 0}, {0, 1}, {0, -1}};
+	int[][] directions = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};	// or public final int[][] directions = {{0,1}, {1, 0}, {0, -1}, {-1, 0}};
 
-	// sol 1: BFS, do BFS from of top & left edges and mark all cells that can flow to Pacific, then do
-	// the same to mark all cells that can flow to Atlantic, return the cells that can flow to both.
+	// sol 1: BFS, do BFS from four edges (top & left for P, bottom & right for A) and mark all cells
+	// that can flow to P and the cells that can flow to A, return the cells that can flow to both.
 	public List<int[]> pacificAtlantic(int[][] matrix) {
 		List<int[]> res = new LinkedList<>();
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
@@ -33,16 +33,16 @@ public class Solution {
 		// two boolean matrices mark whether cells can flow to Pacific / Atlantic
 		boolean[][] pacific = new boolean[m][n];
 		boolean[][] atlantic = new boolean[m][n];
-		// queue is used to store cells that can flow to P/A and haven't done bfs
+		// queues store cells that can flow to P/A that we need to do BFS next
 		Queue<int[]> p_queue = new LinkedList<>();
 		Queue<int[]> a_queue = new LinkedList<>();
-		for (int i = 0; i < m; i++) {
+		for (int i = 0; i < m; i++) {	// initialize the left & right edge
 			p_queue.offer(new int[]{i, 0});
 			a_queue.offer(new int[]{i, n - 1});
 			pacific[i][0] = true;
 			atlantic[i][n - 1] = true;
 		}
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < n; j++) {	// initialize the top & bottom edge
 			p_queue.offer(new int[]{0, j});
 			a_queue.offer(new int[]{m - 1, j});
 			pacific[0][j] = true;

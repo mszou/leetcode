@@ -40,8 +40,9 @@ public class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
         // idea: recursive, find the target node, delete and return node reference of subtree
         // 3 possible cases: 1. target is leaf -> return null; 2. target only has 1 (left/right)
-        // subtree -> return left/right subtree; 3. target has both subtrees -> find the minimum
-        // value in the right subtree, set that value to the target and delete that min value
+        // subtree -> return that subtree; 3. target has both subtrees -> find the minimum value
+        // in its right subtree, replace target node with that value and delete that min value.
+        // O(height) Time, (~ O(logn))
         if (root == null) {
         	return null;
         }
@@ -49,12 +50,12 @@ public class Solution {
         	root.left = deleteNode(root.left, key);
         } else if (key > root.val) {	// target in right subtree
         	root.right = deleteNode(root.right, key);
-        } else {	// target is current node
+        } else {	// current node is the target
         	if (root.left == null) {
         		return root.right;
         	} else if (root.right == null) {
         		return root.left;
-        	} else {
+        	} else {   // has both subtrees
         		TreeNode minNode = findMin(root.right);
         		root.val = minNode.val;
         		root.right = deleteNode(root.right, root.val);

@@ -28,12 +28,13 @@
 
 public class Solution {
 	public String frequencySort(String s) {
-		// idea: HashMap<character, frequency> + bucket
+		// idea: use HashMap<character, frequency> + bucket, bucket[i] stores characters with freq i.
+		// counting freq, finding maxFreq, putting in buckets are all O(n), so O(n) Time, O(n) Space.
 		if (s == null || s.length() <= 2) {
 			return s;
 		}
-		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-		for (char c : s.toCharArray()) {
+		Map<Character, Integer> map = new HashMap<>();
+		for (char c : s.toCharArray()) {	// count the freq of each character
 			if (map.containsKey(c)) {
 				map.put(c, map.get(c) + 1);
 			} else {

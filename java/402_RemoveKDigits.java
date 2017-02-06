@@ -19,9 +19,10 @@
 
 public class Solution {
 	public String removeKdigits(String num, int k) {
-		// idea: use Stack + StringBuilder, stack stores the digits needed in the result,
-		// when encounter a new digit, pop larger ones in the stack as long as k still > 0
-		// k is the number of digits that still need to be removed
+		// idea: use stack, traverse the string and push the digits we need into stack. when
+		// encounter a new digit, pop the nums that larger than it from the stack as long as
+		// k still > 0, k is # digits that still need to be removed.	O(n) Time, O(n-k) Space.
+		// remember to consider cases like "1111". Use StringBuilder to construct the res.
 		int len = num.length();
 		if (k >= len) {
 			return "0";

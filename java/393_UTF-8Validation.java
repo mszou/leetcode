@@ -28,21 +28,21 @@
 
 public class Solution {
 	public boolean validUtf8(int[] data) {
-		// idea: count the bytes needed for the current data, check if it can end up with 0
-		// do bit shifting to see whether it obeys the rules
+		// idea: check the beginning and see how many bytes we need for the current data, do bit shifting to the
+		// following bytes to see whether they obey the rules. return true if no violation in all data.	O(n) Time.
 		int count = 0;
 		for (int c : data) {
 			if (count == 0) {	// a new start
-				if ((c >> 5) == 0b110) {
+				if ((c >> 5) == 0b110) {	// need 1 byte after this
 					count = 1;
-				} else if ((c >> 4) == 0b1110) {
+				} else if ((c >> 4) == 0b1110) {	// need 2 bytes after this
 					count = 2;
-				} else if ((c >> 3) == 0b11110) {
+				} else if ((c >> 3) == 0b11110) {	// need 3 bytes after this
 					count = 3;
 				} else if ((c >> 7) != 0) {
 					return false;
 				}
-			} else {
+			} else {	// all bytes following the start should begin with "10"
 				if ((c >> 6) != 0b10) {
 					return false;
 				}

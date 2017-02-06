@@ -28,28 +28,25 @@
  */
 public class Solution {
     public int eraseOverlapIntervals(Interval[] intervals) {
-        // classic Greedy problem: Interval Scheduling. O(nlogn) Time.
-        // sort intervals in ascending end time, "earliest ddl first" principle
+        // Equivalent to finding max non-overlapping intervals. Greedy: "earliest ddl first"
+        // sort intervals in ascending end time, choose with no conflict.    O(nlogn) Time.
         if (intervals == null || intervals.length == 0) {
         	return 0;
         }
-        Arrays.sort(intervals, new Comparator<Interval>(){
+        Arrays.sort(intervals, new Comparator<Interval>(){  // sorting takes O(nlogn) Time
         	@Override
         	public int compare(Interval a, Interval b) {
-        		if (a.end == b.end) {
-        			return b.start - a.start;
-        		} else {
-        			return a.end - b.end;
-        		}
+        		return a.end - b.end; // in this problem, no need to consider the case of same end time
         	}
         });
-        int curEnd = Integer.MIN_VALUE, count = 0;	// may have negative time points
+        int curEnd = Integer.MIN_VALUE;	// in case of having negative time points
+        int count = 0;  // # non-overlapping intervals
         for (Interval i : intervals) {
         	if (i.start >= curEnd) {
         		curEnd = i.end;
         		count++;
         	}
         }
-        return intervals.length - count;
+        return intervals.length - count;    // # intervals need to be removed
     }
 }

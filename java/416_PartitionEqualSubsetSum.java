@@ -15,8 +15,9 @@
 
 public class Solution {
     public boolean canPartition(int[] nums) {
-        // idea: DP. like backpack problem. if we can find a subset whose sum is half of the total sum, 
-        // then the rest elements can add up to the same sum. dp[j] is whether subset sum == j can be composed
+        // idea: DP (backpack problem), equivalent to check if we can find a subset whose sum is half
+        // of the total sum, because the rest nums will add up to the other half. dp[j] shows whether
+        // subset sum == j can be composed. dp transition: dp[j] = dp[j] || dp[j-num[i]]     O(n) Time.
         if (nums == null || nums.length == 0) {
         	return false;
         }
@@ -27,17 +28,16 @@ public class Solution {
         if (sum % 2 != 0) {
         	return false;	// sum is odd
         }
-        sum /= 2;	// the subset sum
-        boolean[] dp = new boolean[sum + 1];
+        int target = sum / 2;	// the target subset sum
+        boolean[] dp = new boolean[target + 1];
         dp[0] = true;
-        for (int i = 0; i < nums.length; i++) {
-        	for (int j = sum; j >= nums[i]; j--) {
-        		dp[j] = dp[j] || dp[j - nums[i]];	// compose j without/with nums[i]
-        		// System.out.println("dp[" + j + "] = " + dp[j]);
-        	}
-        	if (dp[sum]) {
-        		return true;
-        	}
+        for (int num : nums) {
+            for (int j = target; j >= num; j--) {
+                dp[j] = dp[j] || dp[j - num];   // compose j without or with num
+            }
+            if (dp[target]) {
+                return true;
+            }
         }
         return false;
     }
