@@ -17,8 +17,9 @@
 
 public class Solution {
 	public boolean find132pattern(int[] nums) {
-		// idea: use a stack, push numbers from right to left, and keep track of s2
-		// each time have a new number, pop out all numbers smaller than it, and update s2
+		// idea: use stack, traverse nums from right to left, push numbers onto stack and keep track of the current
+		// greatest candidate for s2 (last in 132). Each time have a new number i, if i < s2, we find a 132 pattern;
+		// otherwise pop the numbers in the stack that are smaller than i and update s2.	O(n) Time, O(n) Space.
 		Stack<Integer> stack = new Stack<Integer>();
 		int s2 = Integer.MIN_VALUE;
 		for (int i = nums.length - 1; i >= 0; i--) {

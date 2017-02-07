@@ -21,6 +21,7 @@
  */
 
 public class Solution {
+	// idea: check wether the sring is valid IPv4 or valid IPv6 address
 	public String validIPAddress(String IP) {
 		if (isValidIPv4(IP)) {
 			return "IPv4";
@@ -30,18 +31,18 @@ public class Solution {
 	}
 
 	public boolean isValidIPv4(String ip) {
-		if (ip.length() < 7 || ip.length() > 15) {
+		if (ip.length() < 7 || ip.length() > 15) {	// invalid length
 			return false;
 		}
-		if (ip.charAt(0) == '.' || ip.charAt(ip.length() - 1) == '.') {
+		if (ip.charAt(0) == '.' || ip.charAt(ip.length() - 1) == '.') {	// invalid head/tail
 			return false;
 		}
 		String[] tokens = ip.split("\\.");
-		if (tokens.length != 4) {
+		if (tokens.length != 4) {	// invalid token count
 			return false;
 		}
 		for (String token : tokens) {
-			if (!isValidIPv4Token(token)) {
+			if (!isValidIPv4Token(token)) {	// invalid IPv4 token
 				return false;
 			}
 		}
@@ -67,18 +68,18 @@ public class Solution {
 	}
 
 	public boolean isValidIPv6(String ip) {
-		if (ip.length() < 15 || ip.length() > 39) {
+		if (ip.length() < 15 || ip.length() > 39) {	// invalid length
 			return false;
 		}
-		if (ip.charAt(0) == ':' || ip.charAt(ip.length() - 1) == ':') {
+		if (ip.charAt(0) == ':' || ip.charAt(ip.length() - 1) == ':') {	// invalid head/tail
 			return false;
 		}
 		String[] tokens = ip.split(":");
-		if (tokens.length != 8) {
+		if (tokens.length != 8) {	// invalid token count
 			return false;
 		}
 		for (String token : tokens) {
-			if (!isValidIPv6Token(token)) {
+			if (!isValidIPv6Token(token)) {	// invalid IPv6 token
 				return false;
 			}
 		}

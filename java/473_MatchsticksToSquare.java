@@ -15,8 +15,8 @@
  */
 
 public class Solution {
-	// Note that * the partition problem is NP-complete *
-	// but here input is constraint not to be very large, so try DFS and backtracking
+	// idea: DFS + backtracking. Note that -* the partition problem is NP-complete *-
+	// but here input is constrained not to be very large, so try DFS and backtracking
 	public boolean makesquare(int[] nums) {
 		if (nums == null || nums.length < 4) {
 			return false;	// number of matchsticks must be at least 4
@@ -29,6 +29,9 @@ public class Solution {
 			return false;	// the sum of length must be multiple of 4
 		}
 		sortDes(nums);	// sort nums in descending order, good for dfs
+		if (nums[0] > sum / 4) {
+			return false;	// longer than the desired side length
+		}
 		return dfs(nums, new int[4], 0, sum / 4);
 	}
 
@@ -40,7 +43,7 @@ public class Solution {
 			}
 			return false;
 		}
-		for (int i = 0; i < 4; i ++) {
+		for (int i = 0; i < 4; i ++) {	// try construct 4 same sub-sums
 			if (sums[i] + nums[index] > target) {
 				continue;
 			}
