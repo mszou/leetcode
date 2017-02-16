@@ -54,8 +54,8 @@
  */
 
 public class Solution {
-	public boolean validWordSquare(List<String> words) {
-		// idea: check each word and the characters in corresponding row
+	public boolean validWordSquare(List<String> words) { 
+		// idea: check each word in the row and the characters in corresponding column
 		if (words == null || words.size() == 0) {
 			return true;
 		}

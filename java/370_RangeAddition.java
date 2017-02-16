@@ -31,8 +31,8 @@
 public class Solution {
 	public int[] getModifiedArray(int length, int[][] updates) {
 		// idea: utilize the accumulative sum. For each update, instead of increment all the numbers in the range,
-		// we only add inc to the start number. Since we'll update res[i] as the accumulative sum before i, an
-		// increased start will lead to increase in following numbers, so we also need to minus inc to the number
+		// we only add 'inc' to the start number. Since we'll update res[i] as the accumulative sum before i, an
+		// increased start will lead to increase in following numbers, so we also need to minus 'inc' to the number
 		// right after end to stop the impact of increasing to numbers out of the range.	O(k+n) Time, O(1) Space.
 		if (length <= 0 || updates == null || updates.length == 0 || updates[0].length != 3) {
 			return null;

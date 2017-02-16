@@ -12,28 +12,28 @@
 
 public class Solution {
     public List<String> generateParenthesis(int n) {
-    	// idea: recursive. Think of the rule of adding parenthesis, suppose the number of remaining
-        // left & right parentheses are leftNum & rightNum, then we can add "(" as long as leftNum > 0,
-        // add ")" only when rightNum > leftNum, so try "(" first, then backtracking. O(2^n) Time?
+    	// idea: recursive. DFS + backtracking. suppose we have i remaining left parentheses and j
+        // right parentheses to add, we can add '(' as long as i > 0, and add ')' only when j > i.
+        // so in each situation, we try '(' first, then backtracking and add ')'.   O(2^n) Time?
         List<String> res = new ArrayList<String>();
         if (n <= 0) {
             return res;
         }
-        getPair(res, "", n, n);
+        generate(res, "", n, n);
         return res;
     }
     
     // generate parenthesis using leftNum '(' and rightNum ')'
-    public void getPair(List<String> res, String s, int leftNum, int rightNum) {
+    public void generate(List<String> res, String s, int leftNum, int rightNum) {
         if (leftNum == 0 && rightNum == 0) {
             res.add(s);
             return;
         }
         if (leftNum > 0) {
-        	getPair(res, s + "(", leftNum - 1, rightNum);
+        	generate(res, s + "(", leftNum - 1, rightNum);
         }
         if (rightNum > leftNum) {
-        	getPair(res, s + ")", leftNum, rightNum - 1);
+        	generate(res, s + ")", leftNum, rightNum - 1);
         }
     }
 }

@@ -10,36 +10,37 @@
  * k = 8,
  * return 13.
  * Note: 
- * You may assume k is always valid, 1 ≤ k ≤ n2.
+ * You may assume k is always valid, 1 ≤ k ≤ n^2.
  */
 
-// sol 1: Binary Search, count the elements no bigger than mid until reaches k. 4ms
-// Also use binary search to count the numbers <= mid in each row.
+// sol 1: Binary Search (for answer), count the elements <= mid until reaches k.
+// Also use binary search (for position) to count the numbers <= mid in each row.
 public class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         int n = matrix.length;
         int start = matrix[0][0], end = matrix[n - 1][n - 1];
         while (start < end) {
         	int mid = start + (end - start) / 2;
-        	int count = 0;
+        	int count = 0; // count numbers <= mid in the matrix
         	for (int i = 0; i < n; i++) {
-        		int[] curRow = matrix[i];
-        		int left = 0, right = curRow.length;
+        		int left = 0, right = n;
         		while (left < right) {
         			int rowMid = left + (right - left) / 2;
-        			if (curRow[rowMid] > mid) {
+        			if (matrix[i][rowMid] > mid) {
         				right = rowMid;
         			} else {
         				left = rowMid + 1;
         			}
-        		}
-        		count += left;	// left equals to # elements in curRow <= mid
+        		} // final pos of left == # nums in current row <= mid
+        		count += left;
         	}
         	if (count < k) {
         		start = mid + 1;
         	} else {
         		end = mid;
         	}
+            // note that we cannot say res is mid if count = k because mid may not exit
+            // in matrix. res should be the smallest one among nums that make count = k
         }
         return start;
     }

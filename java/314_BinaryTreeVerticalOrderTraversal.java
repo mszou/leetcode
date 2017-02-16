@@ -50,12 +50,12 @@ public class Solution {
 		if (root == null) {
 			return res;
 		}
-		Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+		Map<Integer, List<Integer>> map = new HashMap<>();
 		Queue<TreeNode> nodeQ = new LinkedList<>();
 		Queue<Integer> colQ = new LiinkedList<>();
 		nodeQ.add(root);
 		colQ.add(0);
-		int min = 0, max = 0;	// record the left and right bound of col #
+		int min = 0, max = 0;	// keep track of the left and right bound of col #
 		while (!nodeQ.isEmpty()) {
 			TreeNode curr = nodeQ.poll();
 			int col = colQ.poll();

@@ -17,8 +17,9 @@
 public class Solution {
 	public int minMeetingRooms(Interval[] intervals) {
 		// idea: sort the interval by start time, then use min-heap to track the earliest end time, compare
-		// next meeting with the earliest end time, if no overlap, then no need for a new room, so merge
+		// next meeting with the earliest end time, if no overlap, then no need for a new room, so merge.
 		// In this way, the heap stores all conflicting meetings, where the first one has earliest end time.
+		// Finally, pq.size() is exactly the min # rooms needed.	O(nlogn) Time, O(n) Space.
 		if (intervals == null || intervals.length == 0) {
 			return 0;
 		}
@@ -36,7 +37,7 @@ public class Solution {
 		for (int i = 1; i < intervals.length; i++) {
 			Interval curr = pq.poll();
 			if (intervals[i].start >= curr.end) {	// no overlap, so no need for a new room
-				curr.end = intervals[i].end;	// merge the interval
+				curr.end = intervals[i].end;	// merge the intervals into a room
 			} else {
 				pq.offer(intervals[i]);	// need a new room for this meeting
 			}

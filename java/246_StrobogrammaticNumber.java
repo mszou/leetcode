@@ -6,9 +6,9 @@
 
 public class Solution {
 	public boolean isStrobogrammatic(String num) {
-		// idea: Since only 0,1,6,8,9 are valid numbers after rotation, we can use a HashMap to store the
-		// mapping then check the character pairs in corresponding positions.	O(n) Time, O(1) Space.
-		HashMap<Character, Character> map = new HashMap<>();
+		// idea: Since only 0,1,6,8,9 are valid numbers after rotation, we can use a HashMap to store all the
+		// mapping then check the character pairs using two pointers from left & right.	O(n) Time, O(1) Space.
+		Map<Character, Character> map = new HashMap<>();
 		map.put('0', '0');
 		map.put('1', '1');
 		map.put('6', '9');
@@ -16,7 +16,7 @@ public class Solution {
 		map.put('9', '6');
 		int left = 0, right = num.length() - 1;
 		while (left <= right) {
-			if (!map.containsKey(num.charAt(right)) || num.charAt(left) != map.get(num.charAt(right))) {
+			if (!map.containsKey(num.charAt(left)) || num.charAt(right) != map.get(num.charAt(left))) {
 				return false;
 			}
 			left++;

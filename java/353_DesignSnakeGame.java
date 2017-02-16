@@ -30,7 +30,7 @@
 
 public class SnakeGame {
 	// idea: change 2-D pos into 1-D and use double-ended queue to store the position of body
-	Set<Integer> set;	// stores indices of snake body, so can easily check for eating body case
+	Set<Integer> set;	// stores pos occupied by snake body, so can easily check eating body case
 	Deque<Integer> body;	// stores the current snake body in order
 	int score;
 	int[][] food;
@@ -43,7 +43,7 @@ public class SnakeGame {
 		this.height = height;
 		this.food = food;
 		set = new HashSet<>();
-		set.add(0);	// initially at [0][0]
+		set.add(0);	// initially at [0][0], 1-D index is 0
 		body = new LinkedList<>();
 		body.offerLast(0);
 	}
@@ -69,14 +69,14 @@ public class SnakeGame {
 		int newHead = row * width + col;
 		set.remove(body.peekLast());	// new head can be in the old tail's position, so first remove
 		// case 1: if reach the boundary or eat body, then game over
-		if (row < 0 || row == height || col < 0 || col == width || set.contains(head)) {
+		if (row < 0 || row == height || col < 0 || col == width || set.contains(newHead)) {
 			score = -1;
 			return score;
 		}
-		// game not over, so add the new head
+		// if game not over, then add the new head
 		set.add(newHead);
 		body.offerFirst(newHead);
-		// case 2: eat the food, then old tail doesn't change, so add it back.
+		// case 2: eat the food, then old tail doesn't change, so add it back to the set.
 		if (foodIndex < food.length && row == food[foodIndex][0] && col == food[foodIndex][1]) {
 			set.add(body.peekLast());
 			foodIndex++;

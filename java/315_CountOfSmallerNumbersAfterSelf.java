@@ -10,15 +10,16 @@
  */
 
 public class Solution {
-	// idea: use Binary Search Tree.   O(nlogn) Time, worst O(n^2).
+    // sol 1: naive, traverse nums for each number. O(n^2) Time.
 
+	// sol 2: construct Binary Search Tree.   O(nlogn) Time, worst O(n^2) (for single link).
 	public class TreeNode {
 		int smallCount;
 		int val;
 		TreeNode left;
 		TreeNode right;
 		public TreeNode(int count, int val) {
-			this.smallCount = count;
+			smallCount = count;
 			this.val = val;
 		}
 	}
@@ -30,20 +31,21 @@ public class Solution {
         	return Arrays.asList(res);
         }
         for (int i = nums.length - 1; i >= 0; i--) {
-        	root = insert(root, nums[i], res, i, 0);
+        	root = insert(root, nums[i], res, i, 0);   // insert from right to left
         }
         return Arrays.asList(res);
     }
 
     public TreeNode insert(TreeNode root, int val, Integer[] res, int index, int preSum) {
-    	if (root == null) {
-    		root = new TreeNode(0, val);
-    		res[index] = preSum;
-    	} else if (root.val > val) {
-    		root.smallCount++;
-    		root.left = insert(root.left, val, res, index, preSum);
-    	} else {
-    		root.right = insert(root.right, val, res, index, root.smallCount + preSum + (root.val < val ? 1 : 0));    // only adding 1 on preSum if root.val is smaller than val
+        if (root == null) {
+            root = new TreeNode(0, val);
+            res[index] = preSum;
+        } else if (root.val > val) {
+            root.smallCount++;
+            root.left = insert(root.left, val, res, index, preSum);
+        } else {
+            int newPreSum = root.smallCount + preSum + ((root.val < val) ? 1 : 0);    // 0 for root.val == val
+            root.right = insert(root.right, val, res, index, newPreSum);
         }
         return root;
     }

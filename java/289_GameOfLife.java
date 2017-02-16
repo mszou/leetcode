@@ -14,12 +14,12 @@
 public class Solution {
 	// sol 1: naive, use a new matrix to store the next state for every cell. O(mn) Time, O(mn) Space.
 	
-	// sol 2: in-place, state trasition. add a bit before the current bit as its next state, i.e. the
-	// number in each cell becomes 2 bits: bit0 is current state, bit1 (by default 0) is next state.
-	// Then trasitions are: 00(0): dead->dead; 01(1): live->dead; 10(2): dead->live; 11(3): live->live
-	// bit1 is by default 0, so only need to care about transitions to live. For each cell, check the
-	// neighbors arount it and set bit1. do "& 1" can get current state, ">> 1" can get next state.
-	// Next state is stored in the cell, so no interfere with each other during update.	O(mn) Time, O(1) Space.
+	// sol 2: in-place, state trasition. use 2-bit num (0~3) to indicate states of each cell: the lower
+	// bit is same as current value (0 or 1), the higher bit (0 by default) shows next state. Then 0~3
+	// can show 4 trasitions: 0(00): dead->dead; 1(01): live->dead; 2(10): dead->live; 3(11): live->live
+	// higher bit is by default 0, so only need to care about transitions to live. For each cell, check
+	// the neighbors arount it and set bit1. can do "& 1" to get current state, ">> 1" to get next state.
+	// Next state is stored in the cell, so no interfere with others during update.	O(mn) Time, O(1) Space.
 	public void gameOfLife(int[][] board) {
 		if (board == null || board.length == 0 || board[0].length == 0) {
 			return;
@@ -28,7 +28,7 @@ public class Solution {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				int lives = liveNeighbors(board, m, n, i, j);	// count the live neighbors
-				// 2nd bit is by default 0, so only need to care about when 2nd bit becomes 1
+				// higher bit is by default 0, so only need to care about when it becomes 1
 				if (board[i][j] == 1 && lives >= 2 && lives <= 3) {
 					board[i][j] = 3;	// 01 -> 11 (Condition 2, keep living)
 				}

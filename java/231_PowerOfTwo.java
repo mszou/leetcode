@@ -23,8 +23,8 @@ public class Solution {
         // }
         // return (n == 1);
         
-        // sol 3: bit manipulation (complementary bits)
-        // idea: Power of 2 means only one bit of n is '1', so use the trick n&(n-1)==0 to judge whether that is the case
+        // sol 3: bit manipulation (complementary bits). A power of 2 has only one bit
+        // of '1' in its binary representation, this can be checked by n & (n-1) == 0
         return (n & (n-1)) == 0;
     }
 }

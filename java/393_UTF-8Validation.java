@@ -28,9 +28,9 @@
 
 public class Solution {
 	public boolean validUtf8(int[] data) {
-		// idea: check the beginning and see how many bytes we need for the current data, do bit shifting to the
-		// following bytes to see whether they obey the rules. return true if no violation in all data.	O(n) Time.
-		int count = 0;
+		// idea: check the beginning and see how many bytes we need for this sequence, check whether the following
+		// bytes begin with correct prefix using bit shifting. Return true if no violation in all data.	O(n) Time.
+		int count = 0;	// record # following bytes needed for the current data
 		for (int c : data) {
 			if (count == 0) {	// a new start
 				if ((c >> 5) == 0b110) {	// need 1 byte after this

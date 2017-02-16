@@ -21,7 +21,7 @@ public class Solution {
 		// sol 1: naive, reverse the list, plus 1 to the front, then reverse the result.
 
 		// sol 2: while traversing, use a pointer to record the pos of last non-nine number
-		// plus one to that number
+		// plus one to that number, and change the following continuous 9's into 0's
 		ListNode dummy = new ListNode(0);
 		dummy.next = head;
 		ListNode lastNotNine = dummy, pointer = head;

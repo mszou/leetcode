@@ -26,7 +26,7 @@
  * };
  */
 public class Solution {
-    // idea: use a map to store the mapping from each node in original graph to that in the cloned graph
+    // idea: use map to store the node in original graph and the corresponding node in the cloned graph
     
     // sol 1: DFS. clone the nodes and neighbors by DFS
     private HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
@@ -35,6 +35,7 @@ public class Solution {
         return clone(node);
     }
 
+    // DFS to clone nodes and neighbors from node, returns the cloned node for 'node'
     private UndirectedGraphNode clone(UndirectedGraphNode node) {
         if (node == null) {
             return null;
@@ -45,7 +46,7 @@ public class Solution {
         UndirectedGraphNode clonedNode = new UndirectedGraphNode(node.label);
         map.put(node, clonedNode);
         for (UndirectedGraphNode neighbor : node.neighbors) {
-            clonedNode.neighbors.add(clone(neighbor));
+            clonedNode.neighbors.add(clone(neighbor));  // add the cloned neighbors to clonedNode
         }
         return clonedNode;
     }
@@ -56,7 +57,7 @@ public class Solution {
         	return null;
         }
         ArrayList<UndirectedGraphNode> nodes = new ArrayList<UndirectedGraphNode>();
-        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
         // clone nodes, BFS, add in next nodes by checking the neighbors of existing nodes
         nodes.add(node);
         map.put(node, new UndirectedGraphNode(node.label));
@@ -71,7 +72,7 @@ public class Solution {
         	}
         	index++;
         }
-        // clone neighbors (edges)
+        // clone neighbors (edges), build neighborhood in the cloned graph
         for (UndirectedGraphNode n : nodes) {
         	UndirectedGraphNode newNode = map.get(n);
         	for (UndirectedGraphNode nb : n.neighbors) {

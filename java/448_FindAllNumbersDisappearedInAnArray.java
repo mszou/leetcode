@@ -12,18 +12,18 @@
 public class Solution {
 	public List<Integer> findDisappearedNumbers(int[] nums) {
 		// idea: since the given numbers are all in [1, n], we can use negative number to
-		// mark indices for appeared number, i.e. let nums[nums[i] -1] = -nums[nums[i]-1]
-		// In this way, we can both know the original numbers and mark the appeared
-		// Subtracting 1 is to map all integers from 1 to n using the current array index
+		// mark indices for appeared number, i.e. let nums[nums[i]-1] = - nums[nums[i]-1]
+		// In this way, we can both know the original numbers and mark the appeared nums.
+		// Subtracting 1 is to map all integers 1~n using the current array index 0 ~ n-1
 		List<Integer> res = new ArrayList<Integer>();
 		for (int i = 0; i < nums.length; i++) {
 			int val = Math.abs(nums[i]) - 1;
-			if (nums[val] > 0) {
-				nums[val] = -nums[val];
+			if (nums[val] > 0) {	// hasn't been visited
+				nums[val] = -nums[val];	// flip
 			}
 		}
 		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] > 0) {
+			if (nums[i] > 0) {	// means no val = i visited here, i.e. i + 1 disappeared
 				res.add(i + 1);
 			}
 		}

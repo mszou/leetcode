@@ -13,34 +13,34 @@
 
 public class Solution {
     public int maxCoins(int[] nums) {
-        // idea: recursive Divide & Conquer method with memoization or DP. O(n^3) Time?
-        // reversed thinking, divide the problem by considering the last balloon to burst.
-        // note: first burst all zero balloons because they won't give any coins.
+        // idea: Divide & conquer and DP, dp[i][j] is the max coins from ith to jth balloon,
+        // considering the last balloon to burst, and divide into left, right & middle parts.
+        // recursive Divide & Conquer method with memoization & DP. O(n^3) Time
         int n = nums.length;
         int[] arr = new int[n + 2]; // current array to burst
-        int[][] dp = new int[n + 2][n + 2]; // dp[i][j] is the max coins from ith to jth balloon
+        int[][] dp = new int[n + 2][n + 2];
         boolean[][] visit = new boolean[n + 2][n + 2];
         // initialize the array, arr[i] stands for the i-th balloon
         for (int i = 1; i <= n; i++) {
             arr[i] = nums[i - 1];
         }
-        arr[0] = arr[n + 1] = 1;
-        
+        arr[0] = arr[n + 1] = 1;    // set the balloon before first / after last as 1
         return burst(arr, dp, visit, 1 , n);
     }
     
     // function to calculate the max coins for arr[left] ~ arr[right]
     private int burst(int[] arr, int[][] dp, boolean[][] visit, int left, int right) {
-        if (visit[left][right]) {
+        if (visit[left][right]) {   // already computed [left, right] this range
             return dp[left][right];
         }
         int res = 0;
         // for each balloon in this segment, compute the coins we can get by last bursting it
         for (int i = left; i <= right; i++) {
+            // i is the last to burst between [left, right], so multiply with left-1 & right+1
             int midValue =  arr[left - 1] * arr[i] * arr[right + 1];
             int leftValue = burst(arr, dp, visit, left, i - 1);
             int rightValue = burst(arr, dp, visit, i + 1, right);
-            res = Math.max(res, leftValue + midValue + rightValue);
+            res = Math.max(res, leftValue + midValue + rightValue); // choose i as last or not
         }
         visit[left][right] = true;
         dp[left][right] = res;

@@ -21,9 +21,9 @@
 
 public class Solution {
     public int combinationSum4(int[] nums, int target) {
-    	// idea: DP. For all i <= target, compute # combinations to sum i (represented by dp[i]).
-        // Then for each i in [1,traget], traverse nums to try dividing i as num + (i - num), so
-        // add up dp[i-num] to get # combinations for sum i.    O(n*target) Time, O(target) Space.
+    	// idea: DP. dp[i] represents # combinations to sum i. Then for each i from
+        // 1 to traget, traverse nums, if j <= i, divide i as j + (i - j), and add
+        // up those dp[i - j] to get dp[i].    O(n * target) Time, O(target) Space.
         int[] dp = new int[target + 1];
         dp[0] = 1;
         for (int i = 1; i <= target; i++) {
@@ -35,4 +35,8 @@ public class Solution {
         }
         return dp[target];
     }
+    // follow up: if has negative numbers, the combinations could be potentially of infinite length.
+    // e.g. nums = [-1, 1] and target = 0, all combination with same number of 1's and -1's can work.
+    // So we should limit the length of the combination sequence.
+    // sol: we can write a recursive function with memorization to solve it.
 }

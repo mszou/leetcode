@@ -23,7 +23,7 @@
  */
 
 public class PhoneDirectory {
-	// idea: use a set to store the used numbers, and a queue to store available numbers.
+	// idea: use a set to store used numbers, and a queue to store available numbers.
 	// get() returns the first in the 'available' queue, check(num) checkes whether 'used'
 	// contains num, release(num) removes num from 'used' and add it to 'available'.
 	Set<Integer> used;
@@ -49,7 +49,7 @@ public class PhoneDirectory {
 
 	public boolean check(int number) {
 		if (number >= max || number < 0) {
-			return false;
+			return false;	// invalid num
 		}
 		return !used.contains(number);
 	}

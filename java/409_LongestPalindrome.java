@@ -18,18 +18,18 @@ public class Solution {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
-		int count = 0;	// count the number of pairs
+		int countPairs = 0;	// count the number of pairs
 		HashSet<Character> set = new HashSet<Character>();	// store chars with odd freq
 		for (char c : s.toCharArray()) {
 			if (!set.add(c)) {	// already exist
 				set.remove(c);
-				count++;
+				countPairs++;	// match a pair
 			}
 		}
 		if (!set.isEmpty()) {
-			return count * 2 + 1;
+			return countPairs * 2 + 1;	// can only choose one unpaired in the middle
 		} else {
-			return count * 2;
+			return countPairs * 2;
 		}
 	}
 }

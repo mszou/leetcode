@@ -14,9 +14,9 @@
 
 public class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
-        // idea: DP. first sort the nums, then use two arrays 'count' and 'pre', count[i] is the size of subset with
-        // nums[i] being the largest element, pre[i] is the index in nums of the previous element in the subset.
-        // Traverse the array, for num[i], check previous nums that can divide it and update count[i] and pre[i] if
+        // idea: DP. first sort nums, then use two arrays 'count' and 'pre', count[i] is the max size of subset end
+        // with nums[i], pre[i] is the index (in nums) of the previous num in this subset (used for reconstruct res).
+        // Traverse the array, for num[i], check previous nums that can divide it, update max count[i] & pre[i] if
         // find a longer path. Track max subset and pre-index (to form a linked list).   O(n^2) Time, O(n) Space.
         int len = nums.length;
         Arrays.sort(nums);
@@ -24,24 +24,23 @@ public class Solution {
         int[] pre = new int[len];
         Arrays.fill(count, 1);	// initialize, count is at least one for itself
         Arrays.fill(pre, -1);	// initialize, assign -1 if no previous element
-        int max = 0, index = -1;    // size of the largest divisible subset and the index for largest number in it
+        int max = 0, index = -1;    // size of the largest divisible subset, the index of last number in it
         for (int i = 0; i < len; i++) {
-        	for (int j = i - 1; j >= 0; j--) {
-        		if (nums[i] % nums[j] == 0) {
+        	for (int j = i - 1; j >= 0; j--) { // check nums before current nums[i]
+        		if (nums[i] % nums[j] == 0) { // divisible
         			if (1 + count[j] > count[i]) {	// get more elements through this path (via nums[j])
         				count[i] = count[j] + 1;
         				pre[i] = j;
         			}
         		}
         	}
-        	if (count[i] > max) {  // update max and the corresponding index
+        	if (count[i] > max) {  // update max and the corresponding index of last number
         		max = count[i];
         		index = i;
         	}
         }
-        List<Integer> res = new ArrayList<>();
-        // trace back, insert elements
-        while (index != -1) {
+        List<Integer> res = new LinkedList<>();
+        while (index != -1) {   // trace back, insert elements
         	res.add(0, nums[index]);
         	index = pre[index];
         }

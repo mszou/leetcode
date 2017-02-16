@@ -15,10 +15,10 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-
 public class Solution {
 	public List<Interval> merge(List<Interval> intervals) {
-		// idea: sort the intervals in ascending starting point, then merge if have overlap
+		// idea: sort the intervals in ascending start time, then traverse and merge intervals
+		// that start before previous interval ends.	O(nlog) Time, O(1) Space.
 		List<Interval> res = new ArrayList<Interval>();
 		if (intervals == null || intervals.size() == 0) {
 			return res;
@@ -29,17 +29,17 @@ public class Solution {
 				return a.start - b.start;
 			}
 		});
-		Interval last = intervals.get(0);
+		Interval last = intervals.get(0);	// keep tracking of the last interval so far
 		for (int i = 1; i < intervals.size(); i++) {
-			Interval cur = intervals.get(i);
-			if (cur.start <= last.end) {	// can merge
-				last.end = Math.max(last.end, cur.end);
-			} else {
+			Interval curr = intervals.get(i);
+			if (curr.start <= last.end) {	// has overlap, so merge curr to last
+				last.end = Math.max(last.end, curr.end);
+			} else {	// intervals after curr will not have overlap with last
 				res.add(last);
-				last = cur;
+				last = curr;
 			}
 		}
-		res.add(last);
+		res.add(last);	// remember to add this last interval!
 		return res;
 	}
 }

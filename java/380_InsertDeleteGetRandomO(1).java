@@ -24,7 +24,7 @@
 
 import java.util.*;
 public class RandomizedSet {
-	// idea: use an ArrayList to store numbers and a hashmap to store their positions in the list.
+	// idea: use an ArrayList to store nums and Map<num, pos> stores their positions in the list.
 	// For insertion, add that num to the list and put its pos into the map. For deletion, if the
 	// target is not located at the tail of the list, swap the last one with it, then remove last.
 	ArrayList<Integer> nums;
@@ -38,7 +38,7 @@ public class RandomizedSet {
 
 	/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
 	public boolean insert(int val) {
-		if (pos.containsKey(val)) {
+		if (pos.containsKey(val)) {	// already contain
 			return false;
 		}
 		pos.put(val, nums.size());	// insert to the end of the list
@@ -52,7 +52,7 @@ public class RandomizedSet {
 			return false;
 		}
 		int index = pos.get(val);
-		if (index < nums.size() - 1) {	// if not the last one in the list, put the last one at this position
+		if (index < nums.size() - 1) {	// not the tail of the list, so put the last val at this position
 			int last = nums.get(nums.size() - 1);
 			nums.set(index, last);
 			pos.put(last, index);

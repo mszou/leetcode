@@ -10,7 +10,7 @@ public class Solution {
 	// idea: DFS. the player can guarantee a win when the other player cannot win after this flip.
 	// Recursively check the winnability for a string. use Map to memorize win & lose for strings.
 	// For a string of length n, there are at most n - 1 ways to replace "++" to "--", so the Time
-	// T(N) = (N-1) * T(N-2) = (N - 1) * (N-3) * T(N-4) ... = (N-1) * (N-3) * (N-5) * ... ~ O(N!!)
+	// T(N) = (N-1) * T(N-2) = (N-1) * (N-3) * T(N-4) ... = (N-1) * (N-3) * (N-5) * ... ~ O(N!!)
 	public boolean canWin(String s) {
 		if (s == null || s.length() < 2) {
 			return false;
@@ -32,7 +32,7 @@ public class Solution {
 				}
 			}
 		}
-		map.put(s, false);	// cannot guarantee a win on current string s
+		map.put(s, false);	// cannot find a solution to guarantee a win on current string s
 		return false;
 	}
 }

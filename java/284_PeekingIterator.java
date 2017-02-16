@@ -17,7 +17,7 @@
 class PeekingIterator implements Iterator<Integer> {
 	private Integer next = null;	// used to store the next Integer
 	private Iterator<Integer> iter;
-	private boolean isEnd = false;	// used to mark if the iterator doesn't have next
+	private boolean isEnd = false;	// mark if the iterator doesn't have next
 
 	public PeekingIterator(Iterator<Integer> iterator) {
 		// initialize any member here.
@@ -50,6 +50,6 @@ class PeekingIterator implements Iterator<Integer> {
 
 	@Override
 	public boolean hasNext() {
-		return !isEnd;
+		return !isEnd;	// iter has next as long as it hasn't reached the end
 	}
 }

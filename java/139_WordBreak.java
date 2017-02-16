@@ -10,13 +10,13 @@
 
 public class Solution {
 	public boolean wordBreak(String s, List<String> wordDict) {
-		// idea: DP. canBreak[i] is whether s.substring(0, i) can be segmented
+		// idea: DP. canBreak[i] shows whether s.substring(0, i) can be segmented with wordDict. Then
+		// we check every substring if it ends with a given word and the prefix can also be segmented.
 		// if s.length() = n, wordDict.size() = m, then O(mn) Time, O(n) Space.
 		boolean[] canBreak = new boolean[s.length() + 1];
 		canBreak[0] = true;
 		for (int i = 1; i <= s.length(); i++) {
-			for (int j = 0; j < wordDict.size(); j++) {
-				String word = wordDict.get(j);
+			for (String word : wordDict) {
 				if (word.length() <= i) {
 					if (canBreak[i - word.length()] && s.substring(i - word.length(), i).equals(word)) {
 						canBreak[i] = true;

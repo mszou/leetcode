@@ -35,11 +35,7 @@ public class Solution {
 		}
 		Map<Character, Integer> map = new HashMap<>();
 		for (char c : s.toCharArray()) {	// count the freq of each character
-			if (map.containsKey(c)) {
-				map.put(c, map.get(c) + 1);
-			} else {
-				map.put(c, 1);
-			}
+			map.put(c, map.getOrDefault(c, 0) + 1);
 		}
 		int maxFreq = 0;
 		for (int freq : map.values()) {

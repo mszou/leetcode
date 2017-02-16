@@ -23,7 +23,7 @@ public class LFUCache {
 	// Nodes are double-linked via prev & next pointers, and keys under this frequency are stored in a LinkedHashSet
 	class Node {
 		public Node prev, next;
-		public final int count;
+		public final int count;	// the freq of all the keys under this node
 		public LinkedHashSet<Integer> keys = new LinkedHashSet<>();
 
 		public Node(Node prev, Node next, int count, int key) {
@@ -48,19 +48,19 @@ public class LFUCache {
 
 	public int get(int key) {
 		if (nodeMap.containsKey(key)) {
-			increase(key);
+			increase(key);	// access key, so freq increases
 		}
 		return valueMap.getOrDefault(key, -1);
 	}
 
-	private void increase(int key) {	// move the key to the node for frequency + 1
+	private void increase(int key) {	// move the key to the Node for frequency + 1
 		Node node = nodeMap.get(key);
 		node.keys.remove(key);	// remove this key from list under previous node (previous freq)
-		if (node.next == null) {
+		if (node.next == null) {	// node is the current tail, so create a new Node for freq+1
 			node.next = new Node(node, null, node.count + 1, key);
-		} else if (node.next.count == node.count + 1) {
+		} else if (node.next.count == node.count + 1) {	// Node for freq+1 already exists
 			node.next.keys.add(key);	// add key to the list under node of count + 1
-		} else {	// insert a new Node for count + 1
+		} else {	// node.next.count > freq+1, so insert a new Node for count + 1
 			Node temp = node.next;
 			Node next = new Node(node, null, node.count + 1, key);
 			node.next = next;
@@ -68,7 +68,7 @@ public class LFUCache {
 		}
 		nodeMap.put(key, node.next);
 		if (node.keys.isEmpty()) {
-			removeNode(node);	// remove the node if no key has this count (frequency)
+			removeNode(node);	// remove the node if no key has this count (previous frequency)
 		}
 	}
 
@@ -88,11 +88,11 @@ public class LFUCache {
 			return;
 		}
 		// HashMap.put(K, V)的返回值是之前的value，之前若没有key的mapping则返回null
-		if (valueMap.put(key, value) != null) {	// there is a previous mapping for key
+		if (valueMap.put(key, value) != null) {	// there is a previous mapping for key, 相当于valueMap.containsKey(key)
 			increase(key);
 		} else {
 			if (nodeMap.size() == this.capacity) {
-				removeOne();
+				removeOne();	// remove the least frequent used item
 			}
 			addNew(key);
 		}

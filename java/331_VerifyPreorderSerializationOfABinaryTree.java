@@ -23,16 +23,16 @@
  */
 
 public class Solution {
-	// sol 1: use stack, more specificly, utilize the depth of stack. Simulate the preorder
-	// traversal on the string, a valid serialization should end up with stack depth == 0
-	// and pointer == nodes.length - 1 (the index of last leaf).
-	private int stack;
+	// sol 1: use stack, more specificly, utilize the depth of stack. Simulate the
+	// preorder traversal on the string, a valid serialization should end up with
+	// stack depth == 0 and pointer == nodes.length - 1 (the index of last leaf).
+	private int stackSize;	// increases when we push nodes, decreases when pop
 
 	public boolean isValidSerialization(String preorder) {
 		String[] nodes = preorder.split(",");
 		int i = findLeaf(nodes, 0);
-		while (stack > 0) {
-			stack--;
+		while (stackSize > 0) {
+			stackSize--;
 			i = findLeaf(nodes, ++i);
 		}
 		return i == nodes.length - 1;
@@ -41,7 +41,7 @@ public class Solution {
 	// push nodes into stack, from index i to next leaf
 	private int findLeaf(String[] nodes, int i) {
 		while (i < nodes.length && !nodes[i].equals("#")) {
-			stack++;
+			stackSize++;
 			i++;
 		}
 		return i;
@@ -49,10 +49,10 @@ public class Solution {
 	
 	// sol 2.1 & 2.2: utilize the stucture of binary tree	
 	public boolean isValidSerialization(String preorder) {
-		// property 1: every non-leaf node has 2 outdegree and 1 indegree
-		// (except root), and every leaf node has 0 outdegree and 1 indegree
+		// property 1: every non-leaf node has 2 outdegree and 1 indegree (except root)
+		// and every leaf node has 0 outdegree and 1 indegree, keep tracking the diff.
 		String[] nodes = preorder.split(",");
-		int diff = 1;	// diff = outdegree - indegree, initialized as 1 (for the compensation of root indegree)
+		int diff = 1;	// outdegree - indegree, initialized as 1 (for the compensation of root indegree)
 		for (String node : nodes) {
 			if (--diff < 0) {	// a new node has an indegree, so decrease diff by 1
 				return false;
@@ -84,7 +84,8 @@ public class Solution {
 		return valid(nodes, 0) == nodes.length - 1;
 	}
 
-	// checking balance of nodes from bottom-up manner and bubble up failure condition.
+	// checks validness and returns the index of last node in the current subtree.
+	// checking from bottom-up manner and bubble up failure condition.
 	private int valid(String[] nodes, int curr) {
 		if (curr >= nodes.length) {
 			return -1;

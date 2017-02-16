@@ -18,25 +18,26 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         // idea: Since intervals are sorted and non-overlapping, just check the start and end points of each interval,
-        // directly add into res if no overlap with newInterval, merge them if have overlap
+        // directly add into res if no overlap with newInterval, merge them if have overlap.    O(n) Time, O(1) Space.
+        if (newInterval == null) {
+            return intervals;
+        }
         List<Interval> res = new ArrayList<Interval>();
         if (intervals == null || intervals.size() == 0) {
         	res.add(newInterval);
         	return res;
         }
-        if (newInterval == null) {
-        	return intervals;
-        }
+        
+        // version 1: add the result in order
         int i = 0;
         while (i < intervals.size() && intervals.get(i).end < newInterval.start) {  // non-overlapping intervals at left
         	res.add(intervals.get(i));
         	i++;
         }
-        // do the merge to intervals having overlap with newInterval
+        // merge intervals that have overlap with newInterval
         while (i < intervals.size() && intervals.get(i).start <= newInterval.end) {
             newInterval.start = Math.min(newInterval.start, intervals.get(i).start);
         	newInterval.end = Math.max(newInterval.end, intervals.get(i).end);
@@ -49,25 +50,22 @@ public class Solution {
         }
         return res;
 
-
-        if (intervals == null || newInterval == null) {
-            return intervals;
-        }
-        List<Interval> results = new ArrayList<Interval>();
+        // version 2: record the position to insert newInterval, first add all intervals that do not
+        // have overlap with it to res, then insert the merged newInterval to the recorded position.
         int insertPos = 0;
         for (Interval interval : intervals) {
             if (interval.end < newInterval.start) {
-                results.add(interval);
-                insertPos ++;
+                res.add(interval);
+                insertPos++;
             } else if (interval.start > newInterval.end) {
-                results.add(interval);
+                res.add(interval);
             } else {    // overlap
                 newInterval.start = Math.min(interval.start, newInterval.start);
                 newInterval.end = Math.max(interval.end, newInterval.end);
             }
         }
         // insert the new interval
-        results.add(insertPos, newInterval);
-        return results;
+        res.add(insertPos, newInterval);
+        return res;
     }
 }

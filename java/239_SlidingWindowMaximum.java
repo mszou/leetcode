@@ -22,29 +22,28 @@
  */
 
 public class Solution {
-	// idea: use a deque (double-ended queue) to store indices of promising elements in the window range [i-k+1, i].
-	// when moving the window, disgard elements before i-k+1 and elements smaller than nums[i]
-	// As a result elements in the deque are in non-ascending order, so the head is always the max element in current window.
+	// idea: use deque (double-ended queue) to store indexes of potential max in the window range [i-k+1, i].
+	// when the window slides, remove the numbers out of the window and the numbers < nums[i] from the deque.
+	// As a result, nums in the deque are in non-ascending order, the head is always the max in current window.
+	// O(n) Time, O(k) Space.
 	public int[] maxSlidingWindow(int[] nums, int k) {
 		if (nums == null || k <= 0) {
 			return new int[0];
 		}
-		int len = nums.length;
-		int[] res = new int[len - k + 1];
-		int rIdx = 0;
-		Deque<Integer> q = new ArrayDeque<Integer>();	// store indices
-		for (int i = 0; i < nums.length; i++) {
-			// remove numbers out of the range
+		int n = nums.length;
+		int[] res = new int[n - k + 1];
+		int index = 0;
+		Deque<Integer> q = new ArrayDeque<Integer>();	// store indexes, faster than LinkedList
+		for (int i = 0; i < n; i++) {
 			while (!q.isEmpty() && q.peek() < i - k + 1) {
-				q.poll();
+				q.poll();	// remove the numbers out of the window range
 			}
-			// remove smaller elements
-			while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
-				q.pollLast();	// use peekLast & pollLast because elements in the deque are in non-ascending order
+			while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {	// remove nums smaller than nums[i]
+				q.pollLast();	// use peekLast & pollLast because nums in the deque are in non-ascending order
 			}
 			q.offer(i);
-			if (i >= k - 1) {	// store the max in res from i = k - 1
-				res[rIdx++] = nums[q.peek()];
+			if (i >= k - 1) {	// store the max in res starting from i = k - 1
+				res[index++] = nums[q.peek()];
 			}
 		}
 		return res;

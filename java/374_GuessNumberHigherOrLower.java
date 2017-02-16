@@ -16,10 +16,9 @@
    @param num, your guess
    @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
       int guess(int num); */
-
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
-        // binary search. keep checking guess(mid) until find the correct number
+        // idea: binary search. keep checking guess(mid) until find the correct number
         int begin = 1, end = n, mid;
         while (begin < end) {
             mid = begin + (end - begin) / 2;

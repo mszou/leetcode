@@ -5,12 +5,12 @@
 
 public class Solution {
     public int numSquares(int n) { 
-    	// idea: DP. dp[i] is the min # perfect squares sum to i. O(n^1.5) Time.
+    	// idea: DP. dp[i] is the min # perfect squares sum to i, then for j = 1 ~ sqrt(i),
+    	// try taking j*j as one addend, find the min # and update dp[i].	O(n^1.5) Time.
         int[] dp = new int[n + 1];
 		dp[0] = 0;
 		for (int i = 1; i <= n; i++) {
 			int min = Integer.MAX_VALUE;
-			// for every j that j*j <= i, try taking j*j as one addend, find the min #
 			for (int j = 1; i - j * j >= 0; j++) {
 				min = Math.min(min, dp[i - j * j] + 1);
 			}

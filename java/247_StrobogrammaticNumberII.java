@@ -8,14 +8,14 @@
  */
 
 public class Solution {
-	// idea: strobogrammatic numbers of length 1 can only be 0,1,8, when length >= 2, it can be
-	// constructed by a strobogrammatic number of length n - 2 and a pair at beginning and end.
+	// idea: recursive, strobogrammatic numbers of length 1 can only be 0,1,8, when length >= 2, it
+	// can be constructed by a strobogrammatic number of length n-2 and a pair at beginning and end.
 	// The pair can be chosen from (0,0),(1,1),(6,9),(8,8),(9,9). Remember to avoid leading 0.
 	public List<String> findStrobogrammatic(int n) {
 		return construct(n, n);
 	}
 
-	List<String> construct(int contructLength, int totalLength) {
+	private List<String> construct(int contructLength, int totalLength) {
 		if (contructLength <= 0) {
 			return new ArrayList<String>(Arrays.asList(""));
 		}
@@ -23,10 +23,10 @@ public class Solution {
 			return new ArrayList<String>(Arrays.asList("0", "1", "8"));
 		}
 		List<String> list = construct(contructLength - 2, totalLength);
-		List<String> res = new ArrayList<String>();
+		List<String> res = new ArrayList<String>();	// list of res for current level
 		for (int i = 0; i < list.size(); i++) {
 			String s = list.get(i);
-			if (contructLength != totalLength) {	// avoid leading 0
+			if (contructLength != totalLength) {	// avoid leading 0 in the most outer pair
 				res.add("0" + s + "0");
 			}
 			res.add("1" + s + "1");

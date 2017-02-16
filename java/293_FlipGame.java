@@ -12,12 +12,12 @@
 
 public class Solution {
 	public List<String> generatePossibleNextMoves(String s) {
-		// idea: traverse to find all "++" and flip them
+		// idea: traverse to find all "++" and replace them with "--", O(n) Time.
 		List<String> res = new ArrayList<>();
 		StringBuilder sb = new StringBuilder(s);
 		for (int i = 1; i < s.length(); i++) {
-			if (s.charAt(i - 1) == '+' && s.charAt(i) == '+') {
-				sb.replace(i - 1, i + 1, "--");	// flip
+			if (s.charAt(i - 1) == '+' && s.charAt(i) == '+') {	// or use s.substring(i-1,i+1).equals("++")
+				sb.replace(i - 1, i + 1, "--");	// flip "++" into "--"
 				res.add(sb.toString());
 				sb.replace(i - 1, i + 1, "++");	// recover to the origin string
 			}

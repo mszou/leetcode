@@ -38,16 +38,19 @@ public class Solution {
 	}
 
 
-	// sol 2: interval DP. our opponent also play optimally, so we can only get the smaller res after his choice.
+	// sol 2: interval DP. dp[i][j] represents the maximal score that we can get when facing with nums[i] ~ nums[j].
+	// Since our opponent also play optimally, we can only get the smaller one between two results after his choice.
 	// dp[i][j] = max{ min{dp[i+1][j-1],dp[i+2][j]} + nums[i], min{dp[i][j-2],dp[i+1][j-1]} + nums[j]}	O(n^2) Time.
 	public boolean PredictTheWinner(int[] nums) {
+		// when nums.length is even, you can compare sum of all the elements on even pos and the sum of all elements on odd pos, take the one that belongs
+		// to the larger sum, then you can force your opponent to always take numbers from the other group. In this way, you can always beet your opponent.
 		if (nums.length % 2 == 0) {
 			return true;
 		}
 		int n = nums.length;
 		int[][] dp = new int[n][n];
 		for (int i = 0; i < dp.length; i++) {
-			Arrays.fill(dp[i], -1);
+			Arrays.fill(dp[i], -1);	// initialization
 		}
 		int sum = 0;
 		for (int num : nums) {
@@ -57,6 +60,7 @@ public class Solution {
 		return myBest >= sum - myBest;
 	}
 
+	// compute the maximal result I can get when facing nums[i]~nums[j]
 	private int helper(int[] nums, int[][] dp, int i, int j) {
 		if (i > j) {
 			return 0;

@@ -16,10 +16,10 @@
 public class Solution {
 	public List<List<String>> groupStrings(String[] strings) {
 		// idea: use the string starting with 'a' in the each shifting sequence as the key,
-		// then each sequence has a unique key and strings in the same sequence have same key
-		// use a HashMap<key, word list> to store, sort the list before adding to the result
+		// then each sequence has a unique key and strings in the same sequence have same key.
+		// use a HashMap<key, word list> to store, sort the list before adding to the result.
 		List<List<String>> res = new ArrayList<>();
-		HashMap<String, List<String>> map = new HashMap<>();
+		Map<String, List<String>> map = new HashMap<>();
 		for (String str : strings) {
 			String key = findKey(str);
 			if (!map.containsKey(key)) {
@@ -36,6 +36,7 @@ public class Solution {
 		return res;
 	}
 
+	// returns the key (starting with 'a') for the giving String s
 	private String findKey(String s) {
 		if (s == null || s.length() == 0) {
 			return s;
@@ -43,7 +44,7 @@ public class Solution {
 		int offset = s.charAt(0) - 'a';
 		StringBuilder sb = new StringBuilder();
 		for (char c : s.toCharArray()) {
-			sb.append((char) c - offset);
+			sb.append((char)(c - offset));
 		}
 		return sb.toString();
 	}

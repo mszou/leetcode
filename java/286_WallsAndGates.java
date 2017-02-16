@@ -17,6 +17,7 @@
  */
 
 public class Solution {
+	// idea: BFS (better) or DFS
 	// sol 1: BFS from all gates together using a queue, update all reachable empty rooms. Each time we
 	// poll a cell from queue, update its neighbors and add them into queue.	O(mn) Time, O(mn) Space.
 	public void wallsAndGates(int[][] rooms) {
@@ -26,17 +27,17 @@ public class Solution {
 		Queue<int[]> queue = new LinkedList<>();
 		for (int i = 0; i < rooms.length; i++) {
 			for (int j = 0; j < rooms[0].length; j++) {
-				if (rooms[i][j] == 0) {
+				if (rooms[i][j] == 0) {	// put all gates into queue
 					queue.offer(new int[]{i, j});
 				}
 			}
 		}
-		int[][] directions = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};	// 4 directions
+		int[][] directions = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};	// 4 directions
 		while (!queue.isEmpty()) {
 			int[] curr = queue.poll();
-			for (int i = 0; i < directions.length; i++) {
-				int row = curr[0] + directions[i][0];
-				int col = curr[0] + directions[i][1];
+			for (int[] dir : directions) {
+				int row = curr[0] + dir[0];
+				int col = curr[1] + dir[1];
 				// skip cases of beyond range or not a empty room (wall or visited room)
 				if (row < 0 || row >= rooms.length || col < 0 || col >= rooms[0].length || rooms[row][col] != Integer.MAX_VALUE) {
 					continue;

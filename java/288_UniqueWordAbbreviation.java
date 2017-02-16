@@ -20,7 +20,8 @@
 
 public class ValidWordAbbr {
 	// idea: use HashMap<abbr, word> to store the given dictionary and check if an abbr is unique
-	HashMap<String, String> map;
+	// or use Map<abbr, words with this abbr>, then unique if map doesn't contain key or map.get(key) only has that word
+	Map<String, String> map;
 
 	public ValidWordAbbr(String[] dictionary) {
 		map = new HashMap<String, String>();

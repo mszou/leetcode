@@ -19,10 +19,11 @@
 
 public class Solution {
 	public int findRadius(int[] houses, int[] heaters) {
-		// idea: each house has a nearest heater, our goal is to find the maximal nearest distance
-		// first sort the heaters, then for each house find the insertion point in heaters array
-		// (Arrays.binarySearch returns -(insertion point)-1 if key not exist), compute the distance
-		// from this house to its left & right heater, compare the smaller one with minRadius
+		// idea: each house has a nearest heater, our goal is to find the maximal nearest distance.
+		// First sort the heaters, then for each house find the (insertion) pos in heaters array
+		// (Arrays.binarySearch returns -(insertion point)-1 if key not exist), check the distance
+		// from this house to its left & right heater, keep tracking of minRadius.
+		// Suppose n houses, m heaters, then O(mlogm + nlogm) Time, O(1) Space.
 		Arrays.sort(heaters);
 		int minRadius = 0;
 		for (int house : houses) {

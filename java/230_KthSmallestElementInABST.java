@@ -21,15 +21,15 @@
  * }
  */
 public class Solution {
-	// sol 1: "Binary Search", count the nodes in left subtree and compare with k, locate
-    // the kthSmallest in which subtree according to the comparison.
+	// sol 1: like "Binary Search", recursive, count the nodes in left subtree and compare with
+    // k, locate the kthSmallest in which subtree according to the comparison.     O(h) Time.
     public int kthSmallest(TreeNode root, int k) {
         int count = countNodes(root.left);
         if (count >= k) {
             return kthSmallest(root.left, k);
         } else if (count < k - 1) {
             return kthSmallest(root.right, k - 1 - count);
-        } else {
+        } else {    // count == k - 1, means root is the kthSmallest
             return root.val;
         }
     }
@@ -41,8 +41,8 @@ public class Solution {
         return 1 + countNodes(n.left) + countNodes(n.right);
     }
 
-    // sol 2: DFS recursive. inorder traversal, for any (sub)tree, add # nodes in left subtree, then 1
-    // for root, if count still < k, then traverse the right subtree. O(h) Time (h = height of BST, logn)
+    // sol 2: DFS recursive. in-order traversal, for any (sub)tree, add # nodes in left subtree,
+    // then +1 for root, if count still < k, then traverse the right subtree.    O(h) Time.
     int count = 0;
     int result = Integer.MIN_VALUE;
     
@@ -51,11 +51,14 @@ public class Solution {
         return result;
     }
     
-    private void traverse(TreeNode root, int k) {
+    private void traverse(TreeNode root, int k) {   // in-order traversal
         if (root == null || count == k) {
             return;
         }
-        traverse(root.left, k);
+        traverse(root.left, k); // count is updated during the traversal of subtree
+        if (result != Integer.MIN_VALUE) {  // already got the res in left subtree
+            return;
+        }
         count++;	// count increases 1 for root when left subtree traversal finishes
         if (count == k) {
         	result = root.val;
@@ -66,7 +69,7 @@ public class Solution {
         }     
     }
 
-    // sol 3: DFS iterative. count the nodes while doing inorder traversal using a stack.
+    // sol 3: DFS iterative. count the nodes while doing in-order traversal using a stack.
     public int kthSmallest(TreeNode root, int k) {
         Stack<TreeNode> stack = new Stack<TreeNode>();
         while (root != null) {
@@ -85,6 +88,6 @@ public class Solution {
                 right = right.left;
             }
         }
-        return -1;  // never reach here as long as k is valid
+        return -1;  // exception for invalid k
     }
 }

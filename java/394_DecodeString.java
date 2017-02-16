@@ -11,10 +11,9 @@
 
 public class Solution {
 	public String decodeString(String s) {
-		// idea: use Stack + StringBuilder, use 2 stacks for pending numeric part and string part.
-		// when encounter a '[', push current num & sb to stacks and reset them; when encounter a ']',
-		// append the current string to 'strStack.pop()' for 'intStack.pop()' times, then continue.
-		// O(n) Time, O(n) Space.
+		// idea: use 2 stacks for pending numeric parts and string parts. when encounter a '[', push
+		// current num & sb to stacks and reset them; when encounter a ']', append the current string
+		// to 'strStack.pop()' for 'intStack.pop()' times, then continue.	O(n) Time, O(n) Space.
 		Stack<Integer> intStack = new Stack<Integer>();
 		Stack<StringBuilder> strStack = new Stack<>();
 		StringBuilder sb = new StringBuilder();
@@ -33,7 +32,7 @@ public class Solution {
 				for (int i = intStack.pop(); i > 0; i--) {
 					sb.append(temp);
 				}
-			} else {
+			} else {	// c is a letter
 				sb.append(c);
 			}
 		}

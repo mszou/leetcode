@@ -8,15 +8,13 @@
  */
 
 public class Solution {
-    // sol 1: recursive
+    // the mapping from digit to letters can be stored in map or in String[]
+    // sol 1: recursive, DFS + backtracking
     public List<String> letterCombinations(String digits) {
-    	// idea: use HashMap to store the mapping from number to letters, then convert the string
-        // using dfs and back-tracking. 
         List<String> res = new ArrayList<String>();
         if (digits == null || digits.length() == 0) {
             return res;
         }
-        // build a look-up map<digit, letters>
         Map<Character, char[]> map = new HashMap<Character, char[]>();
         map.put('0',new char[] {'0'});
         map.put('1',new char[] {'1'});
@@ -28,37 +26,37 @@ public class Solution {
         map.put('7',new char[] {'p','q','r','s'});
         map.put('8',new char[] {'t','u','v'});
         map.put('9',new char[] {'w','x','y','z'});
-        
         StringBuilder sb = new StringBuilder();
-        convert(map, digits, sb, res);
+        convert(map, digits, 0, sb, res);
         return res;
     }
     
-    // convert function: back-tracking & recursion
-    private void convert(Map<Character, char[]> map, String digits, StringBuilder sb, List<String> res) {
-        if (sb.length() == digits.length()) {   // finish one conversion
+    // convert function: dfs + backtracking
+    private void convert(Map<Character, char[]> map, String digits, int index, StringBuilder sb, List<String> res) {
+        if (index == digits.length()) {   // finish one conversion
             res.add(sb.toString());
             return;
         }
-        for (char c : map.get(digits.charAt(sb.length()))) {	// next character to convert
+        for (char c : map.get(digits.charAt(index))) {	// next character to convert
             sb.append(c);
-            convert(map, digits, sb, res);
-            sb.deleteCharAt(sb.length() - 1);   // back-tracking
+            convert(map, digits, index + 1, sb, res);
+            sb.deleteCharAt(index);   // backtracking
         }
     }
 
-    // sol 2: iterative. act as a queue, for each digit added, remove and copy every element in the queue and add
-    // the possible letter to each element, and add them back into the queue. Repeat until all digits are converted.
+    // sol 2: iterative. store temp res for each level. For next digit, append each possible char to
+    // every previous res in the list to get res for this level. Repeat until all digits are converted.
+    // note that peek() and remove() methods here are all for LinkedList, so res should be LinkedList
     public List<String> letterCombinations(String digits) {
         LinkedList<String> res = new LinkedList<String>();
         String[] charMap = new String[]{"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        if (digits.length() == 0) {
+        if (digits == null || digits.length() == 0) {
             return res;
         }
-        res.add("");
+        res.add("");    // remeber to add "" for initialization
         for (int i = 0; i < digits.length(); i++) {
-            int idx = Character.getNumericValue(digits.charAt(i));
-            while (res.peek().length() == i) {
+            int idx = Character.getNumericValue(digits.charAt(i));  // aka digits.charAt(i) - '0'
+            while (res.peek().length() == i) {  // for all res from previous level
                 String temp = res.remove();
                 for (char c : charMap[idx].toCharArray()) {
                     res.add(temp + c);

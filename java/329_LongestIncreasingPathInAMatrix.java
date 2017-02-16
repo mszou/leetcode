@@ -20,10 +20,10 @@
  */
 
 public class Solution {
-	// idea: DFS from every cell, search 4 directions and only continue with valid cells
-	// cache the max length from matrix[i][j] in cache[i][j] for possible use in future visit
-	// each cell can be accessed at most 5 times: 4 from 4 directions and 1 from the outermost loop
-	// max length from each cell will be computed only once, so the total Time complexity is: O(mn)
+	// idea: DFS from every cell, search 4 directions and only continue with increasing cells.
+	// cache the max length from matrix[i][j] in cache[i][j] for possible use in future visit.
+	// Each cell can be accessed at most 5 times: 4 from 4 directions and 1 from the outer loop.
+	// Max length from each cell will be computed only once, so total O(mn) Time, O(mn) Space.
 
 	public final int[][] directions = {{0,1}, {1, 0}, {0, -1}, {-1, 0}};
 
@@ -52,7 +52,7 @@ public class Solution {
 		for (int[] dir : directions) {
 			int x = i + dir[0], y = j + dir[1];
 			if (x < 0 || x >= m || y < 0 || y >= n || matrix[x][y] <= matrix[i][j]) {
-				continue;
+				continue;	// out of range or not increasing
 			}
 			int len = 1 + dfs(matrix, x, y, m, n, cache);
 			max = Math.max(max, len);

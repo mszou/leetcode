@@ -47,11 +47,14 @@ public class TicTacToe {
 	// mark by Player1, 2 means a mark by Player2. Every time make a move, scan every row,
 	// every col, and diagonals to see if there are n same marks.	O(n^2) Time, O(n^2) Space.
 
-	// sol 2: only keep a count for each row and col and diagonals.	O(1) Time, O(1) Space.
+	// sol 2: only keep a count for each row and col and diagonals. Use '1' for marks
+	// by Player1, and '-1' for marks by Player2, then either player win can be checked
+	// by |a single row/col/diagonal sum| == n.		O(1) Time, O(1) Space.
 	private int[] rows;
 	private int[] cols;
 	private int diagonal;
 	private int antiDiagonal;
+
 	/** Initialize your data structure here. */
 	public TicTacToe(int n) {
 		rows = new int[n];
@@ -68,7 +71,7 @@ public class TicTacToe {
 	public int move(int row, int col, int player) {
 		int n = rows.length;
 		if (row < 0 || row >= n || col < 0 || col >= n || player != 1 && player != 2) {
-			return -1;
+			return -1;	// invalid move
 		}
 		int toAdd = (player == 1) ? 1 : -1;	// add 1 for Player 1, -1 for Player 2
 		rows[row] += toAdd;

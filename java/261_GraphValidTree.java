@@ -11,8 +11,9 @@
 
 public class Solution {
 	public boolean validTree(int n, int[][] edges) {
-		// idea: Union find. A graph with n vertices and n - 1 edges without cycle is a tree.
-		// so we just need to check the number of edges and whether there is a cycle.
+		// idea: Union find. A graph with n vertices and n-1 edges without cycle is a tree.
+		// So just need to check # edges and whether there is a cycle. Do union find to the
+		// two ends of a new edge, if they belong to the same set, then there is a cycle.
 		// Time: Worst O(n^2) (|V|*|E|), Best O(n) (|E|). O(n) Space (|V|).
 		if (n == 0 || edges.length != n - 1) {
 			return false;

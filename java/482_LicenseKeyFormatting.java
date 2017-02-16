@@ -21,16 +21,17 @@ public class Solution {
 		// idea: traverse the string from right to left, split the characters into groups of 
 		// length k. Every time we finish a group, insert a dash.	O(n) Time, O(1) Space.
 		StringBuilder sb = new StringBuilder();
-		int charLen = 0;
+		int charLen = 0;	// track # chars we've already put in the sb
 		for (int i = s.length() - 1; i >= 0; i--) {
-			if (s.charAt(i) != '-') {
-				// tricky: sb.append(sb.length() % (k + 1) == k ? '-' : "").append(s.charAt(i));
-				if (charLen > 0 && charLen % k == 0) {
-					sb.append('-');
-				}
-				sb.append(Character.toUpperCase(s.charAt(i)));
-				charLen++;
+			if (s.charAt(i) == '-') {
+				continue;	// skip original '-'s
 			}
+			// tricky: sb.append(sb.length() % (k + 1) == k ? '-' : "").append(s.charAt(i));
+			if (charLen > 0 && charLen % k == 0) {	// finished a goup
+				sb.append('-');
+			}
+			sb.append(Character.toUpperCase(s.charAt(i)));
+			charLen++;
 		}
 		return sb.reverse().toString();
 	}

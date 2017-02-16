@@ -11,34 +11,35 @@
 
 public class Solution {
     public int calculate(String s) {
-        // idea: use a stack to deal with parentheses, calculate plus and minus by setting the sign 1 or -1
-        // 5 possible types of input, and we need to do different operations:
-		// 1. digit: it should be one digit from the current number, use Character.isDigit() to check
-		// 2. '+': number is over, we can add the previous number and start a new number
-		// 3. '-': same as '+', need to set the sign as -1
-		// 4. '(': push the previous result and the sign into the stack, set result to 0, just calculate the new result within the parenthesis.
-		// 5. ')': pop out the top two numbers from stack, first one is the sign before this pair of parenthesis, second is the temporary result before this pair of parenthesis. We add them together.
+        // idea: use stack for parentheses, set the sign 1 (for '+') or -1 (for '-').   O(n) Time.
+        // There are 5 possible types of character we may meet, and we need to do different operations:
+		// 1. digit: Character.isDigit() checks digits, use a variable to store the current number;
+		// 2. '+': indicates that previous num is over, so add the previous num and start a new one;
+		// 3. '-': similar to '+', the difference is that we need to set the sign as -1 for new num;
+		// 4. '(': push previous res & sign into stack, reset both, calculate res within the parentheses.
+		// 5. ')': pop two from the stack (the previous sign & res before this pair of parentheses),
+        //         and take (currentRes * sign + previousRes) as current res after the parentheses.
     	int len = s.length();
-    	int res = 0, sign = 1;
+    	int res = 0, sign = 1; // temporary result so far; the sign for next number
     	Stack<Integer> stack = new Stack<Integer>();
     	for (int i = 0; i < len; i++) {
     		if (Character.isDigit(s.charAt(i))) {
-    			int sum = s.charAt(i) - '0';
+    			int num = s.charAt(i) - '0';
     			while (i + 1 < len && Character.isDigit(s.charAt(i + 1))) {
-    				sum = sum * 10 + s.charAt(i + 1) - '0';
+    				num = num * 10 + s.charAt(i + 1) - '0';
     				i++;
     			}
-    			res += sum * sign;
+    			res += num * sign;
     		} else if (s.charAt(i) == '+') {
     			sign = 1;
     		} else if (s.charAt(i) == '-') {
     			sign = -1;
-    		} else if (s.charAt(i) == '(') {  // push the result so far and the sign before '(' into the stack
+    		} else if (s.charAt(i) == '(') {  // push current res & the sign before '(' into the stack
     			stack.push(res);
     			stack.push(sign);
     			res = 0;
     			sign = 1;    // reset the result and sign, compute result in the parentheses
-    		} else if (s.charAt(i) == ')') {
+    		} else if (s.charAt(i) == ')') {  // finish computation within this pair of parentheses
     			res = res * stack.pop() + stack.pop();
     		}
     	}

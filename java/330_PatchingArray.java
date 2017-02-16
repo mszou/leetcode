@@ -18,17 +18,16 @@
 
 public class Solution {
 	public int minPatches(int[] nums, int n) {
-		// idea: Greedy. if x is the smallest number that the current sums cannot cover, 
-		// (meaning [1,x-1] are all covered,) then adding x will make the sums cover [1,2x-1]
-		int miss = 1;	// the first missing number is initialized as 1
-		// change the type of miss to long if Time Limit Exceeded
+		// idea: Greedy. if x is the smallest number that the current sums cannot cover, then
+		// adding x can make the sums cover [1,2x-1], which reaches farthest.	O(n) Time.
+		int miss = 1;	// checking missing sum from 1, change type to long if TLE
 		int patch = 0, i = 0;
-		while (miss <= n) {
-			if (i < nums.length && nums[i] <= miss) {
+		while (miss <= n) {	// make sure that sums that smaller than miss can always be formed
+			if (i < nums.length && nums[i] <= miss) {	// nums[i] is reachable and can add it
 				miss += nums[i++];	// adding nums[i] can get sums in [1, miss+num[i]-1]
 			} else {	// nums[i] > miss, cannot be reached, so patch is needed
 				patch++;
-				miss <<= 1;	// add a patch = miss, then the next missing number is 2 * miss
+				miss <<= 1;	// add a patch = miss, then sums can cover 1 ~ 2 * miss - 1 now
 			}
 		}
 		return patch;

@@ -43,7 +43,7 @@ public class Solution {
 	public int wordTyping(String[] sentence, int rows, int cols) {
 		// idea: Join the words into a sentence string and use a pointer to analyze the start pos
 		// of each row. The ans is the final start index divided by the length of sentence string.
-		String s = String.join(" ", sentence) + " ";
+		String s = String.join(" ", sentence) + " ";	// join words into a sentence, including space
 		int start = 0, len = s.length();
 		for (int i = 0; i < rows; i++) {
 			start += cols;

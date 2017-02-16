@@ -10,8 +10,8 @@
 
 public class Solution {
     public int findPeakElement(int[] nums) {
-        // idea: Binary Search. Because nums[i] ≠ nums[i+1], we can compare nums[mid] & nums[mid+1] and
-        // move pointers to let nums[start] > nums[start-1] and nums[end] > nums[end-1]. O(logn) Time.
+        // idea: Binary Search. nums[i] ≠ nums[i+1], so we compare nums[mid] & nums[mid+1] and move
+        // pointers to keep nums[start] > nums[start-1] and nums[end] > nums[end-1].    O(logn) Time.
         if (nums == null || nums.length == 0) {
             return 0;
         }

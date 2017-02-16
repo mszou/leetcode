@@ -42,18 +42,18 @@ public class Solution {
 
 	// sol 2: iterative. A word of length k has 2^k abbreviations. Moreover, they can be mapped to
 	// all the binary expressions of length k (i.e. 0 ~ 2^k-1). A '0' at position i in the binary
-	// number means we keep the character at that position, and '1' means we abbreviate it. If there
+	// number means we keep the character at that pos, and a '1' means we abbreviate it. If there
 	// are consecutive 1's, we need to count the number of 1's and replace them with the count.
 	public List<String> generateAbbreviations(String word) {
 		List<String> res = new ArrayList<>();
-		int n = word.length();
+		int n = word.length();	// if n > 31, we should use long in the for loop
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < Math.pow(2, n); i++) {
 			sb.setLength(0);
 			int count = 0;
 			for (int j = 0; j < n; j++) {
 				if (((i >> j) & 1) != 0) {
-					count++;
+					count++;	// count consecutive 1's
 				} else {
 					if (count != 0) {
 						sb.append(count);

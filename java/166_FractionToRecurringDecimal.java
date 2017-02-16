@@ -14,7 +14,7 @@
 public class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
     	// idea: first compute integral part, then fractional. For fractional part, use HashMap to record 
-    	// possible repeating remainders and corresponding starting indices for recurring decimal.
+    	// possible repeating remainders and the corresponding starting indexes for recurring decimal.
         if (denominator == 0) {
             return "NaN";	// not a number
         }
@@ -23,7 +23,7 @@ public class Solution {
         }
         StringBuilder res = new StringBuilder();
         // append "-" if negative
-        if ((numerator > 0) ^ (denominator > 0)) {  // XOR, either is negative
+        if ((numerator > 0) ^ (denominator > 0)) {  // use XOR, one of them is negative
             res.append("-");
         }
         long num = Math.abs((long)numerator);

@@ -17,20 +17,20 @@
 
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // idea: kind of Binary Search. every time we compare the element at the top right corner with the target, there are
-        // 3 possible cases: 1. < target, then rule out the first row; 2. > target, then rule out the last column; 3. == target,
-        // then we find target. Therefore, we can get the result within at most m + n comparisons, so O(m+n) Time, O(1) Space.
+        // idea: Compare the number at the top right corner with target. if it < target, then we can rule out
+        // the first row; if it > target, then rule out the last column; if it == target, then we find target.
+        // Therefore, we can get the result within at most (m + n) comparisons. So O(m+n) Time, O(1) Space.
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
         	return false;
         }
         int row = 0, col = matrix[0].length - 1;	// start from the top right corner
-        // int count = 0;	// if need count the occurrence of target
+        // int count = 0;	// if need to count the occurrence of target
         while (col >= 0 && row <= matrix.length - 1) {
         	if (matrix[row][col] == target) {
         		return true;
         		/* count++;
         		row++;
-        		col--; */ //if need count the occurrence of target
+        		col--; */ //if need to count the occurrence of target
         	} else if (matrix[row][col] < target) {
         		row++;
         	} else {

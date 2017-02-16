@@ -9,7 +9,6 @@
  * By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
  */
 
-
 /**
  * // This is the interface that allows for creating nested lists.
  * // You should not implement it, or speculate about its implementation
@@ -31,7 +30,7 @@ import java.util.*;
 
 public class NestedIterator implements Iterator<Integer> {
 	// idea: use a stack, push the nestedList from end to the beginning. use getInteger()
-	// and getList() for single integers / nested lists. flatten nested lists in hasNext().
+	// and getList() for single integers & nested lists. flatten nested lists in hasNext().
     // Make sure it is always an integer on top of the stack before next() is being called.
 	Stack<NestedInteger> stack = new Stack<>();
 
@@ -57,7 +56,7 @@ public class NestedIterator implements Iterator<Integer> {
         	if (curr.isInteger()) {    // is a single integer
         		return true;
         	} else {   // is a nested list
-                stack.pop();
+                stack.pop();    // pop the list and add back the integers in it
                 for (int i = curr.getList().size() - 1; i >= 0; i--) {
                     stack.push(curr.getList().get(i));
                 }

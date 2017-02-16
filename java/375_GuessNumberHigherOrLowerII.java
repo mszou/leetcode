@@ -21,31 +21,30 @@
 
 public class Solution {
     // idea: interval DP. dp[i][j] is the min $ to guarantee win for sub-problem in range = [i,j]
+    // Cost for guessing k in [i,j] is k + max{dp[i][k-1],dp[k+1][j]}, choose the k with min cost
 	// sol 1: iterative
     public int getMoneyAmount(int n) {
         int[][] dp = new int[n + 1][n + 1];
         for (int j = 2; j <= n; j++) {
         	for (int i = j - 1; i > 0; i--) {
                 if (i + 1 == j) {
-                    dp[i][j] = i;   // two adjacent nums, we should guess the smaller one
-                } else {
-                    int min = Integer.MAX_VALUE;  // find the min cost for guessing a number in [i,j]
-                    for (int k = i + 1; k < j; k++) {
-                        // compute the cost for guessing k
+                    dp[i][j] = i;   // facing two adjacent nums, we should guess the smaller one
+                } else {    // otherwise, we should guess a num between i & j (exclusive)
+                    int min = Integer.MAX_VALUE;  // find the min cost for guessing a num in [i,j]
+                    for (int k = i + 1; k < j; k++) {   // compute the cost for guessing k
                         int temp = k + Math.max(dp[i][k - 1], dp[k + 1][j]);
                         min = Math.min(min, temp);  // guess k or not
                     }
                     dp[i][j] = min;
                 } 
-        // 		System.out.println("dp[" + i + "][" + j + "] = " + dp[i][j]);
-        	}
+        	}  // dp[i][i] is 0 by default, because we don't need to "guess" the only ans
         }
         return dp[1][n];
     }
 
     // sol 2: recursive.
     public int getMoneyAmount(int n) {
-        int[][] dp = new int[n+1][n+1];
+        int[][] dp = new int[n + 1][n + 1];
         return helper(dp, 1, n);
     }
 

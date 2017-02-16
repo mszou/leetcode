@@ -14,10 +14,11 @@
 public class Solution {
     /**
      * @param nums: A list of integers.
-     * @return: the median of numbers
+     * @return: the median of numbers, as an array
      */
     // idea: use a maxHeap to store the smaller half of numbers and a minHeap to store the larger half,
-    // and make sure maxHeep.size() - minHeap.size() = 0 or 1, so maxHeap.peek() is always the median
+    // and make sure maxHeap.size() - minHeap.size() = 0 or 1, so median is maxHeap.peek() (odd) or the
+    // avg of maxHeap.peek() and minHeap.peek() (even).    O(logn) for adding, O(1) for getting median.
     private PriorityQueue<Integer> maxHeap, minHeap;
     private int numOfElements = 0;
 

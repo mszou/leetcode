@@ -20,7 +20,7 @@
 
 public class Logger {
 	// naive idea: keep a HashMap<String, recent timestemp>
-	// optimized: keep a HashMap<String, when it's ok to print> to get rid of computation every time
+	// optimized: keep a HashMap<String, okTime to print> to get rid of computation every time
 	Map<String, Integer> okTime;
 	int waitingTime;
 

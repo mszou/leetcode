@@ -17,15 +17,15 @@
 
 public class Solution {
 	public int magicalString(int n) {
-		// idea: we can generate the string with the first 3 chars: 1,2,2. use two pointers:
-		// 'slow' points to the num that indicates the occurance, and 'fast' points to the
-		// next pos to put the new number. Use an array to store the string and keep generating
-		// new numbers with 1 and 2 alternatively until fast reaches n.	O(n) Time, O(n) Space.
+		// idea: we can generate the string with the first 3 chars: 1,2,2. use two pointers: 'slow'
+		// points to the num that indicates the occurance, and 'fast' points to the next pos to put
+		// the new number. Use an array to store the string and keep generating new numbers with 1
+		// and 2 alternatively until 'fast' reaches n, count the freq of 1.	O(n) Time, O(n) Space.
 		if (n <= 0) {
 			return 0;
 		}
 		if (n <= 3) {
-			return 1;
+			return 1;	// only one 1 in the first 3 characters
 		}
 		int[] array = new int[n];
 		array[0] = 1; array[1] = 2; array[2] = 2;

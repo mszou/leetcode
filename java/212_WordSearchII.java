@@ -17,8 +17,8 @@
  */
 
 public class Solution {
-	// idea: use Trie data structure. First use the given words to build a Trie tree. then use DFS + backtracking
-	// to search the board, mark visited positions in the current path as '#', and recover it after finishing
+	// idea: use Trie. First build a Trie tree with the given words. then use DFS + backtracking to search
+	// the board, mark visited positions in the current path as '#', and recover them after finishing
 
 	class TrieNode {
 		TrieNode[] children = new TrieNode[26];
@@ -36,17 +36,17 @@ public class Solution {
 				}
 				node = node.children[i];
 			}
-			node.word = word;
+			node.word = word;	// store word in the last node of its path
 		}
 		return root;
 	}
 
 	public List<String> findWords(char[][] board, String[] words) {
 		HashSet<String> set = new HashSet<String>();	// avoid duplicate results
-		TrieNode root = buildTrie(words);
+		TrieNode root = buildTrie(words);	// use the given words to build a trie tree
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				dfs(board, i, j, root, set);
+				dfs(board, i, j, root, set);	// do DFS from every position on the board
 			}
 		}
 		List<String> res = new ArrayList<String>(set);
@@ -55,7 +55,7 @@ public class Solution {
 
 	public void dfs(char[][] board, int i, int j, TrieNode node, HashSet<String> set) {
 		char c = board[i][j];
-		if (c == '#' || node.children[c - 'a'] == null) {	// cannot be a word
+		if (c == '#' || node.children[c - 'a'] == null) {	// visited, or not a word
 			return;
 		}
 		node = node.children[c - 'a'];

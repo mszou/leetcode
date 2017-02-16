@@ -9,7 +9,7 @@
 
 public class Solution {
 	public String addStrings(String num1, String num2) {
-		// idea: use two pointers from the right end of two strings and do the add operation
+		// idea: use two pointers from the right ends of two strings and do the add operation
 		StringBuilder sb = new StringBuilder();
 		int carry = 0;
 		int i = num1.length() - 1, j = num2.length() - 1;

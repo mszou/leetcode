@@ -16,8 +16,8 @@ public class Solution {
 	 * @return all pairs of distinct indices s.t. concatenation of the two words is a palindrome
 	 */
     public List<List<Integer>> palindromePairs(String[] words) {
-        // naive solution: For each word, go through the array and check whether the concatenated
-        // string is a palindrome or not.   O(n^2*k) Time (k is the average length of each word)
+        // sol 1: naive. For each word, go through the array and check whether the concatenated
+        // string is palindromic or not.    O(n^2*k) Time (k is the average length of each word)
         
         // sol 2: For each word, try separating it into two parts, if one part is palindromic,
         // then check whether the reverse of the other part is another word in the given list.

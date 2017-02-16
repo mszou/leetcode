@@ -18,7 +18,7 @@ public class Solution {
 	// use a map to store the destinations that can be reached from each airport,
 	// and use a PriorityQueue to keep these destinations in lexical order
 
-	// sol 1: rcursive
+	// sol 1: rcursive, always visit the smallest destinations until nowhere can go
 	Map<String, PriorityQueue<String>> canGo = new HashMap<>();
 	List<String> route = new LinkedList<>();
 
@@ -41,7 +41,7 @@ public class Solution {
 		route.add(0, airport);	// add after child dfs finished, so add to the front
 	}
 
-	// sol 2: iterative, use a stack
+	// sol 2: iterative, use a stack, push nodes while visiting, when no next, pop from stack
 	public List<String> findItinerary(String[][] tickets) {
 		Map<String, PriorityQueue<String>> canGo = new HashMap<>();
 		for (String[] ticket : tickets) {

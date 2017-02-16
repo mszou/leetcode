@@ -13,8 +13,8 @@
  */
 
 public class Solution {
-	// idea: consider this as a directed weighted graph, if a/b=k, then the weight of a->b is k, b->a is 1/k,
-	// Then a query x/y is to find a path from node x to node y. use DFS to find such path.
+	// idea: consider this as a directed weighted graph, if a/b = k, then the weight of edge a->b is k,
+	// b->a is 1/k, Then a query x/y is to find a path from node x to node y. use DFS to find such path.
 	public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
 		HashMap<String, ArrayList<String>> pairs = new HashMap<>();
 		HashMap<String, ArrayList<Double>> weights = new HashMap<>();
@@ -29,6 +29,7 @@ public class Solution {
 				pairs.put(divisor, new ArrayList<String>());
 				weights.put(divisor, new ArrayList<Double>());
 			}
+			// add edges in both directions
 			pairs.get(dividend).add(divisor);
 			pairs.get(divisor).add(dividend);
 			weights.get(dividend).add(values[i]);
@@ -47,7 +48,7 @@ public class Solution {
 
 	private double dfs(String start, String end, HashMap<String, ArrayList<String>> pairs, HashMap<String, ArrayList<Double>> weights, HashSet<String> set, double value) {
 		if (set.contains(start) || !pairs.containsKey(start) || !pairs.containsKey(end)) {
-			return 0.0;
+			return 0.0;	// already visited start or no path from current start to end
 		}
 		if (start.equals(end)) {	// reach the end
 			return value;

@@ -14,13 +14,12 @@ public class Solution {
         if (envelopes == null || envelopes.length == 0 || envelopes[0] == null || envelopes[0].length != 2) {
         	return 0;
         }
-        // user-define sort using Comparator<int[]>()
         Arrays.sort(envelopes, new Comparator<int[]>(){
-        	public int compare(int[] arr1, int[] arr2){
-        		if (arr1[0] == arr2[0]) {
-        			return arr2[1] - arr1[1];	// descend on height if width are same
+        	public int compare(int[] a, int[] b){
+        		if (a[0] == b[0]) {
+        			return b[1] - a[1];	// descend on height if width are same
         		} else {
-        			return arr1[0] - arr2[0];	// ascend on width
+        			return a[0] - b[0];	// ascend on width
         		}
         	}
         });
@@ -28,12 +27,12 @@ public class Solution {
         int dp[] = new int[envelopes.length];
         int len = 0;
         for (int[] e : envelopes) {
-        	int index = Arrays.binarySearch(dp, 0, len, e[1]);
-        	if (index < 0) {
-        		index = -(index + 1);
+        	int index = Arrays.binarySearch(dp, 0, len, e[1]); // search e[1] in dp[0,len)
+        	if (index < 0) {   // not exist, (-(insertion point) - 1)
+        		index = -(index + 1); // get the insertion pos
         	}
-        	dp[index] = e[1];
-        	if (index == len) {
+        	dp[index] = e[1];  // actually do nothing if e[1] exists
+        	if (index == len) {    // is the newly largest
         		len++;
         	}
         }

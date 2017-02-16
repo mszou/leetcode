@@ -24,7 +24,7 @@
 
 public class Codec {
 	// idea: encode the string as "length/string", e.g. "a", "ab", "abc" should be encoded as "1/a2/ab/3/abc"
-	// when decoding, first find the '/', number before it is the length, take substring after '/' accordingly
+	// when decoding, first find the '/', number before it is the length, take substring after '/' accordingly.
 
 	// Encodes a list of strings to a single string.
 	public String encode(List<String> strs) {
@@ -40,10 +40,10 @@ public class Codec {
 		List<String> res = new ArrayList<String>();
 		int i = 0;	// i is the start index of current encoded substring
 		while (i < s.length()) {
-			int slash = s.indexOf('/', i);	// find the first slash after i
-			int len = Integer.valueOf(s.substring(i, slash));	// extract the number
-			i = slash + len + 1;	// move pointer to next substring
-			res.add(s.substring(slash + 1, i));
+			int slashIdx = s.indexOf('/', i);	// find the first slash after i
+			int len = Integer.parseInt(s.substring(i, slashIdx));	// extract the number
+			i = slashIdx + len + 1;	// move pointer to the end of current string (start of next string)
+			res.add(s.substring(slashIdx + 1, i));
 		}
 		return res;
 	}

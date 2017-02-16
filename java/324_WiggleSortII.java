@@ -11,7 +11,7 @@
 
 public class Solution {
 	// sol 1: naive. sort then interleave the smaller half and larger half.	O(nlogn) Time, O(n) Space.
-	// put median at the head & tail and interleave like: MLSLSM(362514) or MLSLSMS(4736251). Otherwise
+	// put median at the head (& tail) and interleave like: MLSLSM(362514) or MLSLS(35241). Otherwise
 	// if interleave like SMSLML(142536), would be wrong for case (4,5,5,6), but (5,6,4,5) is correct
 	public void wiggleSort(int[] nums) {
 		if (nums == null || nums.length < 2) {
@@ -19,20 +19,24 @@ public class Solution {
 		}
 		Arrays.sort(nums);
 		int[] res = new int[nums.length];
+		// the index of (first) median is (nums.length - 1) / 2, left.size - right.size = 0 or 1
 		int i = (nums.length - 1) / 2, j = nums.length - 1, idx = 0;
 		while (j > (nums.length - 1) / 2) {
 			res[idx++] = nums[i--];
 			res[idx++] = nums[j--];
 		}
-		if (idx < nums.length) {
+		if (idx < nums.length) {	// for the case of odd length
 			res[idx] = nums[i];
 		}
 		for (int k = 0; k < nums.length; k++) {
-			nums[k] = res[k];
+			nums[k] = res[k];	// assign res to nums
 		}
 	}
 
-	// sol 2: For follow-up, O(n) Time, O(1) Space. Mapped Index (virtual index idea)
+	// sol 2: For follow-up, O(n) Time, O(1) Space. use mapped Index (virtual index idea), e.g.
+	// map origin indexes 012345 -> 135024, 01234 -> 13024, then the first half of mapped indexes
+	// should be the position of numbers larger than median. assign larger numbers from left to right,
+	// and assign smaller numbers from right to left using the mapped index of left & right pointers.
 	// https://discuss.leetcode.com/topic/41464/step-by-step-explanation-of-index-mapping-in-java
 	// the time complexity depends on findKthLargest, can be done in O(n) if we use quick select
 	public void wiggleSort(int[] nums) {
@@ -40,7 +44,7 @@ public class Solution {
 			return;
 		}
 		int n = nums.length;
-		int median = findKthLargest(nums, (n + 1) / 2);
+		int median = findKthLargest(nums, (n + 1) / 2);	// find the (first) median
 		int left = 0, i = 0, right = n - 1;
 		while (i <= right) {
 			if (nums[newIndex(i, n)] > median) {
@@ -55,7 +59,7 @@ public class Solution {
 
 	// map index. e.g. 012345 -> 135024
 	private int newIndex(int index, int n) {
-		return (1 + 2 * index) % (n | 1);
+		return (1 + 2 * index) % (n | 1);	// n | 1 = n (n is odd) or n + 1 (n is even)
 	}
 
 	// if use quick select: O(n) best / O(n^2) worst Time. O(1) Space.

@@ -19,8 +19,8 @@ public class Solution {
 	// and hashCode() because we want to compare the value of two objects, not the mem address.
 	// * (multiply 31 is often used in overriding hashCode because 31 is an odd prime. If it were even
 	// and the multiplication overflowed, information would be lost, as multiplication by 2 is equivalent
-	// to shifting. The advantage of using a prime is less clear, but it is traditional. A nice property
-	// of 31 is that the multiplication can be replaced by a shift and a subtraction for better
+	// to bit shifting. The advantage of using a prime is less clear, but it is traditional. A nice
+	// property of 31 is that the multiplication can be replaced by a shift and a subtraction for better
 	// performance: 31 * i == (i << 5) - i. Modern VMs do this sort of optimization automatically.)
 	public boolean isReflected(int[][] points) {
 		if (points == null || points.length == 0) {
@@ -36,7 +36,7 @@ public class Solution {
 			min = Math.min(min, x);
 			set.add(new Point(point[0], point[1]));
 		}
-		sum = max + min;
+		sum = max + min;	// all pair sum on x coordinate should be the same
 		for (int[] point : points) {
 			Point ref = new Point(sum - point[0], point[1]);
 			if (!set.contains(ref)) {

@@ -13,7 +13,7 @@ public class MovingAverage {
 	// while window sliding, remove the oldest number(s) to make room for new number(s).
 	Queue<Integer> q;
 	int windowSize;
-	long sum;
+	long sum;	// use long to avoid overflow
 
 	/** Initialize your data structure here. */
 	public MovingAverage(int size) {
@@ -24,10 +24,10 @@ public class MovingAverage {
 
 	public double next(int val) {
 		if (q.size() == windowSize) {
-			sum -= q.poll();
+			sum -= q.poll();	// remove the oldest one to make room for the new num
 		}
 		q.offer(val);
 		sum += val;
-		return sum / q.size();
+		return sum / q.size();	// here is q.size(), not windowSize because window may not be full
 	}
 }

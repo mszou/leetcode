@@ -28,17 +28,17 @@ public class Solution {
 		// If n ends with 01, then replace n with n-1; if n ends with 11, then replace n with n+1.
 		// note that for case n = 3, n-1 is better than n+1. and be careful about Integer.MAX_VALUE
 		int count = 0;
-		if (n == Integer.MAX_VALUE) {	// Integer.MAX_VALUE is all 1, but we cannot do +1 to it
-			return 32;
+		if (n == Integer.MAX_VALUE) {	// 2^31-1 is all 1, but '+1' will make it overflow
+			return 32;	// a 'n+1' and 31 'n/2'
 		}
 		while (n > 1) {
 			if ((n & 1) == 0) {	// n is even
-				n >>>= 1;
+				n >>>= 1;	// do 'n/2'
 			} else {
-				if (n == 3 || (n & 2) == 0) {	// n == 3 or n ends with 01
-					n--;
-				} else {	// n ends with 11 and n != 3
-					n++;
+				if (n == 3 || (n & 2) == 0) {	// n == 3 or n ends with '01'
+					n--;	// do 'n-1'
+				} else {	// n ends with '11' and n != 3
+					n++;	// do 'n+1'
 				}
 			}
 			count++;

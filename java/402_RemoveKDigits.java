@@ -30,7 +30,7 @@ public class Solution {
 		Stack<Character> stack = new Stack<Character>();
 		int i = 0;
 		while (i < num.length()) {
-			// if encounter a smaller digit, remove the previous ones that are larger than it
+			// if encounter a smaller digit, remove previous larger ones as many as possible
 			while (k > 0 && !stack.empty() && num.charAt(i) < stack.peek()) {
 				stack.pop();
 				k--;

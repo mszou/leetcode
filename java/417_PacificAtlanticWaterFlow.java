@@ -19,8 +19,8 @@
  */
 
 public class Solution {
-	// idea: DFS or BFS
-	int[][] directions = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};	// or public final int[][] directions = {{0,1}, {1, 0}, {0, -1}, {-1, 0}};
+	// idea: DFS or BFS to mark the cells that can flow to P/A, return those cells that can flow to both
+	public final int[][] directions = {{0,1}, {1, 0}, {0, -1}, {-1, 0}};
 
 	// sol 1: BFS, do BFS from four edges (top & left for P, bottom & right for A) and mark all cells
 	// that can flow to P and the cells that can flow to A, return the cells that can flow to both.

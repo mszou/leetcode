@@ -14,40 +14,37 @@
 
 public class Solution {
     public int maxSumSubmatrix(int[][] matrix, int k) {
-        // idea: 2D Kadane's algorithm (to find maximum sum rectangle in 2D matrix) + bound k
-        // tutorial: https://www.youtube.com/watch?v=yCQN096CwWM
-        // use TreeSet to find the rectangle with maxSum <= k within O(logm) time
-        // suppose m > n, O(n^2 * mlogm) Time (brute-force O(m^2n^2)), O(m) Space
+        // idea: DP. two pointers l & r, run Kadane's algo on a temp column storing row-wise sum of curr rectangle.
+        // Kadane's algo takes O(m) time on array of length m, use TreeSet to find the maxSum <= k in O(logm) time.
+        // move pointers O(n^2) time, so total O(n^2 * mlogm) Time (vs. brute-force O(m^2n^2) time), O(m) Space.
+        // if n > m, can run on the other direction.    tutorial: https://www.youtube.com/watch?v=yCQN096CwWM
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
         	return 0;
         }
         int m = matrix.length, n = matrix[0].length;
         int res = Integer.MIN_VALUE;
         // we assume m > n, so outer loop use n (the smaller one), two pointers left & right
-        for (int left = 0; left < n; left++) {
-        	// a temporary column to accumulate sums for current rectangle
-        	int[] sums = new int[m];
-        	for (int right = left; right < n; right++) {
-        		for (int i = 0; i < m; i++) {
-        			sums[i] += matrix[i][right];	// update sums[]
-        		
-        		// use TreeSet to find the rectangle with maxSum <= k within O(logm) time
-        		TreeSet<Integer> set = new TreeSet<Integer>();
-        		// add 0 to cover the single row case
-        		set.add(0);
-        		int currSum = 0;
-        		for (int sum : sums) {
+        for (int left = 0; left < n; left++) {  // O(n) loop
+        	int[] sums = new int[m];   // temporary column of row-wise sums for current rectangle
+        	for (int right = left; right < n; right++) {   // O(n) loop
+        		for (int i = 0; i < m; i++) { // O(m)
+        			sums[i] += matrix[i][right];	// calculate sums[]
+        		}
+        		TreeSet<Integer> set = new TreeSet<Integer>();    // use TreeSet to find maxSum <= k
+        		set.add(0);   // case of subarray from 1st row: preSum = currSum - subarraySum = 0
+        		int currSum = 0;  // accumulative sum, subarraySum = currSum - preSum
+        		for (int sum : sums) {    // O(m)
         			currSum += sum;
-        			// use sum subtraction (currSum - sum) to get the subarray with sum <= k
-        			// so looking for the smallest accumulative sum >= currSum - k (num here)
-        			Integer num = set.ceiling(currSum - k);
-        			if (num != null) {
-        				res = Math.max(res, currSum - num);
-                        if (res == k) {
+        			// subarraySum = currSum - preSum, the smallest preSum >= currSum - k
+        			// gives the largest (currSum - preSum) <= k, i.e. subarraySum <= k
+        			Integer preSum = set.ceiling(currSum - k);   // O(logm)
+        			if (preSum != null) {    // preSum exists in the TreeSet
+        				res = Math.max(res, currSum - preSum);
+                        if (res == k) { // cannot be even larger
                             return k;
                         }
         			}
-        			set.add(currSum);
+        			set.add(currSum);    // add currSum as preSum for next sums
         		}
         	}
         }

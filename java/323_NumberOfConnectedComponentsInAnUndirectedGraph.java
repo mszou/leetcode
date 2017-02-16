@@ -20,9 +20,9 @@ public class Solution {
 	// optimization: path compression can reduce time by 50%. The complexity for M quick union +
 	// path compression on N objects is O(N + MlogN). Here M = 2E, N = V, so O(V+2ElogV) Time.
 	public int countComponents(int n, int[][] edges) {
-		int[] roots = new int[n];	// initialize: n sets
+		int[] roots = new int[n];
 		for (int i = 0; i < n; i++) {
-			roots[i] = i;
+			roots[i] = i;	// initialize: n sets only containing itself
 		}
 		for (int[] e : edges) {
 			int root1 = find(roots, e[0]);

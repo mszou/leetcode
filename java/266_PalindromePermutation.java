@@ -10,8 +10,8 @@
 
 public class Solution {
 	public boolean canPermutePalindrome(String s) {
-		// idea: if there is at most 1 character that occurs odd number of times,
-		// then true, otherwise, false. Use a set to record the parity for each character.
+		// idea: permutation can form a palindrome iff there is at most 1 character that occurs odd times.
+		// Use a set to record characters with odd occurrences so far.	O(n) Time, O(n) Space.
 		Set<Character> set = new HashSet<Character>();
 		for (char c : s.toCharArray()) {
 			if (!set.add(c)) {	// already exist

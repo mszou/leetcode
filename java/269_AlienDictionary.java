@@ -17,7 +17,7 @@
  */
 
 public class Solution {
-	// idea: Topological sort, BFS, using a Queue to store letters with 0 indegree
+	// idea: Topological sort, BFS, using a Queue to store letters with 0 indegree.
 	// compare adjacent words, the first different letter reflect the lexicographical order.
 	public String alienOrder(String[] words) {
 		String res = "";
@@ -28,10 +28,10 @@ public class Solution {
 		Map<Character, Integer> indegree = new HashMap<>();
 		for (String word : words) {
 			for (char c : word.toCharArray()) {
-				indegree.put(c, 0);	// initialize every letter has indegree 0
+				indegree.put(c, 0);	// initialize every letter with indegree 0
 			}
 		}
-		for (int i = 0; i < words.length - 1; i++) {
+		for (int i = 0; i < words.length - 1; i++) {	// compare adjacent words
 			String curr = words[i];
 			String next = words[i + 1];
 			int len = Math.min(curr.length(), next.length());
@@ -49,7 +49,7 @@ public class Solution {
 				}
 			}
 		}
-		Queue<Character> q = new LinkedList<Character>();
+		Queue<Character> q = new LinkedList<Character>();	// stores letters with 0 indegree
 		for (char c : indegree.keySet()) {
 			if (indegree.get(c) == 0) {
 				q.offer(c);

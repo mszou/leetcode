@@ -6,11 +6,13 @@
 
 public class Solution {
     public int trap(int[] height) {
-        if (height == null || height.length == 0) {
+        if (height == null || height.length <= 2) {
             return 0;
         }
-        // sol 1: add by column, use two pointers from left and right
-        // columns in between that is less than the current smaller bound can trap water
+        // sol 1: One-pass, add by column, use two pointers from left and right, choose the
+        // lower one as bound, move that pointer to next bar (height h). If h <= bound, it
+        // can trap (bound - h) water; if h > bound, compare it with the other pointer and
+        // update the bound. Repeat this until two pointers meet.  O(n) Time, O(1) Space.
         int left = 0, right = height.length - 1;
         int smaller, sum = 0;	// smaller is the current smaller bound
         while (left < right) {
@@ -30,7 +32,7 @@ public class Solution {
         }
         return sum;
         
-        //sol 2 (divide & conquer): http://www.jiuzhang.com/solutions/trapping-rain-water/ (version 2)
-        //first find the highest bar; and process all bars left to the highest bar then right to the bar.
+        // sol 2: divide & conquer. first find the highest bar, then the problem becomes
+        // two sub-problems: to process bars on its left and bars on its right.
     }
 }

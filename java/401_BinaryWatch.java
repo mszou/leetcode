@@ -13,7 +13,7 @@
  */
 
 public class Solution {
-	// sol 1: simplest, use Integer.bitCount() to check every time expression
+	// sol 1: use Integer.bitCount() to check every valid time expression in a day
 	public List<String> readBinaryWatch(int num) {
 		List<String> times = new ArrayList<>();
 		for (int h = 0; h < 12; h++) {

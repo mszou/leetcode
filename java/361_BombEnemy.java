@@ -13,8 +13,8 @@
 public class Solution {
 	public int maxKilledEnemies(char[][] grid) {
 		// idea: DP, traverse the grid, count the number of hits in the row and col. Since our traversal
-		// is row-first, so only need a variable to record # enemies killed in the row, while need an
-		// array to memorize the # enemies killed in the col before.	O(mn) Time, O(n) Space.
+		// is row-first, so we only need a variable to record # enemies killed in the row, but need an
+		// array to memorize the # enemies killed in the cols before.	O(mn) Time, O(n) Space.
 		if (grid == null || grid.length == 0 || grid[0].length == 0) {
 			return 0;
 		}
@@ -25,7 +25,7 @@ public class Solution {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (j == 0 || grid[i][j - 1] == 'W') {
-					killedInRow = 0;
+					killedInRow = 0;	// reset killedInRow
 					for (int k = j; k < n && grid[i][k] != 'W'; k++) {
 						if (grid[i][k] == 'E') {
 							killedInRow++;

@@ -12,7 +12,7 @@
 public class Solution {
 	public int[][] reconstructQueue(int[][] people) {
 		// idea: first pick up the tallest guy, (if more than one, sort them in ascending k values)
-		// then insert the next tallest guy(s) into it's k-th position, repeat until all inserted.
+		// then insert the next tallest guy(s) into his k-th position, repeat until all inserted.
 		List<int[]> res = new LinkedList<>();
 		// sort the people in descending height, and ascending k when heights are the same
 		Arrays.sort(people, new Comparator<int[]>(){

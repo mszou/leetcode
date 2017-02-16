@@ -20,18 +20,19 @@ public class Solution {
 		// there are at most sqrt(n)*2 = O(sqrt(n)) divisors, so Worst O(n^1.5) Time, Best O(n) Time
 		int len = str.length();
 		for (int i = len / 2; i >= 1; i--) {	// at least repeat twice
-			if (len % i == 0) {	// i is a divisor of len
-				int times = len / i;
-				String pattern = str.substring(0, i);
-				int j = i;
-				for (; j < len; j += i) {
-					if (!pattern.equals(str.substring(j, j + i))) {
-						break;	// not match the 'pattern'
-					}
+			if (len % i != 0) {	// i is not a divisor of len
+				continue;
+			}
+			int times = len / i;
+			String pattern = str.substring(0, i);
+			int j = i;
+			for (; j < len; j += i) {
+				if (!pattern.equals(str.substring(j, j + i))) {
+					break;	// not match the 'pattern'
 				}
-				if (j == len) {
-					return true;
-				}
+			}
+			if (j == len) {
+				return true;
 			}
 		}
 		return false;

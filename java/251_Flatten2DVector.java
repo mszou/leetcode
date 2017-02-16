@@ -22,7 +22,7 @@
 import java.util.*;
 
 public class Vector2D {
-	private Iterator<List<Integer>> rowItr;	// a row iterator
+	private Iterator<List<Integer>> rowItr;	// a row iterator to iterate all rows
 	private Iterator<Integer> eleItr;	// an element iterator within a row
 
 	public Vector2D(List<List<Integer>> vec2d) {
@@ -37,7 +37,7 @@ public class Vector2D {
 		if (hasNext()) {
 			return eleItr.next();
 		} else {
-			throw new NoSuchElementException();
+			throw new NoSuchElementException("No next element!");
 		}
 	}
 

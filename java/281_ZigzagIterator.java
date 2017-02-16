@@ -14,9 +14,9 @@
  */
 
 public class ZigzagIterator {
-	// idea: use a Queue to store the iterators in different vectors. Every time we call next(),
+	// idea: use a Queue to store the iterators in all the vectors. Every time we call next(),
 	// poll the first from the queue, take next integer and re-offer the iterator to the queue.
-	// it's easy to extend to k-vector case. Another follow-up: change direction every other column, 
+	// it's easy to extend to k-vector. Another follow-up: change direction every other column, 
 	// then we can change Queue to Deque and insert an empty iterator to indicate end of cycle.
 	Queue<Iterator> queue;
 
@@ -31,10 +31,10 @@ public class ZigzagIterator {
 	}
 
 	public int next() {
-		Iterator curr = queue.poll();
-		int res = (int) curr.next();
-		if (curr.hasNext()) {	// if the iterator becomes empty, discard it; otherwise, add it back
-			q.offer(curr);
+		Iterator currItr = queue.poll();
+		int res = (int) currItr.next();
+		if (currItr.hasNext()) {	// if currItr reaches end, discard it; otherwise, add it back
+			q.offer(currItr);
 		}
 		return res;
 	}

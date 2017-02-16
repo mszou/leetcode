@@ -31,10 +31,10 @@
 public class Solution {
 	public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 		// idea: BFS, Similar to Topological Sort. Start from "leaves", remove all the nodes with 1 degree,
-		// then after the removal, there will be other nodes become new leaves, remove thm in the next round.
-		// repeat this process until there are only 1 or 2 nodes left, which is the result we want. The root
+		// then there will be other nodes become new leaves after the removal, remove them in the next round.
+		// Repeat this process until there are only 1 or 2 nodes left, which is the result we want. The root
 		// of MHT is the middle point of the longest leaf-to-leaf path in the graph.	O(n) Time, O(n) Space.		
-		List<Integer> res = new ArrayList<>();	// at most two result
+		List<Integer> res = new ArrayList<>();	// actually at most two result
 		if (n == 1 && edges.length == 0) {  // corner case: single node
 			res.add(0);	// only has a 0 in the tree
 			return res;
@@ -60,9 +60,9 @@ public class Solution {
 			n -= leaves.size();		// remember to subtract # leaves from n
 			List<Integer> newLeaves = new ArrayList<>();
 			for (int leaf : leaves) {
-				int next = adj.get(leaf).iterator().next();	// leaf has only one connection
-				adj.get(next).remove(leaf);
-				if (adj.get(next).size() == 1) {	// next is a new leaf
+				int next = adj.get(leaf).iterator().next();	// get the parent of the leaf
+				adj.get(next).remove(leaf);	// remove leaf from its parent's connections
+				if (adj.get(next).size() == 1) {	// if parent becomes a new leaf
 					newLeaves.add(next);
 				}
 			}

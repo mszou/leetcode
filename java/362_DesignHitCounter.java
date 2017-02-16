@@ -24,10 +24,10 @@
 
 public class HitCounter {
 	// idea: we only care about the hits within recent 5 minutes, i.e. 300 seconds.
-	// use 300 buckets for each second and arrays are wrapped around by modding 300.
+	// Use 300 buckets for each second and arrays are wrapped around by modding 300.
 	// times[i] records the timestamp in i-th bucket, and hits[i] is the number of hits
 	// at the second times[i] records. A new timestamp can replace the older one (300s
-	// or 600s... ago) and reset the hits.	O(1) Time hit(), O(n) Time total.
+	// or 600s... ago) and reset the hits.	O(1) Time hit(), O(n) Time total, O(1) Space.
 	private int[] times;
 	private int[] hits;
 	/** Initialize your data structure here. */

@@ -21,7 +21,8 @@
  * }
  */
 public class Solution {
-	// idea: Reservoir Sampling: https://discuss.leetcode.com/topic/53753/brief-explanation-for-reservoir-sampling
+	// idea: Reservoir Sampling with k = 1
+	// https://discuss.leetcode.com/topic/53753/brief-explanation-for-reservoir-sampling
 	ListNode head;
 
 	/** @param head The linked list's head.

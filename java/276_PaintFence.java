@@ -8,6 +8,9 @@
 public class Solution {
 	public int numWays(int n, int k) {
 		// idea: DP, consider 2 cases: last two posts have the same color or have different colors.
+		// if last two same, curr must be different; otherwise, curr & prev can be same or different
+		// in other words, curr same with prev only when last two diff and curr has only 1 choice;
+		// while curr diff from prev, then curr has k-1 choices and no matter last two diff or same.
 		if (n == 0) {
 			return 0;
 		}

@@ -26,7 +26,7 @@
 
 public class Solution {
     public int lengthLongestPath(String input) {
-        // idea: split input string by "\n" and we get an array, each of which is a directory or a file and # of "\t"
+        // idea: split input string by "\n" so we get an array, each of which is a directory or a file, # of leading "\t"
         // indicates the level of this entry. use an array acting as stack, stack[i] is current path length of level i.
         // note that "\n" or "\t" takes up only one index
         String[] paths = input.split("\n");

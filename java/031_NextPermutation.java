@@ -11,7 +11,7 @@
 public class Solution {
 	// idea: from right to left, find the first number A that goes smaller (after which is
 	// a non-ascending suffix), then from right(tail) to left find the first number B that
-	// is greater than A, swap A & B, and reverse the numbers after B.	O(n) Time
+	// is greater than A, swap A & B and reverse the numbers after B.	O(n) Time, O(1) Space.
 	// e.g. 1 2 7 4 3 1, first find 2 as A (2 < 7), then find 3 as B (3 > 2), swap 2 & 3,
 	// get: 1 3 7 4 2 1, then reverse numbers after 3 --> 1 3 1 2 4 7 is the next permutation
 	public void nextPermutation(int[] nums) {
@@ -22,7 +22,7 @@ public class Solution {
 		for (int i = len - 2; i >= 0; i--) {
 			if (nums[i + 1] > nums[i]) {	// nums[i + 1] is the rightmost peak
 				int j = len - 1;
-				while (j >= i && nums[j] <= nums[i]) {
+				while (nums[j] <= nums[i]) {
 					j--;	// find the rightmost number that is greater than nums[i]
 				}
 				swap(nums, i, j);	// swap nums[i] & nums[j]
@@ -30,7 +30,7 @@ public class Solution {
 				return;
 			}
 		}
-		// if not returns in the for loop, nums must be the last permutation (descending)
+		// if didn't return in the for loop, nums must be the last permutation (descending)
 		reverse(nums, 0, len - 1);	// reverse the whole array to get the first permutation
 	}
 

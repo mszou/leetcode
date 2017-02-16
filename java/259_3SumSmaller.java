@@ -14,12 +14,12 @@ public class Solution {
 	// sol 2: sort, then for each first num, use two pointers to find eligible triplets.	O(n^2) Time
 	public int threeSumSmaller(int[] nums, int target) {
 		int count = 0;
-		Arrays.sort(nums);
+		Arrays.sort(nums);	// sort, O(nlogn)
 		for (int i = 0; i < nums.length - 2; i++) {	// traverse for first num, O(n)
 			int left = i + 1, right = nums.length - 1;
 			while (left < right) {	// two pointer, O(n)
 				if (nums[i] + nums[left] + nums[right] < target) {
-					count += right - left;	// the third num can be nums[left+1]~nums[right]
+					count += right - left;	// the third num can be nums[left+1] ~ nums[right]
 					left++;
 				} else {
 					right--;

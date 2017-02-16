@@ -15,7 +15,7 @@
 
 public class Solution {
 	public boolean validWordAbbreviation(String word, String abbr) {
-		// idea: two pointers traverse word and abbr
+		// idea: use two pointers traverse word and abbr, O(n) Time, O(1) Space.
 		int i = 0, j = 0;
 		while (i < word.length() && j < abbr.length()) {
 			if (word.charAt(i) == abbr.charAt(j)) {
@@ -31,8 +31,8 @@ public class Solution {
 			while (j < abbr.length() && abbr.charAt(j) >= '0' && abbr.charAt(j) <= '9') {
 				j++;
 			}
-			int num = Integer.valueOf(abbr.substring(numStart, j));
-			i += num;	// move the pointer in the word
+			int num = Integer.parseInt(abbr.substring(numStart, j));
+			i += num;	// move the pointer in the word to the pos after abbr num
 		}
 	}
 }

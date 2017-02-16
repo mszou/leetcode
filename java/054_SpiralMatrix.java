@@ -12,8 +12,8 @@
 
 public class Solution {
 	public List<Integer> spiralOrder(int[][] matrix) {
-		// idea: record the beginning and end of rows and columns, spirally traverse and add elements to result.
-		// remember to check if the row/col still exists for the second half spiral.	O(mn) Time
+		// idea: record the start and end of rows and columns, spirally traverse and add elements to result.
+		// remember to check if the row/col unvisited for the second half spiral.	O(mn) Time, O(1) Space.
 		List<Integer> res = new ArrayList<Integer>();
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
 			return res;

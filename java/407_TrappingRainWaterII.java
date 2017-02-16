@@ -15,11 +15,11 @@
  */
 
 public class Solution {
-	// idea: create a Cell class, including row, col, height. use a min-heap on Cell to keep the lowest cell
+	// idea: BFS. create a Cell class with row, col, height. use a min-heap on Cell to keep the lowest cell
 	// start from the lowest bar on the border, do BFS in 4 directions and accumulate the differences in
 	// height if find lower cells. Process cell in queue, and add unvisited surrounding cells into the queue.
 
-	public class Cell {
+	public class Cell implements Comparable<Cell> {
 		int row;
 		int col;
 		int height;
@@ -28,17 +28,17 @@ public class Solution {
 			this.col = col;
 			this.height = height;
 		}
+
+		public int compareTo(Cell o) {
+            return this.height - o.height;
+        }
 	}
 
 	public int trapRainWater(int[][] heightMap) {
 		if (heightMap == null || heightMap.length < 3 || heightMap[0].length < 3) {
 			return 0;
 		}
-		PriorityQueue<Cell> pq = new PriorityQueue<>(1, new Comparator<Cell>() {
-			public int compare(Cell a, Cell b) {
-				return a.height - b.height;
-			}
-		});
+		PriorityQueue<Cell> pq = new PriorityQueue<>(1);	// only keep the lowest cell visited so far
 		int m = heightMap.length;
 		int n = heightMap[0].length;
 		boolean[][] visited = new boolean[m][n];
@@ -55,7 +55,7 @@ public class Solution {
 			pq.offer(new Cell(m - 1, i, heightMap[m - 1][i]));
 			visited[m - 1][i] = true;
 		}
-		// need to check the heights of neighbors in four directions
+		// four directions for BFS
 		int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 		int res = 0;
 		while (!pq.isEmpty()) {
@@ -66,7 +66,8 @@ public class Solution {
 				if (row >= 0 && row < m && col >= 0 && col < n && !visited[row][col]) {
 					visited[row][col] = true;
 					res += Math.max(0, cell.height - heightMap[row][col]);
-					pq.offer(new Cell(row, col, Math.max(heightMap[row][col], cell.height)));
+					int newHeightBound = Math.max(heightMap[row][col], cell.height);
+					pq.offer(new Cell(row, col, newHeightBound));
 				}
 			}
 		}

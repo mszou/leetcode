@@ -21,7 +21,7 @@ public class Solution {
 		// 4. i = 0, mask = 1111, set = {1110, 1011, 0111, 0011}, max = 1101;
 		int max = 0, mask = 0;
 		for (int i = 31; i >= 0; i--) {
-			mask |= (1 << i);	// making mask 100..0, 110..0,..., 1..10, 1..11
+			mask |= (1 << i);	// making mask 100..0, 110..0, ..., 11..10, 11..11
 			HashSet<Integer> prefixSet = new HashSet<Integer>();
 			for (int num : nums) {
 				prefixSet.add(num & mask);	// in each round, only see the prefixes of the numbers

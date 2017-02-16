@@ -24,7 +24,7 @@ public class Solution {
 		}
 		int len = words.length;
 		int[] value = new int[len];	// value[i] the corresponding value for words[i]
-		// O(nm) Time for converting words into binary numbers
+		// O(nm) Time for converting words into binary numbers, m is the avg length of words
 		for (int i = 0; i < len; i++) {
 			String curr = words[i];
 			for (char c : curr.toCharArray()) {

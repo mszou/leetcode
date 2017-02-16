@@ -21,6 +21,8 @@ public class Solution {
 	// idea: DP. group the nums following '+' as sum(P) and nums following '-' as sum(N), then
 	// sum(P) - sum(N) = S, sum(P) + sum(N) = sum(nums). Thus this problem can be converted to
 	// a subset problem: find a subset P, s.t. sum(P) = (S + sum) / 2, and assign '+' for them.
+	// dp[i] is # subsets that can form sum i, so for each num, update dp[target] ~ dp[num].
+	// O(nS) Time, O(S) Space.
 	public int findTargetSumWays(int[] nums, int S) {
 		if (nums == null || nums.length == 0) {
 			return 0;
@@ -39,7 +41,7 @@ public class Solution {
 		int[] dp = new int[target + 1];	// dp[i] is # ways to form sum i (only with '+')
 		dp[0] = 1;
 		for (int num : nums) {
-			for (int j = target; j >= num; j--) {	// from target to num to avoid duplicate
+			for (int j = target; j >= num; j--) {	// from target to num to avoid num being chosen multiple times
 				dp[j] += dp[j - num];
 			}
 		}

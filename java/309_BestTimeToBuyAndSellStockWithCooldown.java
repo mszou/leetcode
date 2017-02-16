@@ -13,15 +13,15 @@ public class Solution {
     public int maxProfit(int[] prices) {
     	// idea: DP. For each day, you have 3 choices: buy(or hold if already have), sell, rest.
     	// Since you cannot be engaged in multiple trasactions, use sell/hold/rest to record the
-        // maxProfit so far ending with sell/hold/rest.     O(n) Time, O(1) Space.
+        // maxProfit we can get so far ending with sell/hold/rest.  O(n) Time, O(1) Space.
         if (prices.length < 2) {
         	return 0;
         }
-        int sell = 0, hold = Integer.MIN_VALUE, rest = 0, prev_sell;
-    	for (int price : prices) {
-        	prev_sell = sell;
-        	sell = hold + price;   // sell the stock in hand
-        	hold = Math.max(hold, rest - price);   // already have or newly buy in
+        int sell = 0, hold = Integer.MIN_VALUE, rest = 0;
+    	for (int todayPrice : prices) {
+        	int prev_sell = sell;  // store yesterday sell
+        	sell = hold + todayPrice;   // must have stock in hand to sell today
+        	hold = Math.max(hold, rest - todayPrice);   // already have stock or newly buy in
         	rest = Math.max(rest, prev_sell);  // yesterday sell or earlier sell
     	}
     	return Math.max(sell, rest);

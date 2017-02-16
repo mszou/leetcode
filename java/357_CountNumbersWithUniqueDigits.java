@@ -18,11 +18,11 @@ public class Solution {
         // You can just create a lookup table. Then this problem becomes O(1) Time in essence.
         
         // sol 1: Math (Maybe also DP). consider putting digits into each position, 0 cannot be put in the first position
-        // when n = 1, _ can hold any one from [0,...,9], so return 10;
+        // when n = 1, _ can hold any one from [0,...,9], so there are 10 numbers among one-digit numbers (0~9);
         // when n = 2, _ _ first position has 9 choices (1~9) and second position has 9 choices (0~9 excluding first one).
-        // so there are 9*9=81 numbers with unique digits among 90 two-digit numbers (10~99). Therefore, when n=2, return
-        // 10+81=91 ... For i-digit numbers (2<=i<=10), there are 9*9*8*...*(11-i) numbers with unique digits.
-        // There is no eligible numbers among i-digit numbers when i > 10, so the result for n>10 is same as res for n=10.
+        // There are 9*9=81 numbers with unique digits among 90 two-digit numbers (10~99). So when n = 2, return 10+81=91.
+        // ... For i-digit numbers (2<=i<=10), there are 9*9*8*...*(11-i) numbers with unique digits.
+        // No more eligible numbers among i-digit numbers when i > 10, so the result for n > 10 is same as res for n = 10.
         if (n == 0) {
         	return 1;	// got this answer from the test case
         }

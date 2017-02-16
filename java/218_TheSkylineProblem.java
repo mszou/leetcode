@@ -13,50 +13,61 @@
 
 
 public class Solution {
-    // idea: use a TreeMap. For each critical point c, get the height of the tallest rectangle over c
-    // detailed explanation: https://briangordon.github.io/2014/08/the-skyline-problem.html
+    // idea: scanning line. Sort all the critical(start/end) points, when two points at same pos,
+    // start goes before end; if both start, higher comes first; if both end, lower comes first.
+    // Traverse points and use TreeMap<height, count> (O(logn) add/remove) to maintain the heights
+    // of buildings over current position. treemap.lastKey() gets the highest key in this map.
+    // * detailed explanation: https://briangordon.github.io/2014/08/the-skyline-problem.html
     public List<int[]> getSkyline(int[][] buildings) {
-        List<int[]> ends = new ArrayList<>();
-        for (int[] building : buildings) {
-            ends.add(new int[] { building[0], 0, building[2] }); // Li, isRightEnd, Hi
-      		  ends.add(new int[] { building[1], 1, building[2] });
+        List<int[]> points = new ArrayList<>();
+        for (int[] building : buildings) {  // add start & end points into list
+            points.add(new int[]{building[0], 0, building[2]});    // pos, notRightEnd, height
+      		points.add(new int[]{building[1], 1, building[2]});    // pos, isRightEnd, height
         }
-        Collections.sort(ends, (a, b) ->
-            a[0] == b[0] ?
-            (a[1] == b[1] ?
-                (a[1] == 0 ? b[2] - a[2] // left end with smaller height comes after left ends with the same coordinate 
-                		: a[2] - b[2]) // and vice versa for right ends 
-            		: a[1] - b[1]) // right end comes after left if coordinates are the same
-        		: a[0] - b[0]); // regular order when coordinates differ
+        Collections.sort(points, new Comparator<int[]>(){
+            public int compare(int[] a, int[] b) {
+                if (a[0] == b[0]) { // at same position
+                    if (a[1] == 0 && b[1] == 0) {   // both are left ends
+                        return b[2] - a[2]; // larger height comes before smaller height
+                    } else if (a[1] == 1 && b[1] == 1) {    // both are right ends
+                        return a[2] - b[2]; // smaller height comes before larger height
+                    } else {    // one is left end and the other is right end
+                        return a[1] - b[1];    // left end comes before right end
+                    }
+                } else {    // at different positions, so smaller index first
+                    return a[0] - b[0];
+                }
+            }
+        });
         TreeMap<Integer, Integer> treemap = new TreeMap<>();
-        List<int[]> collect = new ArrayList<>();
-        for (int i = 0; i < ends.size(); i++) {
-            int[] end = ends.get(i);
-            int x = end[0];
-            boolean isStart = end[1] == 0;
-            int h = end[2];
+        List<int[]> res = new ArrayList<>();
+        for (int i = 0; i < points.size(); i++) {
+            int[] curr = points.get(i);
+            int x = curr[0];
+            boolean isStart = curr[1] == 0;
+            int h = curr[2];
             int top;
             if (isStart) {
-                treemap.put(h, treemap.getOrDefault(h, 0) + 1); // enqueue left end
-                top = treemap.lastKey(); // highest building
-                if (h == top && treemap.get(top) == 1) { // two buildings can have the same height
-                    collect.add(new int[] { x, h });
+                treemap.put(h, treemap.getOrDefault(h, 0) + 1); // put this building into treemap
+                top = treemap.lastKey(); // the currently highest key, i.e. highest building
+                if (h == top && treemap.get(top) == 1) { // h is the newly highest
+                    res.add(new int[]{x, h});
                 }
-            } else {
-                treemap.put(h, treemap.get(h) - 1); // dequeue right end
-                if (treemap.get(h) == 0) {// no building has this height anymore
+            } else {    // is right end
+                treemap.put(h, treemap.get(h) - 1); // remove this building from treemap
+                if (treemap.get(h) == 0) {  // no other building has this height
                     treemap.remove(h);
                 }
-                if (treemap.isEmpty()) {
-                    collect.add(new int[] {x, 0});
+                if (treemap.isEmpty()) {    // no more buildings at this point
+                    res.add(new int[]{x, 0});
                 } else {
-                    top = treemap.lastKey();
-                    if (h > top) { // dequeuing gives a 2nd highest building
-                        collect.add(new int[] {x, top});
+                    top = treemap.lastKey();    // the currently highest
+                    if (h > top) { // h was the highest, so decrese to the current top
+                        res.add(new int[]{x, top});
                     }
                 }
             }
         }
-        return collect;
+        return res;
     }
 }
