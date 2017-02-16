@@ -23,7 +23,7 @@ public class Solution {
 		int n = s.length();
 		int[] res = new int[n + 1];
 		for (int i = 0; i <= n; i++) {
-			res[i] = i + 1;	// initialize as sorted array
+			res[i] = i + 1;	// initialize as sorted array from 1 ~ n+1
 		}
 		for (int right = 0; right < n; right++) {
 			if (s.charAt(right) == 'D') {

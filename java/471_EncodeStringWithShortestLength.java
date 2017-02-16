@@ -28,35 +28,34 @@
  */
 
 public class Solution {
-	// idea: 2D DP. dp[i][j] = s.substring(i, j + 1) (index i to j) in encoded form
-	// the formula is: dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j]) or if we can find some pattern in string from i to j which will result in more less length.
+	// idea: interval DP. dp[i][j] = s.substring(i, j+1) (index i to j) in encoded form, the formula is:
+	// 1. dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j]) for all possible k in range [i,j), choose the min length
+	// 2. or the string itself has some pattern in it which could be repeated to make ir shorter.
 	// O(n^3) Time.
 	public String encode(String s) {
 		String[][] dp = new String[s.length()][s.length()];
-		for (int l = 0; l < s.length(); l++) {
-			for (int i = 0; i < s.length() - l; i++) {
-				int j = i + l;
+		for (int l = 0; l < s.length(); l++) {	// l is the length of substring to be encoded
+			for (int i = 0; i < s.length() - l; i++) {	// i is the start of substring
+				int j = i + l;	// j is the end of substring
 				String substr = s.substring(i, j + 1);
-				// Checking if string length < 5. In that case, we know that encoding will not help.
+				dp[i][j] = substr;
+				// if string length < 5, encoding will not shorten the length.
 				if (j - i < 4) {
-					dp[i][j] = substr;
-				} else {
-					dp[i][j] = substr;
-					// Loop for trying all results that we get after dividing the strings into 2 and combine the results of 2 substrings
-					for (int k = i; k < j; k++) {
-						if((dp[i][k] + dp[k + 1][j]).length() < dp[i][j].length()){
-							dp[i][j] = dp[i][k] + dp[k + 1][j];
-						}
+					continue;
+				}
+				// Loop for trying all results that we get after dividing the strings into 2 and combine the results of 2 substrings
+				for (int k = i; k < j; k++) {
+					if((dp[i][k] + dp[k + 1][j]).length() < dp[i][j].length()){
+						dp[i][j] = dp[i][k] + dp[k + 1][j];
 					}
-
-					// Loop for checking if string can itself found some pattern in it which could be repeated.
-					for (int k = 0; k < substr.length(); k++) {
-						String repeatStr = substr.substring(0, k + 1);
-						if (repeatStr != null && substr.length() % repeatStr.length() == 0 && substr.replaceAll(repeatStr, "").length() == 0) {
-							String ss = substr.length() / repeatStr.length() + "[" + dp[i][i + k] + "]";
-							if (ss.length() < dp[i][j].length()) {
-								dp[i][j] = ss;
-							}
+				}
+				// Loop for checking if string can itself found some pattern in it which could be repeated.
+				for (int k = 0; k < substr.length(); k++) {
+					String repeatStr = substr.substring(0, k + 1);
+					if (repeatStr != null && substr.length() % repeatStr.length() == 0 && substr.replaceAll(repeatStr, "").length() == 0) {
+						String ss = substr.length() / repeatStr.length() + "[" + dp[i][i + k] + "]";
+						if (ss.length() < dp[i][j].length()) {
+							dp[i][j] = ss;
 						}
 					}
 				}

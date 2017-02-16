@@ -14,14 +14,14 @@
 
 public class Solution {
 	public int findMaxConsecutiveOnes(int[] nums) {
-		// idea: sliding window.	O(n) Time, O(1) Space.
+		// idea: sliding window, make sure there are at most k 0's within the window.	O(n) Time, O(1) Space.
 		int max = 0, zero = 0, k = 1;	// for flip at most k zeroes
 		int left = 0, right = 0;
 		while (right < nums.length) {
 			if (nums[right] == 0) {
 				zero++;
 			}
-			while (zero > k) {
+			while (zero > k) {	// move left pointer until # 0 <= k
 				if (nums[left++] == 0) {
 					zero--;
 				}
@@ -33,7 +33,7 @@ public class Solution {
 	}
 
 	// follow-up: use a queue to store the indexes of zeroes within the window.
-	// when size > k, poll one index out and move left to index+!.	O(n) Time, O(k) Space.
+	// when size > k, poll one index out and move left to index+1.	O(n) Time, O(k) Space.
 	public int findMaxConsecutiveOnes(int[] nums) {
 		int max = 0, k = 1;	// for flip at most k zeroes
 		Queue<Integer> zeroIndex = new LinkedList<>();

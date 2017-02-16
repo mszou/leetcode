@@ -27,44 +27,59 @@
  */
 
 public class Solution {
+	// idea: brute force through all pairs and take the min # transactions, or
+	// shuffle and take random combinations of pairs and take the min # transactions.
     public int minTransfers(int[][] transactions) {
-        if(transactions == null || transactions.length == 0) return 0;
-        Map<Integer, Integer> acc = new HashMap<>();
-        for(int i = 0;i<transactions.length;i++){
+        if (transactions == null || transactions.length == 0 || transactions[0].length == 0) {
+        	return 0;
+        }
+        Map<Integer, Integer> acc = new HashMap<>();	// store<person, account balance>
+        for (int i = 0; i < transactions.length; i++) {
             int id1 = transactions[i][0];
             int id2 = transactions[i][1];
             int m = transactions[i][2];
-            acc.put(id1, acc.getOrDefault(id1, 0)-m);
-            acc.put(id2, acc.getOrDefault(id2, 0)+m);
+            acc.put(id1, acc.getOrDefault(id1, 0) - m);
+            acc.put(id2, acc.getOrDefault(id2, 0) + m);
         }
-        List<Integer> negs = new ArrayList<>();
-        List<Integer> poss = new ArrayList<>();
-        for(Integer key:acc.keySet()){
+        List<Integer> neg = new ArrayList<>();
+        List<Integer> pos = new ArrayList<>();
+        for (Integer key : acc.keySet()) {
             int m = acc.get(key);
-            if(m == 0) continue;
-            if(m<0) negs.add(-m);
-            else poss.add(m);
+            if (m == 0) {
+            	continue;
+            }
+            if (m < 0) {
+            	neg.add(-m);
+            } else {
+            	pos.add(m);
+            }
         }
         int ans = Integer.MAX_VALUE;
         Stack<Integer> stNeg = new Stack<>(), stPos = new Stack<>();
-        for(int i =0;i<1000;i++){
-            for(Integer num:negs) stNeg.push(num);
-            for(Integer num:poss) stPos.push(num);
+        for (int i = 0; i < 1000; i++) {
+            for (Integer num : neg) {
+            	stNeg.push(num);
+            }
+            for (Integer num : pos) {
+            	stPos.push(num);
+            }
             int cur = 0;
-            while(!stNeg.isEmpty()){
+            while (!stNeg.isEmpty()) {
                 int n = stNeg.pop();
                 int p = stPos.pop();
                 cur++;
-                if(n == p) continue;
-                if(n>p){
-                    stNeg.push(n-p);
+                if (n == p) {
+                	continue;
+                }
+                if (n > p) {
+                    stNeg.push(n - p);
                 } else {
-                    stPos.push(p-n);
+                    stPos.push(p - n);
                 }
             }
             ans = Math.min(ans, cur);
-            Collections.shuffle(negs);
-            Collections.shuffle(poss);
+            Collections.shuffle(neg);
+            Collections.shuffle(pos);
         }
         return ans;
     }   

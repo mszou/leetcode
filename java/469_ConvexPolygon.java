@@ -1,4 +1,4 @@
-/** 
+/**
  * Given a list of points that form a polygon when joined sequentially, find if this polygon is convex (Convex polygon definition).
  * Note:
  * There are at least 3 and at most 10,000 points.
@@ -32,7 +32,7 @@ public class Solution {
 			} else if (crossProduct > 0) {
 				gotPositive = true;
 			}
-			if (gotNegative && gotPositive) {
+			if (gotNegative && gotPositive) {	// a convex polygon has all positive cross products or all negative
 				return false;
 			}
 		}
