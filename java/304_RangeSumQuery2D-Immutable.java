@@ -30,7 +30,7 @@ public class NumMatrix {
     public NumMatrix(int[][] matrix) {
     	row = matrix.length;
     	col = row > 0 ? matrix[0].length : 0;
-    	sums = new int[row+1][col+1];
+    	sums = new int[row + 1][col + 1];
     	for (int i = 1; i <= row; i++) {
     		for (int j = 1; j <= col; j++) {
     			sums[i][j] = sums[i-1][j] + sums[i][j-1] - sums[i-1][j-1] + matrix[i-1][j-1];

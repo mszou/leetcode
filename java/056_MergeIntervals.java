@@ -18,7 +18,7 @@
 public class Solution {
 	public List<Interval> merge(List<Interval> intervals) {
 		// idea: sort the intervals in ascending start time, then traverse and merge intervals
-		// that start before previous interval ends.	O(nlog) Time, O(1) Space.
+		// that start before previous interval ends.	O(nlogn) Time, O(1) Space.
 		List<Interval> res = new ArrayList<Interval>();
 		if (intervals == null || intervals.size() == 0) {
 			return res;

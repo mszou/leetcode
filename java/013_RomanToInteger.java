@@ -27,7 +27,7 @@
     	int res = map.get(s.charAt(len - 1));  // first get the lowest digit
     	for (int i = len - 2; i >= 0; i--) {   // compute from right to left
     		// check whether the previous letter is a smaller or larger unit
-            if (map.get(s.charAt(i+1)) <= map.get(s.charAt(i))) {
+            if (map.get(s.charAt(i + 1)) <= map.get(s.charAt(i))) {
     			res += map.get(s.charAt(i));
     		} else {  // small unit before large unit
     			res -= map.get(s.charAt(i));

@@ -104,7 +104,7 @@ public class Solution {
             getAbbs(cc, 0, mid, new StringBuilder(), abbs);
             boolean conflict = true;
             for (String abbr: abbs){
-                if ( ! root.isAbbr(abbr,0) ) {
+                if (!root.isAbbr(abbr,0)) {
                     conflict = false;
                     ret = abbr;
                     break;

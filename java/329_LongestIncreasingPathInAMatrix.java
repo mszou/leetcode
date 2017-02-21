@@ -45,7 +45,7 @@ public class Solution {
 
 	// returns the max length of increasing path from matrix[i][j]
 	public int dfs(int[][] matrix, int i, int j, int m, int n, int[][] cache) {
-		if (cache[i][j] != 0) {
+		if (cache[i][j] != 0) {	// already visited
 			return cache[i][j];
 		}
 		int max = 1;

@@ -21,11 +21,11 @@ public class Solution {
         //     pre = pre.substring(0, j);
         // }
 
-        // sol 2: Since the common prefix must be a substring of every string, and a prefixof prefix is
+        // sol 2: Since the common prefix must be a substring of every string, and a prefix of prefix is
         // also a prefix for that string, so start from strs[0], check whether it's a prefix of other strings
         // using indexOf(), if not, shorten it until it becomes a prefix. Go through all the strings.
         for (int i = 1; i < strs.length; i++) {
-        	while (strs[i].indexOf(pre) != 0) {	// pre is not a prefix of strs[i]
+        	while (!strs[i].startsWith(pre)) {	// pre is not a prefix of strs[i]
         		pre = pre.substring(0, pre.length() - 1);	// cut the last character
         	}
         }

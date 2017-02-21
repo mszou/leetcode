@@ -11,7 +11,8 @@
  * You may assume the number of calls to update and sumRange function is distributed evenly.
  */
 
-// sol 1: use segment tree.
+// sol 1: use segment tree (~2n nodes in the tree). Build tree: O(n) Time, O(n) Space;
+// update: O(h = logn) Time, O(1) Space; Range sum query: O(logn) Time, O(1) Space.
 public class NumArray {
 	class SegmentNode {
 		int start;
