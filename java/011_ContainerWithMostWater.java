@@ -8,7 +8,7 @@
 public class Solution {
     public int maxArea(int[] height) {
     	// idea: use two pointers starting from the left and right ends, and always move the shorter one
-    	// every time compute the volume of the container (area of a rectangle), and record the maximum
+    	// every time compute the volume of the container (area of a rectangle), and update the maximum
         // O(n) Time, O(1) Space.
         if (height == null || height.length < 2) {
             return 0;

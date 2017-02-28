@@ -40,6 +40,7 @@ public class Solution {
 		return res;
 	}
 
+	// takes in a level number to decide whether to insert at the beginning or the end
 	private void zigzag(List<List<Integer>> res, TreeNode curr, int level) {
 		if (curr == null) {
 			return;
@@ -49,9 +50,9 @@ public class Solution {
 			res.add(newLevel);
 		}
 		List<Integer> currLevel = res.get(level);
-		if (level % 2 == 0) {	// even level
+		if (level % 2 == 0) {	// level with even index
 			currLevel.add(curr.val);	// left to right, so insert at the end
-		} else {	// odd level
+		} else {	// level with odd index
 			currLevel.add(0, curr.val);	// insert at the beginning
 		}
 		zigzag(res, curr.left, level + 1);

@@ -14,14 +14,15 @@
 
 public class Solution {
     public String reverseWords(String s) {
-        // idea: split the string by spaces, append words from right to left. O(n) Time, O(n) Space.
+        // idea: split the string by spaces to get words, then use a StringBuilder
+        // and append words from right to left.     O(n) Time, O(n) Space.
         if (s == null || s.length() == 0) {
         	return "";
         }
         String[] words = s.split(" ");
         StringBuilder sb = new StringBuilder();
         for (int i = words.length - 1; i >= 0; i--) {
-        	if (!words[i].equals("")) {
+        	if (!words[i].equals("")) {    // leading space or trailing spaces can lead to "" in words
         		sb.append(words[i]).append(" ");
         	}
         }

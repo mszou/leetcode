@@ -12,9 +12,9 @@
 
 public class Solution {
     public String longestPalindrome(String s) {
-    	// idea: find the longest palindromic substring centering at each position (i for 
-        // odd-length substrings, i & i + 1 for even-length substrings) and record the longest
-        // O(n^2) Time, O(n) Space.
+    	// idea: find the longest palindromic substring centering at each position (single center i
+        // for odd length, double center i & i+1 for even length) and record the longest substring
+        // O(n^2) Time, O(n) Space (to tempororily record the longest substring at current center).
         if (s == null || s.length() <= 1) {
             return s;
         }
@@ -36,7 +36,7 @@ public class Solution {
         return res;
     }
     
-    // returns the longest substring centering at (bigin, end) (begin <= end)
+    // returns the longest substring centering at (bigin, end) (end - begin = 0 or 1)
     private String longest(String s, int begin, int end) {
         while (begin >= 0 && end <= s.length() - 1 && s.charAt(begin) == s.charAt(end)) {
             begin--;

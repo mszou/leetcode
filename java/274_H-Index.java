@@ -22,7 +22,7 @@ public class Solution {
         int len = citations.length;
         int[] counts = new int[len + 1];   
         for (int i = 0; i < len; i++) {
-            if (citations[i] >= len) {  // if # citations exceeds n
+            if (citations[i] >= len) {  // if the paper has >= n citations
                 counts[len]++;	// counts[len] records # papers having at least len citations
             } else {
                 counts[citations[i]]++;

@@ -11,8 +11,9 @@
  */
 
 class MyQueue {
-	// idea: use 2 stacks, one for input, in stack order; the other for output, in queue order
-	// push elements onto stack1, transfer to stack2 when needed, the reversal can be done by batch
+	// idea: use 2 stacks, one for input, in stack order; the other for output, in queue order.
+	// first push elements onto stack1, then transfer the elements in stack1 one by one
+	// to stack2, do this transfer (reversal) in batch when stack2 is empty
 	Stack<Integer> stack1;	// input, stack order, LIFO
 	Stack<Integer> stack2;	// output, queue order, FIFO
 
@@ -29,13 +30,13 @@ class MyQueue {
 
 	// Push element x to the back of queue.
 	public void push(int x) {
-		stack1.push(x);
+		stack1.push(x);	// push elements onto stack1
 	}
 
 	// Removes the elements from in front of queue.
 	public void pop() {
 		if (stack2.empty()) {
-			this.s1ToS2();
+			this.s1ToS2();	// transfer all elements in stack1 to stack2 when s2 is empty
 		}
 		stack2.pop();
 	}

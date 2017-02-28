@@ -12,11 +12,11 @@
 public class Solution {
 	public int reverse(int x) {
 		// idea: Each time take the lowest digit i and update the res as (res * 10 + i)
-		// be careful about negative numbers and overflow cases
+		// be careful about negative numbers and overflow cases.	O(length) Time, O(1) Space.
 		boolean negative = false;
 		if (x < 0) {
 			negative = true;
-			x = 0 - x;	// convert to positive integer, then reverse
+			x = 0 - x;	// convert negative integer to positive, then reverse
 		}
 		int res = 0;
 		while (x > 0) {

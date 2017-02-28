@@ -6,8 +6,8 @@
 
 public class Solution {
 	public List<Integer> lexicalOrder(int n) {
-		// idea: keep putting prev*10 as long as it <= n, when it exceeds the range, keep putting
-		// prev+1 until reachs the num ending with 9 or reaches n, then we divide it by 10 and continue
+		// idea: keep putting prev*10 as long as it <= n, when it > n, keep putting prev+1 until
+		// reaches the number ending with 9 or reaches n, then we divide it by 10 and continue
 		List<Integer> res = new ArrayList<>(n);
 		if (n < 1) {
 			return res;
@@ -17,7 +17,7 @@ public class Solution {
 			if (prev * 10 <= n) {
 				prev *= 10;
 			} else {
-				while (prev % 10 == 9 || prev == n) {
+				while (prev % 10 == 9 || prev == n) {	// here use while for continuous 9's case
 					prev /= 10;
 				}
 				prev++;

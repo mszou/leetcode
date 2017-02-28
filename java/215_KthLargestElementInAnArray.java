@@ -27,27 +27,26 @@ public class Solution {
         return pq.peek();
     }
 
-    // // sol 3: quick select (partition method, like quick sort):
-    // // Time: O(n) for best case / O(n^2) for worst case, O(1) Space
+    // sol 3: quick select (partition method, like quick sort):
+    // Time: O(n) for best case / O(n^2) for worst case, O(1) Space
     public int findKthLargest(int[] nums, int k) {
         return quickSelect(nums, 0, nums.length - 1, nums.length - k + 1);
     }
 
     // return the kth smallest element in the range [left, right]
     private int quickSelect(int[] nums, int left, int right, int k) {
-        // choose a pivot element (mid), put all elements > pivot to the right, < pivot to the left
+        // choose a pivot element, put all elements > pivot to the right, < pivot to the left
         int pivot = nums[right];    // take the right-most number as pivot
-        int i = left, j = right - 1;    // make sure nums[0, i) < pivot, nums(j, right) >= pivot
-        while (i <= j) {
-            // swap nums[i] with nums[j] if nums[i] > pivot
-            if (nums[i] > pivot) {
+        int i = left, j = right - 1;    // make sure nums[0, i) <= pivot, nums(j, right) > pivot
+        while (i <= j) {    // compare nums[i] & pivot, move pointers until they meet
+            if (nums[i] > pivot) {  // if nums[i] > pivot, swap nums[i] with nums[j], then move j
                 swap(nums, i, j);
                 j--;
-            } else {
+            } else {    // if nums[i] <= pivot, move i to next num
                 i++;
             }   // can be written as "if (nums[i++] > pivot) swap(nums, --i, --j);" with initially j = right
         }   // when while loop ends, it should be i == j + 1
-        swap(nums, i, right);   // finally move pivot to its final place
+        swap(nums, i, right);   // finally move pivot to its final place, i.e. between smaller & larger parts
         int count = i - left + 1;   // count the number of nums that < pivot from left
         if (count == k) {
             return nums[i];

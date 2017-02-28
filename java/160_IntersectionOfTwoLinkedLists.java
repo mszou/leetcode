@@ -26,8 +26,9 @@
  * }
  */
 public class Solution {
-	// sol 1: get the length of two lists, compute the difference and advance the pointer
-	// for the longer one s.t. they have same length, then move 2 pointers together
+    // the intersection must be on the right hand side of two lists and all the way to the end
+	// sol 1: get the length of two lists, advance the pointer for the longer one by the length
+	// diff s.t. rest in same length, then move 2 pointers together.    O(m+n) Time, O(1) Space
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 		if (headA == null || headB == null) {
         	return null;

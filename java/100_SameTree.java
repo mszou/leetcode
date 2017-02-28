@@ -21,7 +21,7 @@ public class Solution {
     	if (p == null || q == null) {  // either null, then not same
     		return false;
     	}
-        if (p.val != q.val) {
+        if (p.val != q.val) {   // different root, so not same
         	return false;
         }
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);

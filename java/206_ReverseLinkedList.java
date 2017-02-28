@@ -32,7 +32,7 @@ public class Solution {
     	return reverseHelper(head, null);
     }
 
-    // reverse the link between head and newHead, i.e. let head -> newHead
+    // reverse to let head point to newHead, i.e. 'newHead <- head'
     private ListNode reverseHelper(ListNode head, ListNode newHead) {
     	if (head == null) {
     		return newHead;

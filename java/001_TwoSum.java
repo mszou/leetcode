@@ -11,17 +11,18 @@
 
 public class Solution {
 	public int[] twoSum(int[] nums, int target) {
-		// idea: if array is sorted, can use two pointers from left and right
-		// if not sorted or data stream, use HashMap and search for difference
+		// idea: if array is sorted, use two pointers from left & right; if not sorted
+		// or is data stream, use HashMap and search for difference (target - curr)
+		// two pointer: O(n) Time, O(1) Space; HashMap: O(n) Time, O(n) Space
 		int[] res = new int[2];
 		if (nums == null || nums.length < 2) {
 			return res;
 		}
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Map<Integer, Integer> map = new HashMap<>();
 		for (int i = 0; i < nums.length; i++) {
-			int difference = target - nums[i];
-			if (map.containsKey(difference)) {
-				res[0] = map.get(difference);
+			int diff = target - nums[i];
+			if (map.containsKey(diff)) {
+				res[0] = map.get(diff);	// this num occurs earlier than nums[i]
 				res[1] = i;
 				return res;
 			} else {

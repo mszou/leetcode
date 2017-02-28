@@ -6,8 +6,8 @@
 public class Solution {
     public int maxProfit(int[] prices) {
         // idea: Greedy. Since we can do as many trasactions as we like, the maxProfit can be divided 
-        // into daily profits. As long as the daily profit is positive, then add it to the maxProfit.
-        // O(n) Time, O(1) Space.
+        // into daily profits. As long as the daily profit is positive, then add it to the maxProfit,
+        // i.e. add every increase in price as profit.    O(n) Time, O(1) Space.
         if (prices == null || prices.length <= 1) {
         	return 0;
         }

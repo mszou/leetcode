@@ -5,7 +5,7 @@
 public class Solution {
 	public double myPow(double x, int n) {
 		// idea: divide and conquer, recursively compute pow(x, n/2) and multiply them.
-		// O(logn) Time. corner cases: x^0 = 1, x^1 = x, x^(-1) = 1/x, 1^n = 1, 0^n = 0
+		// O(logn) Time. Corner cases: x^0 = 1, x^1 = x, x^(-1) = 1/x, 1^n = 1, 0^n = 0
 		if (n == 0 || x == 1) {
 			return 1;
 		}

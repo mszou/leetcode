@@ -11,13 +11,13 @@
 public class Solution {
 	public boolean canPermutePalindrome(String s) {
 		// idea: permutation can form a palindrome iff there is at most 1 character that occurs odd times.
-		// Use a set to record characters with odd occurrences so far.	O(n) Time, O(n) Space.
+		// Use a set to store the characters with odd occurrences so far.	O(n) Time, O(n) Space.
 		Set<Character> set = new HashSet<Character>();
 		for (char c : s.toCharArray()) {
 			if (!set.add(c)) {	// already exist
-				set.remove(c);	// even number of time occurrence, so remove
+				set.remove(c);
 			}
 		}
-		return set.size() <= 1;
+		return set.size() <= 1;	// can has at most 1 char with odd occurrences
 	}
 }

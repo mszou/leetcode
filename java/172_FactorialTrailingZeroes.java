@@ -17,7 +17,7 @@
         if (n < 5) {
         	return 0;
         }
-        // compute the max power of 5 that is <= n (k = log_5(n))
+        // compute the max power of 5 that is <= n (k = log_5(n), n >= 5^k)
         int k = (int) (Math.log(n) / Math.log(5));
         int sum = 0;
         // a number having i factor 5 will be counted in i rounds regarding 5^i, 5^(i-1),... to 5

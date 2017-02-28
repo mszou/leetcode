@@ -18,9 +18,9 @@
  */
 
 public class LRUCache {
-	// design a class of double-linked Node, which has key, value, left Node and right Node.
-	// We link the Nodes in the recency of usage, i.e. LRU in the head and MRU in the tail.
-	// use a map<key, Node> to access the Node of given key. When access (get or put) a key,
+	// Design a class of double-linked Node, which has key, value, left Node and right Node.
+	// We link the Nodes in the recency of usage, i.e. LRU at the head and MRU at the tail.
+	// Use a map<key, Node> to access the Node of given key. When access (get or put) a key,
 	// this Node becomes recently used so we remove the Node from list and append it to tail.
 	// When cache size is going to exceed capacity, remove LRU (head Node) from the list.
 	// update, remove, append are all 0(1) operations in DLink list, so get & set O(1) Time.
@@ -41,7 +41,7 @@ public class LRUCache {
 	int capacity;
 
 	public LRUCache(int capacity) {
-		cache = new HashMap<Integer, Node>();
+		cache = new HashMap<>();
 		this.capacity = capacity;
 	}
 
@@ -49,7 +49,7 @@ public class LRUCache {
 		if (cache.containsKey(key)) {
 			Node target = cache.get(key);
 			int value = target.value;
-			update(target);
+			update(target);	// update target Node as recently used
 			return value;
 		} else {
 			return -1;

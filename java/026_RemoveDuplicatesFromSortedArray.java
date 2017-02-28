@@ -9,8 +9,9 @@
 
 public class Solution {
     public int removeDuplicates(int[] nums) {
-    	// idea: use 2 pointers, one for traversal, the other goes as the result array grows
-        // the result only takes in unidentical numbers during traversal the whole array
+    	// idea: go through the array and only take the first occurrence of each element. Since the array is sorted,
+        // we can just compare the new num with the end of current result array. So use 2 pointers, one for visiting
+        // new num, the other points to the end of current result array without duplicate.  O(n) Time, O(1) Space.
         if (nums == null || nums.length == 0) {
             return 0;
         }

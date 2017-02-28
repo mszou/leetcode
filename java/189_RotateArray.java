@@ -22,7 +22,7 @@ public class Solution {
 			nums[(i + k) % n] = copy[i];
 		}
 
-		// sol 2: Start from one number replace the num in its target position,
+		// sol 2: Start from one num, replace the num in its target position,
 		// keep rotating until finish all n numbers. O(n) Time, O(1) Space.
 		int count = 0, start = 0, idx = 0, temp = 0;
 		int numToRotate = nums[0];	// start from the first num

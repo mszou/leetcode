@@ -37,7 +37,7 @@ public class Trie {
     public boolean search(String word) {
         TrieNode node = root;   // start from root
         for (char c : word.toCharArray()) {
-        	if (node.children[c - 'a'] == null) {  // no path
+        	if (node.children[c - 'a'] == null) {  // no path for current c
         		return false;
         	}
         	node = node.children[c - 'a'];

@@ -10,13 +10,13 @@
 
 public class Solution {
     public int findDuplicate(int[] nums) {
-    	// first ask interviewer if modification to the array or extra space is allowed. If yes, use simpler solution.
-        // if modification is allowed, let nums[i] == i; if extra space allowed, put value i in array[i] or hashset.
+    	// first ask interviewer if modification to the array or extra space is allowed. If yes, use naive solution.
+        // naive sol: if modification is allowed, let nums[i] == i; if extra space allowed, put value i in array[i] or hashset.
 
-        // idea: analogy with LinkedList (O(n) time). the range of integers is [1, n], the indices are 0 ~ n,
-        // so connect the elements in a specific way, s.t. val of this num == index of next (this.next = nums[this.val])
-        // Integers are from 1 ~ n, so: 1. There must be a cycle. 2. nums[0] must be outside the circle cuz no val == 0
-        // then the topology we get would be a "rho-shaped" sequece with the duplicate num as the entry of the cycle
+        // idea: the range of integers is [1, n], the indexes are 0 ~ n, so traverse the elements in a specific order,
+        // s.t. val of this num == index of next, i.e. visit nums[this.val] next. Integers are from 1 ~ n, so: 1. There
+        // must be a cycle. 2. nums[0] must be outside the circle because no val == 0. Then we will get a "rho-shaped"
+        // sequece and the duplicate num is the entry of the cycle, use two pointer to find it.    O(n) Time, O(1) Space.
         if (nums == null || nums.length == 0) {
             return -1;
         }
@@ -41,10 +41,10 @@ public class Solution {
         return slow;
         
         
-        // easier solution for specific case (without Note #4)
-        // // if the only one duplicate number repeat only once. use the sum of arithmetic progression (1~n). O(n) Time
+        // // easier solution for specific case (without Note #4) i.e. the only one duplicate number repeat only once.
+        // // use the sum of arithmetic progression (1~n). O(n) Time
         // int n = nums.length - 1;
-        // long sum = (1 + n) * n / 2; // sum of arithmetic progression from 1 to n
+        // long sum = (1 + n) * n / 2;  // sum of arithmetic progression 1 ~ n, use long to avoid overflow
         // for (int num : nums) {
         //     sum -= num;
         // }

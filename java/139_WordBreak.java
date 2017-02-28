@@ -20,7 +20,7 @@ public class Solution {
 				if (word.length() <= i) {
 					if (canBreak[i - word.length()] && s.substring(i - word.length(), i).equals(word)) {
 						canBreak[i] = true;
-						break;
+						break;	// once find a way to break, no need to check others
 					}
 				}
 			}

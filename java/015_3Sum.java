@@ -9,7 +9,7 @@
 
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-    	// idea: sort the array, then for each fixed num1, use two pointers to find pairs (num2, num3) s.t. sum = 0
+    	// idea: sort the array, then for each num1, use two pointers to find pairs (num2, num3) s.t. sum = 0
         // O(n^2) Time, Space depends on sorting, no extra space.
         List<List<Integer>> res = new ArrayList<>();
         if (nums == null || nums.length < 3) {

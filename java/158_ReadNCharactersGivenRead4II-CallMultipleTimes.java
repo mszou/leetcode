@@ -7,21 +7,22 @@
  */
 
 public class Solution extends Reader4 {
-	// idea: use buffer pointer (buffPtr) and buffer Counter (buffCnt) to store the data received in previous calls.
-	// In the while loop, if buffPtr reaches current buffCnt, it will be set as zero to be ready to read new data.
+	// idea: use buffer pointer (buffPtr) & buffer Counter (buffCnt) to store the data received in previous calls.
+	// In the while loop, if buffPtr reaches current buffCnt, reset it as zero to be ready to read new data later.
 	private int buffPtr = 0;
 	private int buffCnt = 0;
-	private char[] buff = new char[4];
-	public int read(char[] buf, int n) {
-		int ptr = 0;
+	private char[] buff4 = new char[4];	// buffer for every read4
+
+	public int read(char[] buf, int n) {	// read n chars from the file into buf
+		int ptr = 0;	// pointer for read in chars, starting from 0
 		while (ptr < n) {
 			if (buffPtr == 0) {
-				buffCnt = read4(buff);
+				buffCnt = read4(buff4);	// read 4 into buff4
 			}
 			while (ptr < n && buffPtr < buffCnt) {
-				buf[ptr++] = buff[buffPtr++];
+				buf[ptr++] = buff4[buffPtr++];
 			}
-			// all chars in buff used up, set pointer to 0
+			// all chars in buff4 used up, set pointer to 0
 			if (buffPtr == buffCnt) {
 				buffPtr = 0;
 			}

@@ -21,8 +21,8 @@
  * }
  */
 public class Solution {
-	// sol 1: like "Binary Search", recursive, count the nodes in left subtree and compare with
-    // k, locate the kthSmallest in which subtree according to the comparison.     O(h) Time.
+	// sol 1: like "Binary Search", recursive, compare # nodes in left subtree with k,
+    // locate the kthSmallest in which subtree according to the comparison.     O(h) Time.
     public int kthSmallest(TreeNode root, int k) {
         int count = countNodes(root.left);
         if (count >= k) {

@@ -10,8 +10,9 @@
 
 public class Solution {
 	public int firstUniqChar(String s) {
-		// idea: count the frequency for each char in s then traverse to find the first with freq = 1
-		int count[] = new int[256];	// 256 is the size of ASCII characters
+		// idea: traverse to count each char in s then traverse again to find the first with freq = 1
+		// O(n) Time, constant Space
+		int count[] = new int[256];	// 256 for ASCII characters, 26 for lowercase English letters
 		for (char c : s.toCharArray()) {
 			count[c]++;
 		}

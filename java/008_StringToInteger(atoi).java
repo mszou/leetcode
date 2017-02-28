@@ -19,7 +19,7 @@ public class Solution {
         if (str == null || str.length() == 0) {
         	return 0;
         }
-        str = str.trim();	// disgard whitespace characters
+        str = str.trim();	// remove whitespace characters
         boolean negative = false;
         int index = 0;
         // deal with the sign

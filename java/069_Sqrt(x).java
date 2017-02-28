@@ -5,8 +5,8 @@
 
  public class Solution {
     public int mySqrt(int x) {
-    	// idea: Binary Search, when computing square, use division instead of
-        // multiplication to avoid overflow.    O(logn) Time.
+    	// idea: Binary Search, compare mid^2 and x, when computing square, use
+        // division instead of multiplication to avoid overflow.    O(logn) Time.
         if (x <= 1) {   // for cases x = 0 and x = 1
         	return x;
         }

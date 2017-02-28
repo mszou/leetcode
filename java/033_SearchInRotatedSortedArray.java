@@ -11,13 +11,13 @@ public class Solution {
         int start = 0, end = nums.length - 1, mid;
         while (start < end) {
             mid = (start + end) / 2;
-            if (nums[mid] > nums[end]) {  //rotate point (pivot) at right, e.g. 3,4,5,6,1,2
-                if (target > nums[mid] || target <= nums[end]) {    //right-hand side
+            if (nums[mid] > nums[end]) {  // rotate point (pivot) at right, e.g. 3,4,5,6,1,2
+                if (target > nums[mid] || target <= nums[end]) {    // right-hand side
                     start = mid + 1;
                 } else {
                     end = mid;
                 }
-            } else {  //rotate point (pivot) at left, e.g. 5,6,1,2,3,4
+            } else {  // rotate point (pivot) at left, e.g. 5,6,1,2,3,4
                 if (target > nums[mid] && target <= nums[end]) {
                     start = mid + 1;
                 } else {

@@ -9,8 +9,8 @@
  public class Solution {
     public int romanToInt(String s) {
     	// idea: use a HashMap to store the Roman characters and their corresponding value
-    	// Compute the value from lower digits to higher digits, if a smaller unit occurs before
-        // a larger unit, we should subtract its value from the res; otherwise, add it to the res
+    	// Compute the value from low digits to high digits, if a smaller unit occurs before a
+        // larger unit, we should subtract its value from the res; otherwise, add it to the res
     	if (s == null || s.length() == 0) {
     		return 0;
     	}

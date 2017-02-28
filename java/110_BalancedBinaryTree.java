@@ -31,7 +31,7 @@ public class Solution {
     }
 
     // sol 2: DFS. O(n) Time. return the height of the current node in DFS recursion. When the
-    // subtree is balanced, dfsHeight() returns its height, otherwise returns -1. if either
+    // subtree is balanced, dfsHeight() returns its height, otherwise, returns -1. if either
     // child has a -1 dfsHeight, the parent is not balanced, either, i.e has a -1 return value.
     public boolean isBalanced(TreeNode root) {
         if (root == null) {

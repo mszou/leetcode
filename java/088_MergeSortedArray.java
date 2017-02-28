@@ -7,15 +7,15 @@
 
 public class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-    	// idea: merge from right to left, so that we do not need extra space and will not lose
-        // data by overwriting. use 2 pointers pointing to the next numbers to be added in
-        // each array and a third pointer pointing to the next position to be filled.
-        int i = m - 1, j = n - 1, index = m + n - 1;
+    	// idea: merge from right to left, so that we have enough space and will not lose data by
+        // overwriting. Use two pointers starting from end of two arrays to add numbers, and another
+        // pointer pointing to the position to be filled in result.    O(m+n) Time, no extra space.
+        int i = m - 1, j = n - 1, index = m + n - 1;    // pointers for two arrays and result
         while (i >= 0 && j >= 0) {
             nums1[index--] = (nums1[i] >= nums2[j]) ? nums1[i--] : nums2[j--];
         }
-        // no need to consider if nums1 has nums left, because they would be in the right place
-        // if nums2 has integers left
+        // no need to consider if nums1 has nums left, because they would be in the correct place
+        // if nums2 has integers left, fill them into the result.
         while (j >= 0) {
             nums1[index--] = nums2[j--];
         }

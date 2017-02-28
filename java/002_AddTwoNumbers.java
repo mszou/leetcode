@@ -16,12 +16,13 @@
  * }
  */
 public class Solution {
+    // The most significant digit comes last and the least significant digit comes first
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        // idea: add nodes pair by pair, use a carry to record if the sum > 9
-        // remember to consider l1 not null, l2 not null and carry not 0 after while loop
+        // idea: add nodes pair by pair, record the sum and carry, when reach the end of
+        // one list, add the rest of the other list & carry until reach end and no carry
         // O(m+n) Time, O(max(m,n)) Space.
         ListNode dummy = new ListNode(0);   // add a head node for return list
-        ListNode pointer = dummy;   // pointer node for constucting result
+        ListNode pointer = dummy;   // pointer for constucting result
         int sum = 0, carry = 0;
         while (l1 != null && l2 != null) {
         	sum = l1.val + l2.val + carry;

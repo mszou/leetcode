@@ -13,8 +13,8 @@
 
 public class Solution {
     public int maxProfit(int[] prices) {
-    	// idea: only one transaction, so find the greatest ascending difference.
-        // traverse the array, record the minimum price so far and maximal profit so far
+    	// idea: only one transaction, so find the greatest ascending difference. Traverse the
+        // array, record the min price so far and max profit so far.   O(n) Time, O(1) Space.
         if (prices == null || prices.length <= 1) {
             return 0;
         }

@@ -7,7 +7,7 @@
 
 public class Solution {
     public int threeSumClosest(int[] nums, int target) {
-    	// idea: sort the array, for each fixed num1, use two pointers and track the smallest difference
+    	// idea: sort the array, for each num1, use two pointers and track the smallest difference
         if (nums == null || nums.length < 3) {
             return Integer.MIN_VALUE;
         }
@@ -18,7 +18,7 @@ public class Solution {
             int right = nums.length - 1;
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
-                if (sum == target) {    // find the exact target
+                if (sum == target) {    // find the exact target, cannot be even closer
                     return sum;
                 } 
                 if (Math.abs(sum - target) < Math.abs(closest - target)) {

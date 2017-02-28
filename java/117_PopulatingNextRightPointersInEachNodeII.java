@@ -27,13 +27,14 @@
  * }
  */
 public class Solution {
-	// for the case that is not a perfect binary tree
+	// idea: For the case that is not a perfect binary tree, need to look at two levels at the same time, keep
+    // track of the curr node in current level, the head of lower level, and the previous node in lower level.
     public void connect(TreeLinkNode root) {
         TreeLinkNode head = root;	// the left most node in the lower level
         TreeLinkNode prev = null;	// the previous node in the lower level
         TreeLinkNode curr = null;	// the current node in the upper level
         while (head != null) {
-        	// proceed next level
+        	// start to next level: move curr pointer to head, and set prev & head as null
         	curr = head;
         	prev = null;
         	head = null;
@@ -41,7 +42,7 @@ public class Solution {
         		if (curr.left != null) {  // deal with curr.left
         			if (prev != null) {
         				prev.next = curr.left;
-        			} else { // means haven't seen a node in lower level before
+        			} else { // means no head in lower level yet
         				head = curr.left;
         			}
         			prev = curr.left;

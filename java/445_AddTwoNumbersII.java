@@ -22,15 +22,15 @@ public class Solution {
 		// compute their sum for the node in res and leave the carry for next round.	O(n) Time, O(n) Space.
 		Stack<Integer> s1 = new Stack<Integer>();
 		Stack<Integer> s2 = new Stack<Integer>();
-		while (l1 != null) {
+		while (l1 != null) {	// push stack1
 			s1.push(l1.val);
 			l1 = l1.next;
 		}
-		while (l2 != null) {
+		while (l2 != null) {	// push stack2
 			s2.push(l2.val);
 			l2 = l2.next;
 		}
-		int sum = 0;
+		int sum = 0;	// for addition of current position
 		ListNode curr = new ListNode(0);
 		while (!s1.empty() || !s2.empty()) {
 			if (!s1.empty()) {

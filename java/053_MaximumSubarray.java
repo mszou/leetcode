@@ -12,7 +12,8 @@ public class Solution {
             return 0;
         }
 
-        // sol 1: Greedy algorithm. compute accumulative sum, disgard once it goes negative. O(n) Time
+        // sol 1: Greedy algorithm. Traverse the array and compute accumulative sum, reset it when
+        // it becomes negative. Keep track of the maximal sum of subarray.   O(n) Time, O(1) Space.
         int max = Integer.MIN_VALUE, sum = 0;
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
@@ -20,6 +21,7 @@ public class Solution {
             sum = Math.max(sum, 0);	// if accumulative sum < 0, discard all num before this
         }
         return max;
+
 
         // // sol 2: DP. O(n) Time, O(n) Space.
         // int n = nums.length;
@@ -33,6 +35,7 @@ public class Solution {
         // }  
         // return global[n - 1];
 
+
         // // sol 3: Prefix Sum. O(n) Time. subtract the min prefix sum from the accumulative sum
         // int max = Integer.MIN_VALUE, sum = 0, minSum = 0;
         // for (int i = 0; i < nums.length; i++) {
@@ -41,6 +44,7 @@ public class Solution {
         //     minSum = Math.min(minSum, sum);
         // }
         // return max;
+
 
         // // sol 4: divide & conquer. O(nlogn) Time.
         // // Step1. Find the middle element of the array. max subarray may contain that element or not.

@@ -32,6 +32,7 @@ public class Solution {
         return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
+    // the valid value of root should within the range (minVal, maxVal), exclusive
     public boolean isValidBST(TreeNode root, long minVal, long maxVal) {
         if (root == null) {
         	return true;

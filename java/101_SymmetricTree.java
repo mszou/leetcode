@@ -48,7 +48,7 @@ public class Solution {
     	return isSymmetricSubtree(left.left, right.right) && isSymmetricSubtree(left.right, right.left);
     }
 
-    // sol 2: non-recursive (use stack)
+    // sol 2: non-recursive, use stack, push left & right child onto stack then pop to compare
     public boolean isSymmetric(TreeNode root) {
     	if (root == null) {
     		return true;

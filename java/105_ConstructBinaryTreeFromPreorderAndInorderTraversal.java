@@ -15,19 +15,20 @@
  */
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        // idea: Divide and Conquer, head in preorder is the root of current (sub)tree, find the position of that root
-        // in inorder, then elements on its left belong to its left subtree, those on its right belong to right subtree
-        // optimize: use HashMap to store the index of nodes in the inorder.   O(n) Time, O(n) Space.
+        // idea: Divide and Conquer, 1st in preorder is root of current (sub)tree, find the position of that root
+        // in inorder, then elements on its left are in the left subtree, those on its right are in right subtree.
+        // optimize: use HashMap<val, index> to store the index of nodes in the inorder.   O(n) Time, O(n) Space.
         if (preorder == null || inorder == null || preorder.length != inorder.length) {
         	return null;
         }
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) {
         	map.put(inorder[i], i);
         }
         return helper(preorder, 0, inorder, 0, inorder.length - 1, map);
     }
 
+    // construct (sub)tree
     private TreeNode helper(int[] preorder, int preStart, int[] inorder, int inStart, int inEnd, HashMap<Integer, Integer> map) {
     	if (preStart > preorder.length - 1 || inStart > inEnd) {
     		return null;

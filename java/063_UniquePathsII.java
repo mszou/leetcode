@@ -15,8 +15,8 @@
 
 public class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-    	// idea: 2D DP. paths[i][j] is # paths from grid[0,0] to grid[i,j]
-        // O(mn) Time, O(mn) Space.
+    	// idea: 2D DP. paths[i][j] is # paths from grid[0,0] to grid[i,j], when updating, if not
+        // obstacle, sum paths from left & above; otherwise, paths = 0.  O(mn) Time, O(mn) Space.
         if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0) {
             return 0;
         }
@@ -36,7 +36,7 @@ public class Solution {
             }
             paths[0][i] = 1;
         }
-        // if current cell not 1, sum paths from left & above; otherwise, paths = 0
+        // if current cell not obstacle, sum paths from left & above; otherwise, paths = 0
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 if (obstacleGrid[i][j] != 1) {

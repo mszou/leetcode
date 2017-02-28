@@ -10,7 +10,7 @@
  */
 
 public class Solution {
-	// idea: DFS + backtracking, check whether each substring is palindromic
+	// idea: DFS + backtracking, try every possible way to partition into palindromic substrings
 	public List<List<String>> partition(String s) {
 		List<List<String>> res = new ArrayList<>();
 		List<String> list = new ArrayList<String>();

@@ -23,13 +23,12 @@ public class Solution {
         dummy.next = head;
         ListNode pointer = dummy;
         while (pointer.next != null && pointer.next.next != null) {
-        	// swap
+        	// swap the pair of nodes after pointer
         	ListNode n1 = pointer.next, n2 = pointer.next.next;
         	pointer.next = n2;
         	n1.next = n2.next;
         	pointer.next.next = n1;
-        	// move pointer to next pair
-        	pointer = n1;
+        	pointer = n1;  // move pointer to next pair
         }
         return dummy.next;
     }
